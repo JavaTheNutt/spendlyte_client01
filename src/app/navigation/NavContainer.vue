@@ -1,11 +1,17 @@
 <template>
-<div><nav-toolbar></nav-toolbar></div>
+  <div>
+    <nav-toolbar></nav-toolbar>
+    <navigation-drawer></navigation-drawer>
+  </div>
 </template>
 <script>
   import NavToolbar from './NavToolbar';
+  import NavigationDrawer from './NavDrawer';
 
   export default {
-    components: { NavToolbar },
+    components: {
+      NavigationDrawer,
+      NavToolbar },
     name: 'nav-container'
   };
 </script>
