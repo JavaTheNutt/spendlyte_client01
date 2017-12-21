@@ -1,6 +1,6 @@
 <template>
   <v-app light>
-    <v-navigation-drawer
+    <!--<v-navigation-drawer
       fixed
       :mini-variant="miniVariant"
       :clipped="clipped"
@@ -55,7 +55,8 @@
       >
         <v-icon>menu</v-icon>
       </v-btn>
-    </v-toolbar>
+    </v-toolbar>-->
+    <nav-container></nav-container>
     <v-content>
       <router-view></router-view>
     </v-content>
@@ -81,7 +82,9 @@
 </template>
 
 <script>
+  import { NavContainer } from './navigation';
   export default {
+    components: { NavContainer },
     data () {
       return {
         clipped: false,
