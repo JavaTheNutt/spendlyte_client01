@@ -2,3 +2,4 @@ build/*.js
 config/*.js
 test/e2e/runner.js
 test/unit/index.js
+/test/unit/karma.conf.js
