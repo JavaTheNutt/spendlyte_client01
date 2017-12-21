@@ -11,12 +11,15 @@ module.exports = {
   },
   // required to lint *.vue files
   plugins: [
-    'html'
+    'html',
+    'flowtype-errors'
   ],
+  extends:['vue'],
   // add your custom rules here
   'rules': {
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
+    "flowtype-errors/show-errors":2,
     "no-useless-concat": "error",
     "require-jsdoc": "error",
     "require-await": "error",
