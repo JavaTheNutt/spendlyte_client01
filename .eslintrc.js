@@ -12,9 +12,10 @@ module.exports = {
   // required to lint *.vue files
   plugins: [
     'html',
-    'flowtype-errors'
+    'flowtype-errors',
+    'testcafe'
   ],
-  extends:['vue'],
+  extends:['vue', 'plugin:testcafe/recommended'],
   // add your custom rules here
   'rules': {
     // allow debugger during development
