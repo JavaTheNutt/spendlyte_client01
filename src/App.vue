@@ -95,7 +95,7 @@
         right: true,
         rightDrawer: false,
         title: 'Vuetify.js'
-      }
+      };
     }
-  }
+  };
 </script>

@@ -11,11 +11,49 @@ module.exports = {
   },
   // required to lint *.vue files
   plugins: [
-    'html'
+    'html',
+    'flowtype-errors',
+    'testcafe'
   ],
+  extends:['vue', 'plugin:testcafe/recommended'],
   // add your custom rules here
   'rules': {
     // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
+    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
+    "flowtype-errors/show-errors":2,
+    "no-useless-concat": "error",
+    "require-jsdoc": "error",
+    "require-await": "error",
+    "arrow-spacing":"error",
+    "prefer-rest-params":"error",
+    "arrow-parens": [
+      "error",
+      "as-needed"
+    ],
+    "arrow-body-style": [
+      "error",
+      "as-needed"
+    ],
+    "indent": [
+      "error",
+      2
+    ],
+    "no-var": "error",
+    "prefer-const": "error",
+    "prefer-arrow-callback": "error",
+    "consistent-return": "error",
+    "eqeqeq": "error",
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "object-shorthand": [
+      "error",
+      "always"
+    ]
   }
-}
+};
