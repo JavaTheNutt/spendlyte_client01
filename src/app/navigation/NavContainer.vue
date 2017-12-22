@@ -20,7 +20,7 @@
       NavToolbar },
     name: 'nav-container',
     mounted () {
-      this.navLinks = Object.assign({}, navService.fetchSideNavLinks());
+      this.navLinks = Object.assign([], navService.fetchSideNavLinks());
     }
   };
 </script>

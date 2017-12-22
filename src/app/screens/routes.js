@@ -1,7 +1,7 @@
 import Home from './home/Home';
 
-export default {
+export default [{
   name: 'home',
   path: '/',
   component: Home
-};
+}];

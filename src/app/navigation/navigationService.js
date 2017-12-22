@@ -1,7 +1,12 @@
 const NAV_LINKS = [{
-  title: 'home',
+  title: 'Home',
   route: '/',
   icon: 'home',
+  shown: true
+}, {
+  title: 'Profile',
+  route: '/profile',
+  icon: 'supervisor_account',
   shown: true
 }];
 export const getAllNavLinks = () => NAV_LINKS;
