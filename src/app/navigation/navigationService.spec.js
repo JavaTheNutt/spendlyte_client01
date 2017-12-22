@@ -1,6 +1,11 @@
 import * as navService from './navigationService';
+import { fetchSideNavLinks } from './navigationService';
 
+const sandbox = sinon.sandbox.create();
 describe('nav service', () => {
+  afterEach(() => {
+    sandbox.restore();
+  });
   describe('get all nav links', () => {
     it('should return an array of navigation links', () => {
       const result = navService.getAllNavLinks();
@@ -24,6 +29,29 @@ describe('nav service', () => {
       result.forEach(link => {
         expect(link).to.not.eql(fakeLink);
       });
+    });
+  });
+  describe('fetch side nav links', () => {
+    it('should return the nav links that have shown = true', () => {
+      const fetchLinksStub = sandbox.stub(navService, 'getAllNavLinks');
+      fetchLinksStub.returns([{
+        title: 'home',
+        route: '/',
+        icon: 'home',
+        shown: true
+      }, {
+        title: 'fake',
+        route: '/fake',
+        icon: 'fake',
+        shown: false
+      }]);
+      const result = fetchSideNavLinks();
+      expect(result).to.eql([{
+        title: 'home',
+        route: '/',
+        icon: 'home',
+        shown: true
+      }]);
     });
   });
 });
