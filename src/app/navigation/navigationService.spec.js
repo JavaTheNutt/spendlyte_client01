@@ -10,4 +10,20 @@ describe('nav service', () => {
       });
     });
   });
+  describe('get shown links', () => {
+    it('should return all of the shown links', () => {
+      const links = navService.getAllNavLinks();
+      const fakeLink = {
+        title: 'fake',
+        route: '/fake',
+        icon: 'fake',
+        shown: false
+      };
+      links.push(fakeLink);
+      const result = navService.fetchShownLinks(links);
+      result.forEach(link => {
+        expect(link).to.not.eql(fakeLink);
+      });
+    });
+  });
 });

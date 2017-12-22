@@ -5,3 +5,5 @@ const NAV_LINKS = [{
   shown: true
 }];
 export const getAllNavLinks = () => NAV_LINKS;
+
+export const fetchShownLinks = links => links.filter(link => link.shown);
