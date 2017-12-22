@@ -21,6 +21,7 @@
   </v-layout>
 </template>
 <script>
+  import NavBus from './navBus';
   export default {
     name: 'navigation-drawer',
     data () {
@@ -35,6 +36,10 @@
       redirect (route) {
         this.$router.push(route);
       }
+    },
+    created () {
+// eslint-disable-next-line no-return-assign
+      NavBus.$on('toggle_drawer_button_clicked', () => this.shown = !this.shown);
     }
   };
 </script>

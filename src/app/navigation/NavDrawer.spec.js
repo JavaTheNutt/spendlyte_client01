@@ -1,6 +1,5 @@
 import NavDrawer from './NavDrawer';
 import { shallow } from 'vue-test-utils';
-
 describe('NavDrawer.vue', () => {
   it('should render a tile for each route passed to it', () => {
     const items = [{
