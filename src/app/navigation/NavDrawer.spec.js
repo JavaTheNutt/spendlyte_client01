@@ -1,12 +1,11 @@
 import NavDrawer from './NavDrawer';
 import { shallow } from 'vue-test-utils';
 import NavBus from './navBus';
-import Vue from 'vue';
 const sandbox = sinon.sandbox.create();
 describe('NavDrawer.vue', () => {
-  let busMock;
+  let onStub;
   beforeEach(() => {
-    busMock = sandbox.mock(NavBus);
+    onStub = sandbox.stub(NavBus, '$on');
   });
   afterEach(() => sandbox.restore());
   it('should render a tile for each route passed to it', () => {
@@ -24,12 +23,8 @@ describe('NavDrawer.vue', () => {
     expect(tiles).to.have.length.of(2);
   });
   it('should register an event handler on creation', () => {
-    expect(typeof NavDrawer.created).to.equal('function');
-    busMock.expects('$on').once();
-    busMock.expects('$on').withArgs('toggle_drawer_button_clicked');
     shallow(NavDrawer);
-    Vue.nextTick(() => {
-      busMock.verify();
-    });
+    expect(onStub).to.be.calledOnce;
+    expect(onStub).to.be.calledWith('toggle_drawer_button_clicked');
   });
 });

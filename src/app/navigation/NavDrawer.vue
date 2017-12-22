@@ -35,11 +35,14 @@
     methods: {
       redirect (route) {
         this.$router.push(route);
+      },
+      toggleShown () {
+        this.shown = !this.shown;
       }
     },
     created () {
 // eslint-disable-next-line no-return-assign
-      NavBus.$on('toggle_drawer_button_clicked', () => this.shown = !this.shown);
+      NavBus.$on('toggle_drawer_button_clicked', this.toggleShown);
     }
   };
 </script>
