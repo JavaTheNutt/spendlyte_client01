@@ -7,3 +7,4 @@ const NAV_LINKS = [{
 export const getAllNavLinks = () => NAV_LINKS;
 
 export const fetchShownLinks = links => links.filter(link => link.shown);
+
