@@ -1,13 +1,8 @@
 import router from './router';
 import store from './store';
+import { globalAuthGuard } from './router/guards';
 
-router.beforeEach((to, from, next) => {
-  if (to.meta.requireAuth) {
-    if (store.state.auth.loggedIn) return next();
-    return next('/');
-  }
-  return next();
-});
+router.beforeEach(globalAuthGuard);
 export default {
   store,
   router

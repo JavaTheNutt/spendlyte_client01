@@ -22,7 +22,12 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       '@': resolve('src')
-    }
+    },
+    modules: [
+      path.resolve(__dirname, "../src"),
+      path.resolve(__dirname, "../node_modules"),
+      path.resolve(__dirname, "../test")
+    ]
   },
   module: {
     rules: [
