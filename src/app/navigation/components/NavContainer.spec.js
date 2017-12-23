@@ -1,7 +1,7 @@
 import NavContainer from './NavContainer';
 import NavToolbar from './NavToolbar';
 import NavDrawer from './NavDrawer';
-import NavBus from './navBus';
+import NavBus from '../service/navBus';
 import authTypes from '@/app/auth/vuex/types';
 import Vuex from 'vuex';
 import { mount, shallow, createLocalVue } from 'vue-test-utils';

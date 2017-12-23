@@ -27,7 +27,7 @@
   </v-layout>
 </template>
 <script>
-  import NavBus from './navBus';
+  import NavBus from '../service/navBus';
 
   export default {
     name: 'navigation-drawer',

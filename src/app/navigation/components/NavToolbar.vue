@@ -17,7 +17,7 @@
   </v-toolbar>
 </template>
 <script>
-  import NavBus from './navBus';
+  import NavBus from '../service/navBus';
   import { mapGetters, mapActions } from 'vuex';
   import authTypes from '@/app/auth/vuex/types';
   export default {

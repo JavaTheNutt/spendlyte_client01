@@ -1,5 +1,5 @@
 import NavToolbar from './NavToolbar';
-import NavBus from './navBus';
+import NavBus from '../service/navBus';
 import { createLocalVue, mount, shallow } from 'vue-test-utils';
 import authTypes from '@/app/auth/vuex/types';
 import Vuex from 'vuex';

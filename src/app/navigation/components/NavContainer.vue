@@ -5,7 +5,7 @@
   </div>
 </template>
 <script>
-  import * as navService from './navigationService';
+  import * as navService from '../service/navigationService';
   import NavToolbar from './NavToolbar';
   import NavigationDrawer from './NavDrawer';
 

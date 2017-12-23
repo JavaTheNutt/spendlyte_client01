@@ -1,1 +1,1 @@
-export { default as NavContainer } from './NavContainer';
+export { default as NavContainer } from './components/NavContainer';

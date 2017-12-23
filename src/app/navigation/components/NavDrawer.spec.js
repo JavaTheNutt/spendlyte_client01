@@ -1,6 +1,6 @@
 import NavDrawer from './NavDrawer';
 import { shallow, createLocalVue } from 'vue-test-utils';
-import NavBus from './navBus';
+import NavBus from '../service/navBus';
 
 const sandbox = sinon.sandbox.create();
 describe('NavDrawer.vue', () => {
