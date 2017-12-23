@@ -5,10 +5,14 @@ import { Selector, ClientFunction } from 'testcafe';
 fixture `test navigation`.page(`http://localhost:${process.env.PORT}`);
 
 const openDrawer = async t => {
-  const toggleDrawerButton = VueSelector('nav-toolbar v-toolbar v-btn');
+  const toggleDrawerButton = Selector('#toggleNavDrawerButton');
   const navDrawer = VueSelector('navigation-drawer');
   await t.click(toggleDrawerButton);
   return navDrawer;
+};
+const clickLogin = async t => {
+  const loginButton = Selector('#loginButton');
+  return await t.click(loginButton);
 };
 test('toggle open close drawer', async t => {
   const navData = await openDrawer(t);
@@ -21,6 +25,7 @@ test('toggle open close drawer', async t => {
 });
 
 test('navigate', async t => {
+  await clickLogin(t);
   let navData = await openDrawer(t);
   const profileLink = Selector('#link-Profile');
   await t.click(profileLink);

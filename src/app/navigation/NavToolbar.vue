@@ -4,13 +4,13 @@
     <v-toolbar-title class="white--text">Spend Lyte</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn color="warning" @click.stop="logIn" v-if="!loggedIn" id="loginButton">Login</v-btn>
-    <v-menu bottom left v-if="loggedIn">
+    <v-menu bottom left v-if="loggedIn" id="openSignOutMenu">
       <v-btn icon slot="activator" dark>
-        <v-icon id="openSignOutMenu">more_vert</v-icon>
+        <v-icon >more_vert</v-icon>
       </v-btn>
       <v-list>
-        <v-list-tile @click.stop="logOut">
-          <v-list-tile-title id="clickSignOut">Sign Out</v-list-tile-title>
+        <v-list-tile @click.stop="logOut" id="clickSignOut">
+          <v-list-tile-title >Sign Out</v-list-tile-title>
         </v-list-tile>
       </v-list>
     </v-menu>
