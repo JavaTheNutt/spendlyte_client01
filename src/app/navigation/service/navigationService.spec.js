@@ -9,7 +9,7 @@ describe('nav service', () => {
     it('should return an array of navigation links', () => {
       const result = navService.getAllNavLinks();
       result.forEach(nav => {
-        expect(Object.keys(nav)).to.include.members(['title', 'route', 'icon', 'shown']);
+        expect(Object.keys(nav)).to.include.members(['title', 'path', 'icon', 'shown']);
         expect(Object.keys(nav).length).to.equal(4);
       });
     });

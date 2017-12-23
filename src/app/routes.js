@@ -17,18 +17,10 @@ const createRouteMeta = routeDef => (routeDef.map(route => ({
   shown: !route.meta ? true : !route.meta.requireAuth
 })));
 
-let exportRoutes = [];
-let exportMeta = [];
-const mapRoutes = () => {
-  exportRoutes = createRoutes(importedRoutes);
-  console.log(JSON.stringify(exportRoutes));
-  exportMeta = createRouteMeta(importedRoutes);
-  console.log(JSON.stringify(exportMeta));
-};
+const mapRoutes = () => ({
+  routes: createRoutes(importedRoutes),
+  meta: createRouteMeta(importedRoutes)
+});
 
-mapRoutes();
+export default mapRoutes();
 
-export default {
-  routes: exportRoutes,
-  meta: exportMeta
-};

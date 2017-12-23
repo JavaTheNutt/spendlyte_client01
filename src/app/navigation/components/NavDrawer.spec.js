@@ -1,17 +1,17 @@
 import NavDrawer from './NavDrawer';
-import { shallow, createLocalVue } from 'vue-test-utils';
+import { shallow, createLocalVue, mount } from 'vue-test-utils';
 import NavBus from '../service/navBus';
 
 const sandbox = sinon.sandbox.create();
 describe('NavDrawer.vue', () => {
   let onStub, pushStub, mockedRouter, localVue;
   const items = [{
-    title: 'home',
-    route: '/',
+    title: 'Home',
+    path: '/',
     icon: 'home'
   }, {
-    title: 'profile',
-    route: '/profile',
+    title: 'Profile',
+    path: '/profile',
     icon: 'user'
   }];
   beforeEach(() => {
@@ -32,7 +32,7 @@ describe('NavDrawer.vue', () => {
     expect(onStub).to.be.calledWith('toggle_drawer_button_clicked');
   });
   it('should call redirect when a link is clicked', () => {
-    const wrapper = shallow(NavDrawer, {
+    const wrapper = mount(NavDrawer, {
       localVue,
       beforeCreate () {
         this._router = mockedRouter;
@@ -41,7 +41,7 @@ describe('NavDrawer.vue', () => {
         items
       }
     });
-    const link = wrapper.find('#link-home');
+    const link = wrapper.find('#link-Home');
     link.trigger('click');
     expect(pushStub).to.be.calledWith('/');
   });
