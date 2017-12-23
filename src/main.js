@@ -3,9 +3,7 @@ import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.css';
 
 import App from './app/App';
-import router from './router';
-import store from './store';
-
+import config from './config';
 import colors from 'vuetify/es5/util/colors';
 
 Vue.use(Vuetify, {
@@ -24,7 +22,7 @@ Vue.config.productionTip = false;
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  router,
-  store,
+  router: config.router,
+  store: config.store,
   render: h => h(App)
 });

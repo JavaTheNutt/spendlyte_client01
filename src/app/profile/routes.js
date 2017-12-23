@@ -3,5 +3,6 @@ import Profile from './components/Profile';
 export default [{
   name: 'profile',
   path: '/profile',
-  component: Profile
+  component: Profile,
+  meta: { requireAuth: true }
 }];
