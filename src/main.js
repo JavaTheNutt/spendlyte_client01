@@ -4,6 +4,7 @@ import 'vuetify/dist/vuetify.css';
 
 import App from './app/App';
 import router from './router';
+import store from './store';
 
 import colors from 'vuetify/es5/util/colors';
 
@@ -24,5 +25,6 @@ Vue.config.productionTip = false;
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 });

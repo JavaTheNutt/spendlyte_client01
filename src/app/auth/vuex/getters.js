@@ -1,5 +1,5 @@
 import types from './types';
 
 export default {
-  [types.getters.isLoggedIn]:(state) => state.loggedIn
-}
+  [types.getters.isLoggedIn]: state => state.loggedIn
+};

@@ -59,6 +59,7 @@ module.exports = {
     "object-shorthand": [
       "error",
       "always"
-    ]
+    ],
+    "no-return-assign":0
   }
 };
