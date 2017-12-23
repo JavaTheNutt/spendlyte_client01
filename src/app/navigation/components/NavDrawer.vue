@@ -8,7 +8,7 @@
     >
       <v-list class="pt-0">
         <v-divider></v-divider>
-        <v-list-tile v-for="item in items" :key="item.title" @click="redirect(item.route)" :id="`link-${item.title}`">
+        <v-list-tile v-for="item in items" :key="item.title" @click="redirect(item.path)" :id="`link-${item.title}`">
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>

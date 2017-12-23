@@ -13,7 +13,8 @@ const createRoutes = routeDef => (routeDef.map(route => ({
 const createRouteMeta = routeDef => (routeDef.map(route => ({
   title: `${route.name[0].toUpperCase()}${route.name.substring(1)}`,
   path: route.path,
-  icon: route.icon
+  icon: route.icon,
+  shown: route.meta ? !route.meta.requireAuth || true : true
 })));
 
 let exportRoutes = [];

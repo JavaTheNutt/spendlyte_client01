@@ -1,4 +1,6 @@
-const NAV_LINKS = [{
+import { routeMeta as links } from '@/app';
+
+/* const NAV_LINKS = [{
   title: 'Home',
   route: '/',
   icon: 'home',
@@ -8,8 +10,8 @@ const NAV_LINKS = [{
   route: '/profile',
   icon: 'supervisor_account',
   shown: true
-}];
-export const getAllNavLinks = () => NAV_LINKS;
+}];*/
+export const getAllNavLinks = () => links;
 
 export const fetchShownLinks = links => links.filter(link => link.shown);
 
