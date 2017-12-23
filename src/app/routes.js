@@ -14,7 +14,7 @@ const createRouteMeta = routeDef => (routeDef.map(route => ({
   title: `${route.name[0].toUpperCase()}${route.name.substring(1)}`,
   path: route.path,
   icon: route.icon,
-  shown: route.meta ? !route.meta.requireAuth || true : true
+  shown: !route.meta ? true : !route.meta.requireAuth
 })));
 
 let exportRoutes = [];
