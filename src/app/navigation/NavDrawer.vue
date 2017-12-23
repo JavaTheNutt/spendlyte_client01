@@ -16,12 +16,19 @@
             <v-list-tile-title>{{ item.title }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+        <v-spacer style="height: 100%"></v-spacer>
+        <v-list-tile style="bottom: 0" @click="shown = !shown" id="sideNavFooter">
+          <v-list-tile-content>
+            <v-list-tile-title>Joe Wemyss {{new Date().getFullYear()}}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
       </v-list>
     </v-navigation-drawer>
   </v-layout>
 </template>
 <script>
   import NavBus from './navBus';
+
   export default {
     name: 'navigation-drawer',
     data () {
@@ -41,7 +48,6 @@
       }
     },
     created () {
-// eslint-disable-next-line no-return-assign
       NavBus.$on('toggle_drawer_button_clicked', this.toggleShown);
     }
   };

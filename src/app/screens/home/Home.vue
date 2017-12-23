@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-layout>
       <v-flex>
-        <p class="headline text-xs-center">Welcome to Spend Lyte!</p>
+        <p class="headline text-xs-center" id="homeHeader">Welcome to Spend Lyte!</p>
       </v-flex>
     </v-layout>
     <v-layout row justify-center>

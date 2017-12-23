@@ -24,7 +24,7 @@ describe('NavDrawer.vue', () => {
   it('should render a tile for each route passed to it', () => {
     const wrapper = shallow(NavDrawer, { propsData: { items }});
     const tiles = wrapper.findAll('v-list-tile');
-    expect(tiles).to.have.length.of(2);
+    expect(tiles).to.have.length.of(3); // one extra because of footer
   });
   it('should register an event handler on creation', () => {
     shallow(NavDrawer);
