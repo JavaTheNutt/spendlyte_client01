@@ -1,6 +1,6 @@
 <template>
   <v-toolbar dark color="primary">
-    <v-toolbar-side-icon @click.stop="emitClick" ref="toggleNavDrawerButton" id="toggleNavDrawerButton"></v-toolbar-side-icon>
+    <v-toolbar-side-icon @click.stop="emitClick" ref="toggleNavDrawerButton" id="toggleNavDrawerButton" v-if="hasLinks"></v-toolbar-side-icon>
     <v-toolbar-title class="white--text">Spend Lyte</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn color="warning" @click.stop="logIn" v-if="!loggedIn" id="loginButton">Login</v-btn>
@@ -24,6 +24,9 @@
     name: 'nav-toolbar',
     computed: {
       ...mapGetters({ loggedIn: authTypes.getters.isLoggedIn })
+    },
+    props: {
+      hasLinks: Boolean
     },
     methods: {
       emitClick () {

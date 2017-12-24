@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav-toolbar></nav-toolbar>
+    <nav-toolbar :hasLinks="hasLinks"></nav-toolbar>
     <navigation-drawer :items="navLinks"></navigation-drawer>
   </div>
 </template>
@@ -22,7 +22,10 @@
       NavToolbar },
     name: 'nav-container',
     computed: {
-      ...mapGetters({ loggedIn: authTypes.getters.isLoggedIn })
+      ...mapGetters({ loggedIn: authTypes.getters.isLoggedIn }),
+      hasLinks () {
+        return this.navLinks.length > 0;
+      }
     },
     watch: {
       '$route' () {
