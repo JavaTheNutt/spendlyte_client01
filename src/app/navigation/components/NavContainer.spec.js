@@ -2,18 +2,21 @@ import NavContainer from './NavContainer';
 import NavToolbar from './NavToolbar';
 import NavDrawer from './NavDrawer';
 import NavBus from '../service/navBus';
+import * as navService from '../service/navigationService';
 import authTypes from '@/app/auth/vuex/types';
 import Vuex from 'vuex';
+import VueRouter from 'vue-router';
 import { createLocalVue, mount, shallow } from 'vue-test-utils';
 
-//fixme test watchers
+// fixme test watchers
 const sandbox = sinon.sandbox.create();
 describe('NavContainer.vue', () => {
-  let toggleSpy, emitStub, store, state, getters, actions, localVue, loggedInStub;
+  let toggleSpy, emitStub, store, state, getters, actions, localVue, loggedInStub, fetchLinksStub;
   beforeEach(() => {
     actions = {};
     getters = {};
     loggedInStub = sandbox.stub().returns(true);
+    fetchLinksStub = sandbox.stub(navService, 'fetchSideNavLinks');
     getters[authTypes.getters.isLoggedIn] = loggedInStub;
     actions[authTypes.actions.logIn] = sandbox.stub();
     actions[authTypes.actions.logOut] = sandbox.stub();
@@ -107,4 +110,50 @@ describe('NavContainer.vue', () => {
     });
     expect(wrapper.vm.hasLinks).to.be.true;
   });
+  it('should have a mounted function', () => {
+    expect(typeof NavContainer.mounted).to.equal('function');
+  });
+  it('should fetch the nav links when trigger nav links is called', () => {
+    const wrapper = shallow(NavContainer, {
+      localVue,
+      store
+    });
+    const fetchCount = fetchLinksStub.callCount;
+    wrapper.vm.refreshNavLinks();
+    expect(fetchLinksStub.callCount).to.equal(fetchCount + 1);
+  });
+  it('should fetch the nav links when auth state changes', () => {
+    const wrapper = shallow(NavContainer, {
+      localVue,
+      store
+    });
+    const fetchCount = fetchLinksStub.callCount;
+    wrapper.setComputed({ loggedIn: false });
+    expect(fetchLinksStub.callCount).to.equal(fetchCount + 1);
+  });
+  it('should fetch the nav links when auth state changes', () => {
+    const wrapper = shallow(NavContainer, {
+      localVue,
+      store
+    });
+    const fetchCount = fetchLinksStub.callCount;
+    wrapper.setComputed({ loggedIn: false });
+    expect(fetchLinksStub.callCount).to.equal(fetchCount + 1);
+  });
+  // fixme test fetch links on route state change
+  /* it('should fetch the links on router state change', () => {
+    const $route = {
+      path: '/'
+    };
+    const wrapper = shallow(NavContainer, {
+      localVue,
+      store,
+      mocks: {
+        $route
+      }
+    });
+    const fetchCount = fetchLinksStub.callCount;
+    wrapper.vm.$router.push('/profile');
+    expect(fetchLinksStub.callCount).to.equal(fetchCount + 1);
+  });*/
 });
