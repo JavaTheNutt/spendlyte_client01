@@ -4,15 +4,17 @@ import NavDrawer from './NavDrawer';
 import NavBus from '../service/navBus';
 import authTypes from '@/app/auth/vuex/types';
 import Vuex from 'vuex';
-import { mount, shallow, createLocalVue } from 'vue-test-utils';
+import { createLocalVue, mount, shallow } from 'vue-test-utils';
 
+//fixme test watchers
 const sandbox = sinon.sandbox.create();
 describe('NavContainer.vue', () => {
-  let toggleSpy, emitStub, store, state, getters, actions, localVue;
+  let toggleSpy, emitStub, store, state, getters, actions, localVue, loggedInStub;
   beforeEach(() => {
     actions = {};
     getters = {};
-    getters[authTypes.getters.isLoggedIn] = sandbox.stub();
+    loggedInStub = sandbox.stub().returns(true);
+    getters[authTypes.getters.isLoggedIn] = loggedInStub;
     actions[authTypes.actions.logIn] = sandbox.stub();
     actions[authTypes.actions.logOut] = sandbox.stub();
     state = {
@@ -20,7 +22,7 @@ describe('NavContainer.vue', () => {
       modules: {
         auth: {
           state: {
-            loggedIn: false
+            loggedIn: true
           },
           getters,
           actions
@@ -55,10 +57,54 @@ describe('NavContainer.vue', () => {
       localVue,
       store
     });
-    const button = wrapper.find('#toggleNavDrawerButton');
+    wrapper.setData({
+      navLinks: [{
+        title: 'Home',
+        icon: 'home',
+        path: '/home',
+        shown: true
+      }, {
+        title: 'contact',
+        icon: 'supervisor_account',
+        path: '/fake',
+        shown: true
+      }]
+    });
+    const toolbar = wrapper.find(NavToolbar);
+    const button = toolbar.find('#toggleNavDrawerButton');
     button.trigger('click');
     expect(emitStub).to.be.calledOnce;
     expect(emitStub).to.be.calledWith('toggle_drawer_button_clicked');
     expect(toggleSpy).to.be.calledOnce;
+  });
+  it('should set "hasNavLinks" to false when there are no nav links', () => {
+    const wrapper = shallow(NavContainer, {
+      localVue,
+      store
+    });
+    wrapper.setData({
+      navLinks: []
+    });
+    expect(wrapper.vm.hasLinks).to.be.false;
+  });
+  it('should set "hasNavLinks" to true when there are nav links', () => {
+    const wrapper = shallow(NavContainer, {
+      localVue,
+      store
+    });
+    wrapper.setData({
+      navLinks: [{
+        title: 'Home',
+        icon: 'home',
+        path: '/home',
+        shown: true
+      }, {
+        title: 'contact',
+        icon: 'supervisor_account',
+        path: '/fake',
+        shown: true
+      }]
+    });
+    expect(wrapper.vm.hasLinks).to.be.true;
   });
 });

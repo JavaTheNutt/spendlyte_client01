@@ -9,7 +9,7 @@
         <v-icon >more_vert</v-icon>
       </v-btn>
       <v-list>
-        <v-list-tile @click.stop="logOut" id="clickSignOut">
+        <v-list-tile @click.stop="logOutClicked" id="clickSignOut">
           <v-list-tile-title >Sign Out</v-list-tile-title>
         </v-list-tile>
       </v-list>
@@ -32,10 +32,11 @@
       emitClick () {
         NavBus.$emit('toggle_drawer_button_clicked');
       },
-      loginClicked () {
-        console.log('login clicked');
-      },
-      ...mapActions({ logIn: authTypes.actions.logIn, logOut: authTypes.actions.logOut })
+      ...mapActions({ logIn: authTypes.actions.logIn, logOut: authTypes.actions.logOut }),
+      logOutClicked () {
+        this.logOut();
+        this.$router.push('/');
+      }
     }
   };
 </script>

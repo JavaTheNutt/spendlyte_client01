@@ -15,6 +15,7 @@ const clickLogin = async t => {
   return await t.click(loginButton);
 };
 test('toggle open close drawer', async t => {
+  await clickLogin(t);
   const navData = await openDrawer(t);
   let navDrawerVue = await navData.getVue();
   expect(navDrawerVue.state.shown).to.be.true;

@@ -6,20 +6,24 @@ import Vuex from 'vuex';
 
 const sandbox = sinon.sandbox.create();
 describe('NavToolbar.vue', () => {
-  let emitStub, store, state, getters, actions, localVue;
+  let emitStub, store, state, getters, actions, localVue, logOutStub, propsData, pushStub, mockedRouter;
   beforeEach(() => {
+    propsData = { hasLinks: true };
     emitStub = sandbox.stub(NavBus, '$emit');
     actions = {};
     getters = {};
-    getters[authTypes.getters.isLoggedIn] = sandbox.stub();
+    logOutStub = sandbox.stub();
+    pushStub = sandbox.stub();
+    mockedRouter = { push: pushStub };
+    getters[authTypes.getters.isLoggedIn] = sandbox.stub().returns(true);
     actions[authTypes.actions.logIn] = sandbox.stub();
-    actions[authTypes.actions.logOut] = sandbox.stub();
+    actions[authTypes.actions.logOut] = logOutStub;
     state = {
       namespaced: true,
       modules: {
         auth: {
           state: {
-            loggedIn: false
+            loggedIn: true
           },
           getters,
           actions
@@ -36,7 +40,8 @@ describe('NavToolbar.vue', () => {
   it('should contain the page title in the toolbar', () => {
     const wrapper = shallow(NavToolbar, {
       localVue,
-      store
+      store,
+      propsData
     });
     const title = wrapper.find('.white--text');
     expect(title.text()).to.equal('Spend Lyte');
@@ -44,11 +49,27 @@ describe('NavToolbar.vue', () => {
   it('should emit an event when the button is clicked', () => {
     const wrapper = mount(NavToolbar, {
       localVue,
-      store
+      store,
+      propsData
     });
     const button = wrapper.find('#toggleNavDrawerButton');
     button.trigger('click');
     expect(emitStub).to.be.calledOnce;
     expect(emitStub).to.be.calledWith('toggle_drawer_button_clicked');
+  });
+  it('should dispatch log out when log out is clicked', () => {
+    const wrapper = mount(NavToolbar, {
+      localVue,
+      store,
+      propsData,
+      beforeCreate () {
+        this._router = mockedRouter;
+      }
+    });
+    const triggerMenu = wrapper.find('#openSignOutMenu');
+    triggerMenu.trigger('click');
+    const signOutButton = wrapper.find('#clickSignOut');
+    signOutButton.trigger('click');
+    expect(logOutStub).to.be.calledOnce;
   });
 });
