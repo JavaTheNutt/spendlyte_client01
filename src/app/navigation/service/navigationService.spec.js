@@ -41,7 +41,6 @@ describe('nav service', () => {
     describe('get all nav links', () => {
       it('should return an array of navigation links', () => {
         const result = navServiceLoggedIn.getAllNavLinks();
-        console.log(JSON.stringify(result));
         result.forEach(nav => {
           expect(Object.keys(nav)).to.include.members(['title', 'path', 'icon', 'shown']);
           expect(Object.keys(nav).length).to.equal(4);
