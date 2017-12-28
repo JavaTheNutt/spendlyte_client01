@@ -6,22 +6,25 @@
     <component :is="currentComponent"></component>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn flat color="primary" @click.stop="closeDialog">close</v-btn>
+      <component :is="currentActions" :has-close="true" @close-clicked="closeDialog"></component>
     </v-card-actions>
   </v-card>
 </template>
 <script>
   import LoginCard from '@/app/auth/components/LoginCard';
+  import LoginActions from '@/app/auth/components/LoginActions';
   import TermsAndConditionsCard from '@/app/auth/components/TermsAndConditionsCard';
   export default {
     name: 'generic-dialog-card',
     components: {
       LoginCard,
+      LoginActions,
       TermsAndConditionsCard
     },
     props: {
       title: String,
-      currentComponent: String
+      currentComponent: String,
+      currentActions: String
     },
     methods: {
       closeDialog () {

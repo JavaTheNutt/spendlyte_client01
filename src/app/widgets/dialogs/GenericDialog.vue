@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="dialogShown" :max-width="width">
-    <generic-dialog-card :title="title" :current-component="currentCard" style="height: 100%;" @dialog-closed="dialogShown = false"></generic-dialog-card>
+    <generic-dialog-card :title="title" :current-component="currentCard" :current-actions="currentActions" style="height: 100%;" @dialog-closed="dialogShown = false"></generic-dialog-card>
   </v-dialog>
 </template>
 <script>
@@ -11,9 +11,10 @@
     data () {
       return {
         dialogShown: false,
-        currentCard: 'terms-and-conditions-card',
+        currentCard: '',
+        currentActions: '',
         width: '700px',
-        title: 'I am a dialog'
+        title: ''
       };
     },
     components: {
@@ -24,8 +25,14 @@
         this.currentCard = params.card;
         this.title = params.title || 'I am a dialog';
         this.width = params.width || '700px';
+        this.currentActions = this.fetchActions(params.card);
         this.dialogShown = true;
       });
+    },
+    methods: {
+      fetchActions (componentName) {
+        return `${componentName.substring(0, componentName.indexOf('card'))}actions`;
+      }
     }
   };
 </script>
