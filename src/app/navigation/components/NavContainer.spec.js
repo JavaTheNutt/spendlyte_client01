@@ -5,7 +5,8 @@ import NavBus from '../service/navBus';
 import * as navService from '../service/navigationService';
 import authTypes from '@/app/auth/vuex/types';
 import Vuex from 'vuex';
-import VueRouter from 'vue-router';
+import Vue from 'vue';
+import router from '@/router';
 import { createLocalVue, mount, shallow } from 'vue-test-utils';
 
 // fixme test watchers
@@ -142,18 +143,16 @@ describe('NavContainer.vue', () => {
   });
   // fixme test fetch links on route state change
   /* it('should fetch the links on router state change', () => {
-    const $route = {
-      path: '/'
-    };
     const wrapper = shallow(NavContainer, {
       localVue,
       store,
-      mocks: {
-        $route
-      }
+      router
     });
+    wrapper.setComputed({ loggedIn: true });
     const fetchCount = fetchLinksStub.callCount;
+    expect(wrapper.vm.loggedIn).to.be.true;
     wrapper.vm.$router.push('/profile');
+    expect(wrapper.vm.$route.path).to.equal('/profile');
     expect(fetchLinksStub.callCount).to.equal(fetchCount + 1);
   });*/
 });
