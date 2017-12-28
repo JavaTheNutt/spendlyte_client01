@@ -36,11 +36,12 @@
       ...mapActions({ logIn: authTypes.actions.logIn, logOut: authTypes.actions.logOut }),
       logOutClicked () {
         this.logOut();
+        // fixme move re-routing to the authentication handler
         this.$router.push('/');
       },
       logInClicked () {
         this.logIn();
-        Bus.$emit('show_dialog', { card: 'login-card' });
+        Bus.$emit('show_dialog', { card: 'login-card', title: 'Please login or sign up to use this service' });
       }
     }
   };

@@ -1,9 +1,5 @@
 <template>
-  <v-card>
-    <v-card-title primary-title>
-      <h3 class="headline mb-0">This is the login card</h3>
-    </v-card-title>
-  </v-card>
+  <p>I am the login form</p>
 </template>
 <script>
   export default {
