@@ -4,6 +4,10 @@
       <h3 class="headline mb-0">{{title}}</h3>
     </v-card-title>
     <component :is="currentComponent"></component>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn flat color="primary" @click.stop="closeDialog">close</v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 <script>
@@ -18,6 +22,11 @@
     props: {
       title: String,
       currentComponent: String
+    },
+    methods: {
+      closeDialog () {
+        this.$emit('dialog-closed');
+      }
     }
   };
 </script>

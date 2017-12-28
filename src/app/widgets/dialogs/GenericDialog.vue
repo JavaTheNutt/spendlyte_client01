@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="dialogShown" :max-width="width">
-    <generic-dialog-card :title="title" :current-component="currentCard" style="height: 100%;"></generic-dialog-card>
+    <generic-dialog-card :title="title" :current-component="currentCard" style="height: 100%;" @dialog-closed="dialogShown = false"></generic-dialog-card>
   </v-dialog>
 </template>
 <script>
