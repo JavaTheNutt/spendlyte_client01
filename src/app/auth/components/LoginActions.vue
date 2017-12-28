@@ -1,10 +1,10 @@
 <template>
   <v-container fluid>
-    <v-layout row>
-      <v-flex>
-        <v-btn flat color="primary">submit</v-btn>
-        <v-btn flat color="primary">something else</v-btn>
-        <v-btn flat color="accent" v-if="hasClose" @click.stop="closeClicked">close</v-btn>
+    <v-layout row wrap align-right>
+      <v-flex class="text-xs-right">
+        <v-btn color="primary" @click="submitClicked">submit</v-btn>
+        <v-btn color="accent" @click="resetClicked">reset</v-btn>
+        <v-btn flat color="primary" v-if="hasClose" @click.stop="closeClicked">close</v-btn>
       </v-flex>
     </v-layout>
   </v-container>
@@ -18,6 +18,12 @@
     methods: {
       closeClicked () {
         this.$emit('close-clicked');
+      },
+      submitClicked () {
+        this.$emit('submit-clicked');
+      },
+      resetClicked () {
+        this.$emit('reset-clicked');
       }
     }
   };

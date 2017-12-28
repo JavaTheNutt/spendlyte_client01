@@ -6,7 +6,7 @@
     <component :is="currentComponent"></component>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <component :is="currentActions" :has-close="true" @close-clicked="closeDialog"></component>
+      <component :is="currentActions" :has-close="true" @close-clicked="closeDialog" @submit-clicked="submitClicked" @reset-clicked="resetClicked"></component>
     </v-card-actions>
   </v-card>
 </template>
@@ -29,6 +29,12 @@
     methods: {
       closeDialog () {
         this.$emit('dialog-closed');
+      },
+      submitClicked () {
+        console.log('submit clicked');
+      },
+      resetClicked () {
+        console.log('reset clicked');
       }
     }
   };
