@@ -3,7 +3,7 @@
     <v-toolbar-side-icon @click.stop="emitClick" ref="toggleNavDrawerButton" id="toggleNavDrawerButton" v-if="hasLinks"></v-toolbar-side-icon>
     <v-toolbar-title class="white--text">Spend Lyte</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn color="warning" @click.stop="logIn" v-if="!loggedIn" id="loginButton">Login</v-btn>
+    <v-btn color="warning" @click.stop="logInClicked" v-if="!loggedIn" id="loginButton">Login</v-btn>
     <v-menu bottom left v-if="loggedIn" id="openSignOutMenu">
       <v-btn icon slot="activator" dark>
         <v-icon >more_vert</v-icon>
@@ -18,6 +18,7 @@
 </template>
 <script>
   import NavBus from '../service/navBus';
+  import Bus from '@/app/events/bus';
   import { mapGetters, mapActions } from 'vuex';
   import authTypes from '@/app/auth/vuex/types';
   export default {
@@ -36,6 +37,10 @@
       logOutClicked () {
         this.logOut();
         this.$router.push('/');
+      },
+      logInClicked () {
+        this.logIn();
+        Bus.$emit('show_dialog', { card: 'login-card' });
       }
     }
   };
