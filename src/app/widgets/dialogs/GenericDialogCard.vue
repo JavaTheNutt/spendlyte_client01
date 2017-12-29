@@ -5,7 +5,7 @@
     </v-card-title>
     <component :is="currentComponent"></component>
     <v-card-actions>
-      <v-spacer></v-spacer>
+      <!--<v-spacer></v-spacer>
       <component :is="currentActions"
                  :has-close="true"
                  :form-submittable="formSubmittable"
@@ -13,7 +13,16 @@
                  @close-clicked="closeDialog"
                  @submit-clicked="submitClicked"
                  @reset-clicked="resetClicked"
-      ></component>
+      ></component>-->
+      <submit-form-button-group
+        :has-close="true"
+        :form-submittable="formSubmittable"
+        :form-has-values="formHasValues"
+        :positive-text="posText"
+        :negative-text="negText"
+        @close-clicked="closeDialog"
+        @submit-clicked="submitClicked"
+        @reset-clicked="resetClicked"></submit-form-button-group>
     </v-card-actions>
   </v-card>
 </template>
@@ -34,6 +43,20 @@
       LoginCard,
       SubmitFormButtonGroup,
       TermsAndConditionsCard
+    },
+    computed: {
+      isAccept () {
+        return ['terms-and-conditions-card'].indexOf(this.currentComponent) !== -1;
+      },
+      isForm () {
+        return ['login-card'].indexOf(this.currentComponent) !== -1;
+      },
+      posText () {
+        return this.isForm ? 'submit' : 'accept';
+      },
+      negText () {
+        return this.isAccept ? 'decline' : 'reset';
+      }
     },
     props: {
       title: String,

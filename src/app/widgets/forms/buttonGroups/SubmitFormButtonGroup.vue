@@ -2,8 +2,8 @@
   <v-container fluid>
     <v-layout row wrap align-right>
       <v-flex class="text-xs-right">
-        <v-btn color="primary" @click="submitClicked" :disabled="!formSubmittable">submit</v-btn>
-        <v-btn color="accent" @click="resetClicked" :disabled="!formHasValues">reset</v-btn>
+        <v-btn color="primary" @click="submitClicked" :disabled="!formSubmittable">{{positiveText}}</v-btn>
+        <v-btn color="accent" @click="resetClicked" :disabled="!formHasValues">{{negativeText}}</v-btn>
         <v-btn flat color="primary" v-if="hasClose" @click.stop="closeClicked">close</v-btn>
       </v-flex>
     </v-layout>
@@ -15,7 +15,15 @@
     props: {
       hasClose: Boolean,
       formSubmittable: Boolean,
-      formHasValues: Boolean
+      formHasValues: Boolean,
+      positiveText: {
+        type: String,
+        default: 'submit'
+      },
+      negativeText: {
+        type: String,
+        default: 'reset'
+      }
     },
     methods: {
       closeClicked () {
