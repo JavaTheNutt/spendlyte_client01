@@ -1,6 +1,6 @@
 <template>
-  <form novalidate ref="loginForm" v-model="formValid">
-    <v-container fluid grid-list-md text-xs-center>
+  <form novalidate ref="loginForm" v-model="formValid" @submit.prevent="formSubmitted">
+    <v-container grid-list-md text-xs-center>
       <v-layout column>
         <v-flex>
           <v-text-field
@@ -13,7 +13,10 @@
             data-vv-name="email"
             data-vv-delay="1000"
             :error-messages="errors.collect('email')"
-            ref="emailField"></v-text-field>
+            ref="emailField"
+            @change="inputTriggered"
+            @input="inputTriggered"
+          ></v-text-field>
         </v-flex>
         <v-flex>
           <v-text-field
@@ -29,7 +32,10 @@
             v-validate="'required|min:6'"
             data-vv-name="password"
             :error-messages="errors.collect('password')"
-            ref="password"></v-text-field>
+            ref="password"
+            @change="inputTriggered"
+            @input="inputTriggered"
+          ></v-text-field>
         </v-flex>
         <!--<v-flex v-show="createAccountTicked">
           <v-text-field
@@ -86,19 +92,29 @@
         passwordShown: false,
         createAccountTicked: false,
         errorMessage: '',
-        loading: false,
-        formValid: false
+        loading: false
       };
+    },
+    computed: {
+      formValid () {
+        return this.fields.email.dirty && this.fields.password.dirty && (this.errors.collect('email').length + this.errors.collect('password').length === 0) && this.formHasValues();
+      },
+      formHasValues () {
+        return this.submissionDetails.email.length + this.submissionDetails.password.length > 0;
+      }
     },
     methods: {
       formSubmitted () {
         console.log('form submission caught');
-        if (this.formValid) {
-          this.$emit('form_submitted', this.submissionDetails);
-        }
+        if (this.formValid) this.$emit('form_submitted', this.submissionDetails);
       },
-      inputTriggered(){
-        console.log('input event triggered')
+      inputTriggered () {
+        console.log('input event triggered');
+        this.$emit('input-triggered', {
+          details: this.submissionDetails,
+          valid: this.formValid,
+          hasValues: this.formHasValues
+        });
       }
     }
   };

@@ -3,7 +3,7 @@
     <v-card-title primary-title>
       <h3 class="headline mb-0">{{title}}</h3>
     </v-card-title>
-    <component :is="currentComponent"></component>
+    <component :is="currentComponent" @input-triggered="inputTriggered"></component>
     <v-card-actions>
       <!--<v-spacer></v-spacer>
       <component :is="currentActions"
@@ -36,7 +36,8 @@
     data () {
       return {
         formSubmittable: false,
-        formHasValues: false
+        formHasValues: false,
+        formData: {}
       };
     },
     components: {
@@ -75,6 +76,12 @@
       },
       resetClicked () {
         console.log('reset clicked');
+      },
+      inputTriggered (data) {
+        console.log(`input triggered: ${JSON.stringify(data)}`);
+        this.formSubmittable = data.valid;
+        this.formHasValues = data.hasValues;
+        this.formData = data.details;
       }
     }
   };
