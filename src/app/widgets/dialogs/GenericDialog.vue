@@ -31,7 +31,7 @@
     },
     methods: {
       fetchActions (componentName) {
-        return `${componentName.substring(0, componentName.indexOf('card'))}actions`;
+        return 'submit-form-button-group';
       }
     }
   };

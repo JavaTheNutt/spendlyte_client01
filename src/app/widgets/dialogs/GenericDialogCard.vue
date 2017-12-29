@@ -6,25 +6,42 @@
     <component :is="currentComponent"></component>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <component :is="currentActions" :has-close="true" @close-clicked="closeDialog" @submit-clicked="submitClicked" @reset-clicked="resetClicked"></component>
+      <component :is="currentActions"
+                 :has-close="true"
+                 :form-submittable="formSubmittable"
+                 :form-has-values="formHasValues"
+                 @close-clicked="closeDialog"
+                 @submit-clicked="submitClicked"
+                 @reset-clicked="resetClicked"
+      ></component>
     </v-card-actions>
   </v-card>
 </template>
 <script>
   import LoginCard from '@/app/auth/components/LoginCard';
-  import LoginActions from '@/app/auth/components/LoginActions';
+  import SubmitFormButtonGroup from '@/app/widgets/forms/buttonGroups/SubmitFormButtonGroup';
   import TermsAndConditionsCard from '@/app/auth/components/TermsAndConditionsCard';
+
   export default {
     name: 'generic-dialog-card',
+    data () {
+      return {
+        formSubmittable: false,
+        formHasValues: false
+      };
+    },
     components: {
       LoginCard,
-      LoginActions,
+      SubmitFormButtonGroup,
       TermsAndConditionsCard
     },
     props: {
       title: String,
       currentComponent: String,
-      currentActions: String
+      currentActions: {
+        type: String,
+        validator: value => ['submit-form-button-group', ''].indexOf(value) !== -1
+      }
     },
     methods: {
       closeDialog () {
