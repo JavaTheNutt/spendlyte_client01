@@ -1,11 +1,13 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify';
+import VeeValidate from 'vee-validate';
 import 'vuetify/dist/vuetify.css';
 
 import App from './app/App';
 import config from './config';
 import colors from 'vuetify/es5/util/colors';
 
+Vue.use(VeeValidate);
 Vue.use(Vuetify, {
   theme: {
     primary: colors.blue.base,
