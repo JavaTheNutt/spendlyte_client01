@@ -11,12 +11,11 @@
             required
             v-validate="'required|email'"
             data-vv-name="email"
-            data-vv-delay="1000"
             :error-messages="errors.collect('email')"
             ref="emailField"
             @change="inputTriggered"
             @input="inputTriggered"
-          ></v-text-field>
+          />
         </v-flex>
         <v-flex>
           <v-text-field
@@ -35,7 +34,7 @@
             ref="password"
             @change="inputTriggered"
             @input="inputTriggered"
-          ></v-text-field>
+          />
         </v-flex>
         <!--<v-flex v-show="createAccountTicked">
           <v-text-field
@@ -80,6 +79,8 @@
   </form>
 </template>
 <script>
+  import DialogBus from '../../widgets/dialogs/DialogBus';
+
   export default {
     name: 'login-card',
     data () {
@@ -90,14 +91,18 @@
         },
         confirmPassword: '',
         passwordShown: false,
-        createAccountTicked: false,
-        errorMessage: '',
-        loading: false
+        createAccountTicked: false
       };
+    },
+    props: {
+      inDialog: {
+        type: Boolean,
+        default: true
+      }
     },
     computed: {
       formValid () {
-        return this.fields.email.dirty && this.fields.password.dirty && (this.errors.collect('email').length + this.errors.collect('password').length === 0) && this.formHasValues();
+        return this.fields.email.dirty && this.fields.password.dirty && (this.errors.collect('email').length + this.errors.collect('password').length === 0) && this.formHasValues;
       },
       formHasValues () {
         return this.submissionDetails.email.length + this.submissionDetails.password.length > 0;
@@ -108,13 +113,43 @@
         console.log('form submission caught');
         if (this.formValid) this.$emit('form_submitted', this.submissionDetails);
       },
+      submitForm () {
+        console.log('submit form event triggered in login form');
+        if (this.formValid) console.log('form is valid and submitted');
+      },
       inputTriggered () {
         console.log('input event triggered');
-        this.$emit('input-triggered', {
-          details: this.submissionDetails,
-          valid: this.formValid,
-          hasValues: this.formHasValues
+        this.$nextTick(async function () {
+          this.$emit('input-triggered', {
+            details: this.submissionDetails,
+            valid: await this.$validator.validateAll(),
+            hasValues: this.submissionDetails.email.length + this.submissionDetails.password.length > 0
+          });
         });
+      },
+      resetForm () {
+        console.log('reset login form triggered');
+        // found at: https://stackoverflow.com/a/40856312/4108556 resets data object to initial
+        Object.assign(this.$data, this.$options.data.call(this));
+        // found at: https://github.com/baianat/vee-validate/issues/285
+        this.$nextTick(function () {
+          const self = this;
+          Object.keys(this.fields).some(key => {
+            self.$validator.flag(key, {
+              untouched: true,
+              dirty: false
+            });
+          });
+          this.errors.clear();
+          this.inputTriggered();
+        });
+      }
+    },
+    mounted () {
+      if (this.inDialog) {
+        console.log('login form mounted in dialog');
+        DialogBus.$on('reset-form', () => this.resetForm());
+        DialogBus.$on('submit-form', () => this.submitForm());
       }
     }
   };

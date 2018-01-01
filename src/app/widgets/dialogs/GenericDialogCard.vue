@@ -3,17 +3,8 @@
     <v-card-title primary-title>
       <h3 class="headline mb-0">{{title}}</h3>
     </v-card-title>
-    <component :is="currentComponent" @input-triggered="inputTriggered"></component>
+    <component :is="currentComponent" @input-triggered="inputTriggered"/>
     <v-card-actions>
-      <!--<v-spacer></v-spacer>
-      <component :is="currentActions"
-                 :has-close="true"
-                 :form-submittable="formSubmittable"
-                 :form-has-values="formHasValues"
-                 @close-clicked="closeDialog"
-                 @submit-clicked="submitClicked"
-                 @reset-clicked="resetClicked"
-      ></component>-->
       <submit-form-button-group
         :has-close="true"
         :form-submittable="formSubmittable"
@@ -22,7 +13,7 @@
         :negative-text="negText"
         @close-clicked="closeDialog"
         @submit-clicked="submitClicked"
-        @reset-clicked="resetClicked"></submit-form-button-group>
+        @reset-clicked="resetClicked"/>
     </v-card-actions>
   </v-card>
 </template>
@@ -30,8 +21,10 @@
   import LoginCard from '@/app/auth/components/LoginCard';
   import SubmitFormButtonGroup from '@/app/widgets/forms/buttonGroups/SubmitFormButtonGroup';
   import TermsAndConditionsCard from '@/app/auth/components/TermsAndConditionsCard';
+  import DialogBus from './DialogBus';
 
   export default {
+    // fixme create a bus to transmit data from the form container to the form for submission
     name: 'generic-dialog-card',
     data () {
       return {
@@ -70,12 +63,15 @@
     methods: {
       closeDialog () {
         this.$emit('dialog-closed');
+        DialogBus.$emit('reset-form');
       },
       submitClicked () {
         console.log('submit clicked');
+        DialogBus.$emit('submit-form');
       },
       resetClicked () {
         console.log('reset clicked');
+        DialogBus.$emit('reset-form');
       },
       inputTriggered (data) {
         console.log(`input triggered: ${JSON.stringify(data)}`);

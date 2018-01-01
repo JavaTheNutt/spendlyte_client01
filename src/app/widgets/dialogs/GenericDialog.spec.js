@@ -6,7 +6,7 @@ describe('GenericDialog.vue', () => {
     it('should return the name of the function, replacing "card" with "actions"', () => {
       const wrapper = shallow(GenericDialog);
       const refinedName = wrapper.vm.fetchActions('some-card');
-      expect(refinedName).to.equal('some-actions');
+      expect(refinedName).to.equal('submit-form-button-group');
     });
   });
 });
