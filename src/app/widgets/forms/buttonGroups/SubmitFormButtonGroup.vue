@@ -1,10 +1,13 @@
 <template>
   <v-container fluid>
     <v-layout row wrap align-right>
-      <v-flex class="text-xs-right">
+      <v-flex class="text-xs-right" v-if="!loading">
         <v-btn color="primary" @click="submitClicked" :disabled="!formSubmittable">{{positiveText}}</v-btn>
         <v-btn color="accent" @click="resetClicked" :disabled="!formHasValues">{{negativeText}}</v-btn>
         <v-btn flat color="primary" v-if="hasClose" @click.stop="closeClicked">close</v-btn>
+      </v-flex>
+      <v-flex v-if="loading">
+        <v-progress-circular indeterminate color="primary"/>
       </v-flex>
     </v-layout>
   </v-container>
@@ -23,6 +26,10 @@
       negativeText: {
         type: String,
         default: 'reset'
+      },
+      loading: {
+        type: Boolean,
+        default: false
       }
     },
     methods: {

@@ -36,6 +36,7 @@
             @input="inputTriggered"
           />
         </v-flex>
+
         <!--<v-flex v-show="createAccountTicked">
           <v-text-field
             name="confirmPasswordField"
@@ -50,7 +51,7 @@
             v-validate="'required|confirmed:$password'"
             data-vv-name="confirmPassword"
             :error-messages="errors.collect('confirmPassword')"></v-text-field>
-        </v-flex>
+        </v-flex> -->
         <v-flex>
           <v-checkbox label="Create new account?"
                       v-model="createAccountTicked"
@@ -58,9 +59,8 @@
                       value="yes"
                       hide-details
                       id="createNewAccountCheckbox"
-          ></v-checkbox>
-
-        </v-flex>-->
+          />
+        </v-flex>
       </v-layout>
       <!--<v-layout row>
         <v-flex v-if="loading">

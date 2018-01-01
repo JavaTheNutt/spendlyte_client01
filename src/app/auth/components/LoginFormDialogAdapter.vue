@@ -9,6 +9,7 @@
         :has-close="true"
         :form-submittable="formSubmittable"
         :form-has-values="formHasValues"
+        :loading="loading"
         positive-text="Submit"
         negative-text="Reset"
         @close-clicked="closeDialog"
@@ -28,7 +29,8 @@
       return {
         formSubmittable: false,
         formHasValues: false,
-        formData: {}
+        formData: {},
+        loading: false
       };
     },
     components: {
@@ -41,6 +43,7 @@
         _authBus.$emit('reset-form');
       },
       submitClicked () {
+        // this.loading = true;
         console.log('submit clicked');
         _authBus.$emit('submit-form');
       },
