@@ -41,7 +41,7 @@
       },
       logInClicked () {
         this.logIn();
-        Bus.$emit('show_dialog', { card: 'login-card', title: 'Please login or sign up to use this service' });
+        Bus.$emit('show_dialog', { card: 'login-form-dialog-adapter' });
       }
     }
   };

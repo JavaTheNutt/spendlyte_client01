@@ -18,7 +18,7 @@
   </v-card>
 </template>
 <script>
-  import LoginCard from '@/app/auth/components/LoginCard';
+  import LoginCard from '@/app/auth/components/EmailPasswordForm';
   import SubmitFormButtonGroup from '@/app/widgets/forms/buttonGroups/SubmitFormButtonGroup';
   import TermsAndConditionsCard from '@/app/auth/components/TermsAndConditionsCard';
   import DialogBus from './DialogBus';

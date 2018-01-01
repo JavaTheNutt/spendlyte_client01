@@ -79,10 +79,10 @@
   </form>
 </template>
 <script>
-  import DialogBus from '../../widgets/dialogs/DialogBus';
+  import _authBus from '../service/internalAuthBus';
 
   export default {
-    name: 'login-card',
+    name: 'email-password-form',
     data () {
       return {
         submissionDetails: {
@@ -148,8 +148,8 @@
     mounted () {
       if (this.inDialog) {
         console.log('login form mounted in dialog');
-        DialogBus.$on('reset-form', () => this.resetForm());
-        DialogBus.$on('submit-form', () => this.submitForm());
+        _authBus.$on('reset-form', () => this.resetForm());
+        _authBus.$on('submit-form', () => this.submitForm());
       }
     }
   };

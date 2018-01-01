@@ -1,17 +1,18 @@
 <template>
   <v-dialog v-model="dialogShown" :max-width="width">
-    <generic-dialog-card
+    <component :is="currentCard" @dialog-closed="dialogShown = false"/>
+    <!--<generic-dialog-card
       :title="title"
       :current-component="currentCard"
       :current-actions="currentActions"
       style="height: 100%;"
       @dialog-closed="dialogShown = false"
-    ></generic-dialog-card>
+    />-->
   </v-dialog>
 </template>
 <script>
   import Bus from '@/app/events/bus';
-  import GenericDialogCard from './GenericDialogCard';
+  import LoginFormDialogAdapter from '@/app/auth/components/LoginFormDialogAdapter';
 
   export default {
     name: 'generic-dialog',
@@ -25,7 +26,7 @@
       };
     },
     components: {
-      GenericDialogCard
+      LoginFormDialogAdapter
     },
     mounted () {
       Bus.$on('show_dialog', params => {
