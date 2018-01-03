@@ -5,8 +5,6 @@ import NavBus from '../service/navBus';
 import * as navService from '../service/navigationService';
 import authTypes from '@/app/auth/vuex/types';
 import Vuex from 'vuex';
-import Vue from 'vue';
-import router from '@/router';
 import { createLocalVue, mount, shallow } from 'vue-test-utils';
 
 // fixme test watchers

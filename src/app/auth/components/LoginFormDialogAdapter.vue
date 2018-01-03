@@ -3,7 +3,7 @@
     <v-card-title primary-title>
       <h3 class="headline mb-0">Please log in or sign up to use this service</h3>
     </v-card-title>
-    <email-password-form @input-triggered="inputTriggered"/>
+    <email-password-form @input-triggered="inputTriggered" @validity-updated="validityUpdated" @has-values-updated="valuesUpdated"/>
     <v-card-actions>
       <submit-form-button-group
         :has-close="true"
@@ -53,9 +53,13 @@
       },
       inputTriggered (data) {
         console.log(`input triggered: ${JSON.stringify(data)}`);
-        this.formSubmittable = data.valid;
-        this.formHasValues = data.hasValues;
         this.formData = data.details;
+      },
+      validityUpdated (valid) {
+        this.formSubmittable = valid;
+      },
+      valuesUpdated (hasValues) {
+        this.formHasValues = hasValues;
       }
     }
   };

@@ -1,5 +1,9 @@
 <template>
-  <form novalidate ref="loginForm" v-model="formValid" @submit.stop.prevent="formSubmitted" @keyup.enter="formSubmitted">
+  <form novalidate
+        ref="loginForm"
+        v-model="formValid"
+        @submit.stop.prevent="formSubmitted"
+        @keyup.enter="formSubmitted">
     <v-container grid-list-md text-xs-center>
       <v-layout column>
         <v-flex>
@@ -37,7 +41,7 @@
           />
         </v-flex>
 
-        <!--<v-flex v-show="createAccountTicked">
+        <v-flex v-show="createAccountTicked">
           <v-text-field
             name="confirmPasswordField"
             label="Confirm your Password"
@@ -50,8 +54,10 @@
             :append-icon-cb="()=>(passwordShown = !passwordShown)"
             v-validate="'required|confirmed:$password'"
             data-vv-name="confirmPassword"
-            :error-messages="errors.collect('confirmPassword')"></v-text-field>
-        </v-flex> -->
+            :error-messages="errors.collect('confirmPassword')"
+            @change="inputTriggered"
+            @input="inputTriggered"/>
+        </v-flex>
         <v-flex>
           <v-checkbox label="Create new account?"
                       v-model="createAccountTicked"
@@ -59,6 +65,7 @@
                       value="yes"
                       hide-details
                       id="createNewAccountCheckbox"
+                      @change="inputTriggered"
           />
         </v-flex>
       </v-layout>
@@ -102,10 +109,43 @@
     },
     computed: {
       formValid () {
-        return this.fields.email.dirty && this.fields.password.dirty && (this.errors.collect('email').length + this.errors.collect('password').length === 0) && this.formHasValues;
+        const standardValid = this.hasFields && this.standardFieldsValid;
+        return this.createAccountTicked
+        ? standardValid && !this.errors.has('confirmPassword')
+        : standardValid;
+      },
+      standardFieldsValid () {
+        return this.standardFieldsInteractedWith && !this.errors.has('email') && !this.errors.has('password');
+      },
+      formInteractedWith () {
+        return this.standardFieldsInteractedWith && this.fields.confirmPassword.dirty;
+      },
+      standardFieldsInteractedWith () {
+        return this.hasFields && this.fields.email.dirty && this.fields.password.dirty;
+      },
+      hasFields () {
+        return !!this.fields.email && !!this.fields.password;
       },
       formHasValues () {
-        return this.submissionDetails.email.length + this.submissionDetails.password.length > 0;
+        console.log('evaluating form has values');
+        return this.submissionDetails.email.length + this.submissionDetails.password.length + this.confirmPassword.length > 0;
+      },
+      passwordMatch () {
+        if (!this.createAccountTicked) return this.errors.collect('password').length === 0 && this.submissionDetails.password !== '';
+        return this.errors.collect('confirmPassword').length + this.errors.collect('password').length === 0 && this.submissionDetails.password !== '';
+      }
+    },
+    watch: {
+      formHasValues (newVal, oldVal) {
+        console.log('watcher triggered for form has values');
+        console.log(`value changed: ${newVal !== oldVal}`);
+        if (newVal !== oldVal) this.$emit('has-values-updated', newVal);
+      },
+      formValid (newVal, oldVal) {
+        console.log('watcher triggered for form has values');
+        console.log(`value changed: ${newVal !== oldVal}`);
+        if (newVal !== oldVal) this.$emit('validity-updated', newVal);
+        if (newVal) this.inputTriggered();
       }
     },
     methods: {
@@ -119,13 +159,13 @@
       },
       inputTriggered () {
         console.log('input event triggered');
-        this.$nextTick(async function () {
-          this.$emit('input-triggered', {
-            details: this.submissionDetails,
-            valid: await this.$validator.validateAll(),
-            hasValues: this.submissionDetails.email.length + this.submissionDetails.password.length > 0
+        if (this.formValid) {
+          this.$nextTick(function () {
+            this.$emit('input-triggered', {
+              details: this.submissionDetails
+            });
           });
-        });
+        }
       },
       resetForm () {
         console.log('reset login form triggered');
@@ -136,12 +176,14 @@
           const self = this;
           Object.keys(this.fields).some(key => {
             self.$validator.flag(key, {
+              touched: false,
               untouched: true,
-              dirty: false
+              dirty: false,
+              pristine: true
             });
           });
           this.errors.clear();
-          this.inputTriggered();
+          // this.inputTriggered();
         });
       }
     },

@@ -3,9 +3,9 @@
 // we are also using it with karma-webpack
 //   https://github.com/webpack/karma-webpack
 
-var webpackConfig = require('../../build/webpack.test.conf')
+var webpackConfig = require('../../build/webpack.test.conf');
 var browsers = ['PhantomJS'];
-if(process.env.TRAVIS){
+if (process.env.TRAVIS) {
   browsers.concat(['Chrome', 'Firefox']);
 }
 module.exports = function (config) {
@@ -17,7 +17,7 @@ module.exports = function (config) {
     browsers: browsers,
     frameworks: ['mocha', 'sinon-chai', 'phantomjs-shim'],
     reporters: ['spec', 'coverage'],
-    files: ['../../node_modules/babel-polyfill/dist/polyfill.js','./index.js'],
+    files: ['../../node_modules/babel-polyfill/dist/polyfill.js', './index.js'],
     preprocessors: {
       './index.js': ['webpack', 'sourcemap']
     },
@@ -32,5 +32,5 @@ module.exports = function (config) {
         { type: 'text-summary' }
       ]
     }
-  })
+  });
 };
