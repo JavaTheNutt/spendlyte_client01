@@ -1,6 +1,6 @@
 <template>
-  <v-dialog v-model="dialogShown" :max-width="width">
-    <component :is="currentCard" @dialog-closed="dialogShown = false"/>
+  <v-dialog v-model="dialogShown" :max-width="width" ref="genericDialog">
+    <component :is="currentCard" @dialog-closed="dialogShown = false" ref="currentComponent"/>
   </v-dialog>
 </template>
 <script>
@@ -13,9 +13,7 @@
       return {
         dialogShown: false,
         currentCard: '',
-        currentActions: '',
-        width: '700px',
-        title: ''
+        width: '700px'
       };
     },
     components: {
@@ -23,8 +21,8 @@
     },
     mounted () {
       Bus.$on('show_dialog', params => {
+        if (!params || !params.card) return;
         this.currentCard = params.card;
-        this.title = params.title || 'I am a dialog';
         this.width = params.width || '700px';
         this.dialogShown = true;
       });
