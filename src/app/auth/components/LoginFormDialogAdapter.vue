@@ -22,7 +22,7 @@
   import SubmitFormButtonGroup from '@/app/widgets/forms/buttonGroups/SubmitFormButtonGroup';
   import _authBus from '../service/internalAuthBus';
   import EmailPasswordForm from './EmailPasswordForm';
-
+  import * as Logger from 'loglevel';
   export default {
     name: 'login-form-dialog-adapter',
     data () {
@@ -44,15 +44,15 @@
       },
       submitClicked () {
         // this.loading = true;
-        console.log('submit clicked');
+        Logger.info('submit clicked');
         _authBus.$emit('submit-form');
       },
       resetClicked () {
-        console.log('reset clicked');
+        Logger.info('reset clicked');
         _authBus.$emit('reset-form');
       },
       inputTriggered (data) {
-        console.log(`input triggered: ${JSON.stringify(data)}`);
+        Logger.info(`input triggered: ${JSON.stringify(data)}`);
         this.formData = data.details;
       },
       validityUpdated (valid) {

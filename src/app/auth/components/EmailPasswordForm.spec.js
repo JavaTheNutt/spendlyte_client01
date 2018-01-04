@@ -49,14 +49,13 @@ describe('EmailPasswordForm.vue', () => {
         });
         const emailField = wrapper.find({ ref: 'emailField' })/!* .simulate('change')*!/;
         emailField.element.blur();
-        console.log(emailField);
+        Logger.info(emailField);
         expect(wrapper.vm.passwordMatch).to.be.false;
       });*!/
     });*/
     describe('has values', () => {
       it('should return false when all fields are empty', () => {
         // const wrapper = shallow(EmailPasswordForm, { localVue });
-        console.log(wrapper.vm.submissionDetails);
         expect(wrapper.vm.formHasValues).to.be.false;
       });
       it('should return true when there is a value in the email field', () => {
@@ -345,10 +344,10 @@ describe('EmailPasswordForm.vue', () => {
         confirmPassword: 'wwwwww'
       });
       await wrapper.vm.$validator.validate('confirmPassword');
-      console.log(wrapper.vm.errors.collect('confirmPassword'));
+      Logger.info(wrapper.vm.errors.collect('confirmPassword'));
       // LOGS: ['The confirmPassword confirmation does not match.']
 
-      console.log(wrapper.vm.submissionDetails.password === wrapper.vm.confirmPassword);
+      Logger.info(wrapper.vm.submissionDetails.password === wrapper.vm.confirmPassword);
       // LOGS: true
 
       expect(wrapper.vm.errors.has('confirmPassword')).to.be.false;

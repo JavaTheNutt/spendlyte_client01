@@ -87,6 +87,7 @@
 </template>
 <script>
   import _authBus from '../service/internalAuthBus';
+  import * as Logger from 'loglevel';
 
   export default {
     name: 'email-password-form',
@@ -127,7 +128,7 @@
         return !!this.fields.email && !!this.fields.password;
       },
       formHasValues () {
-        console.log('evaluating form has values');
+        Logger.info('evaluating form has values');
         return this.submissionDetails.email.length + this.submissionDetails.password.length + this.confirmPassword.length > 0;
       },
       passwordMatch () {
@@ -146,15 +147,15 @@
     },
     methods: {
       formSubmitted () {
-        console.log('form submission caught');
+        Logger.info('form submission caught');
         if (this.formValid) this.$emit('form_submitted', this.submissionDetails);
       },
       submitForm () {
-        console.log('submit form event triggered in login form');
-        if (this.formValid) console.log('form is valid and submitted');
+        Logger.info('submit form event triggered in login form');
+        if (this.formValid) Logger.info('form is valid and submitted');
       },
       inputTriggered () {
-        console.log('input event triggered');
+        Logger.info('input event triggered');
         if (this.formValid) {
           this.$nextTick(function () {
             this.$emit('input-triggered', {
@@ -164,7 +165,7 @@
         }
       },
       resetForm () {
-        console.log('reset login form triggered');
+        Logger.info('reset login form triggered');
         // found at: https://stackoverflow.com/a/40856312/4108556 resets data object to initial
         Object.assign(this.$data, this.$options.data.call(this));
         // found at: https://github.com/baianat/vee-validate/issues/285
@@ -185,7 +186,7 @@
     },
     mounted () {
       if (this.inDialog) {
-        console.log('login form mounted in dialog');
+        Logger.info('login form mounted in dialog');
         _authBus.$on('reset-form', () => this.resetForm());
         _authBus.$on('submit-form', () => this.submitForm());
       }

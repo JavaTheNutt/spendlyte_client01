@@ -22,6 +22,7 @@
   import SubmitFormButtonGroup from '@/app/widgets/forms/buttonGroups/SubmitFormButtonGroup';
   import TermsAndConditionsCard from '@/app/auth/components/TermsAndConditionsCard';
   import DialogBus from './DialogBus';
+  import * as Logger from 'loglevel';
 
   export default {
     // fixme create a bus to transmit data from the form container to the form for submission
@@ -66,15 +67,15 @@
         DialogBus.$emit('reset-form');
       },
       submitClicked () {
-        console.log('submit clicked');
+        Logger.info('submit clicked');
         DialogBus.$emit('submit-form');
       },
       resetClicked () {
-        console.log('reset clicked');
+        Logger.info('reset clicked');
         DialogBus.$emit('reset-form');
       },
       inputTriggered (data) {
-        console.log(`input triggered: ${JSON.stringify(data)}`);
+        Logger.info(`input triggered: ${JSON.stringify(data)}`);
         this.formSubmittable = data.valid;
         this.formHasValues = data.hasValues;
         this.formData = data.details;
