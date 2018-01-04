@@ -11,7 +11,7 @@ if (process.env.TRAVIS) {
 console.log('setting log level in karma config');
 const logLevel = process.env.LOG_LEVEL || 'silent';
 console.log('current log level is ', logLevel);
-logLevel === 'silent' ? Logger.enableAll() : Logger.disableAll();
+logLevel === 'silent' ? Logger.disableAll() : Logger.enableAll();
 // Logger.setLevel(logLevel);
 
 module.exports = function (config) {

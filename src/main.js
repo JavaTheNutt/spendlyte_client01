@@ -11,7 +11,7 @@ import colors from 'vuetify/es5/util/colors';
 console.log('setting log level in app bootstrap');
 const logLevel = process.env.LOG_LEVEL || 'silent';
 console.log('current log level ', logLevel);
-logLevel === 'silent' ? Logger.enableAll() : Logger.disableAll();
+logLevel === 'silent' ? Logger.disableAll() : Logger.enableAll();
 // Logger.setLevel(process.env.LOG_LEVEL || 'silent');
 Vue.use(VeeValidate);
 Vue.use(Vuetify, {
