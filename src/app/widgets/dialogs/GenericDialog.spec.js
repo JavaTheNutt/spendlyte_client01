@@ -1,5 +1,5 @@
 import GenericDialog from './GenericDialog';
-import { shallow, mount } from 'vue-test-utils';
+import { shallow } from 'vue-test-utils';
 import Bus from '@/app/events/bus';
 
 describe('GenericDialog.vue', () => {
@@ -7,7 +7,7 @@ describe('GenericDialog.vue', () => {
   beforeEach(() => {
     wrapper = shallow(GenericDialog);
   });
-  describe.only('show dialog', () => {
+  describe('show dialog', () => {
     it('should correctly display a specified card', () => {
       Bus.$emit('show_dialog', {
         card: 'login-form-dialog-adapter',

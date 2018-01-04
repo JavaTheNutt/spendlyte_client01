@@ -3,7 +3,10 @@
     <v-card-title primary-title>
       <h3 class="headline mb-0">Please log in or sign up to use this service</h3>
     </v-card-title>
-    <email-password-form @input-triggered="inputTriggered" @validity-updated="validityUpdated" @has-values-updated="valuesUpdated"/>
+    <email-password-form @input-triggered="inputTriggered"
+                         @validity-updated="validityUpdated"
+                         @has-values-updated="valuesUpdated"
+                         ref="loginForm"/>
     <v-card-actions>
       <submit-form-button-group
         :has-close="true"
@@ -14,7 +17,9 @@
         negative-text="Reset"
         @close-clicked="closeDialog"
         @submit-clicked="submitClicked"
-        @reset-clicked="resetClicked"/>
+        @reset-clicked="resetClicked"
+        ref="loginButtonGroup"
+      />
     </v-card-actions>
   </v-card>
 </template>
@@ -23,6 +28,7 @@
   import _authBus from '../service/internalAuthBus';
   import EmailPasswordForm from './EmailPasswordForm';
   import * as Logger from 'loglevel';
+
   export default {
     name: 'login-form-dialog-adapter',
     data () {
