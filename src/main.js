@@ -8,7 +8,11 @@ import App from './app/App';
 import config from './config';
 import colors from 'vuetify/es5/util/colors';
 
-Logger.setLevel(process.env.LOG_LEVEL || 'silent');
+console.log('setting log level in app bootstrap');
+const logLevel = process.env.LOG_LEVEL || 'silent';
+console.log('current log level ', logLevel);
+logLevel === 'silent' ? Logger.enableAll() : Logger.disableAll();
+// Logger.setLevel(process.env.LOG_LEVEL || 'silent');
 Vue.use(VeeValidate);
 Vue.use(Vuetify, {
   theme: {

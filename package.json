@@ -10,6 +10,7 @@
     "build": "node build/build.js",
     "e2e": "node test/e2e/runner",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
+    "unit:verbose": "cross-env LOG_LEVEL=trace npm run unit",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit/specs",
     "lint:fix": "npm run lint -- --fix",
