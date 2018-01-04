@@ -137,13 +137,9 @@
     },
     watch: {
       formHasValues (newVal, oldVal) {
-        console.log('watcher triggered for form has values');
-        console.log(`value changed: ${newVal !== oldVal}`);
         if (newVal !== oldVal) this.$emit('has-values-updated', newVal);
       },
       formValid (newVal, oldVal) {
-        console.log('watcher triggered for form has values');
-        console.log(`value changed: ${newVal !== oldVal}`);
         if (newVal !== oldVal) this.$emit('validity-updated', newVal);
         if (newVal) this.inputTriggered();
       }

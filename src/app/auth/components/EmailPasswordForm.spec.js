@@ -1,8 +1,7 @@
 import EmailPasswordForm from './EmailPasswordForm';
 
-import { createLocalVue, mount, shallow } from 'vue-test-utils';
+import { createLocalVue, shallow } from 'vue-test-utils';
 import VeeValidate from 'vee-validate';
-// import Vue from 'vue';
 
 const localVue = createLocalVue();
 localVue.use(VeeValidate);
@@ -20,7 +19,7 @@ describe('EmailPasswordForm.vue', () => {
     };
   });
   describe('computed', () => {
-    describe('password match', () => {
+    /* describe('password match', () => {
       it('should return true if not creating a new account and password is valid', () => {
         const wrapper = mount(EmailPasswordForm, { localVue });
         wrapper.setData({
@@ -41,7 +40,7 @@ describe('EmailPasswordForm.vue', () => {
         });
         expect(wrapper.vm.passwordMatch).to.be.true;
       });
-      /* it('should return false when passwords do not match', () => {
+      /!* it('should return false when passwords do not match', () => {
         const wrapper = mount(EmailPasswordForm, { localVue });
         wrapper.setData({
           submissionDetails: { password: 'wwwwwww' },
@@ -52,37 +51,37 @@ describe('EmailPasswordForm.vue', () => {
         emailField.element.blur();
         console.log(emailField);
         expect(wrapper.vm.passwordMatch).to.be.false;
-      });*/
-    });
+      });*!/
+    });*/
     describe('has values', () => {
       it('should return false when all fields are empty', () => {
-        const wrapper = shallow(EmailPasswordForm, { localVue });
+        // const wrapper = shallow(EmailPasswordForm, { localVue });
         console.log(wrapper.vm.submissionDetails);
         expect(wrapper.vm.formHasValues).to.be.false;
       });
       it('should return true when there is a value in the email field', () => {
-        const wrapper = shallow(EmailPasswordForm, { localVue });
+        // const wrapper = shallow(EmailPasswordForm, { localVue });
         initialData.submissionDetails.password = '';
         initialData.confirmPassword = '';
         wrapper.setData(initialData);
         expect(wrapper.vm.formHasValues).to.be.true;
       });
       it('should return true when there is a value in the password field', () => {
-        const wrapper = shallow(EmailPasswordForm, { localVue });
+        // const wrapper = shallow(EmailPasswordForm, { localVue });
         initialData.submissionDetails.email = '';
         initialData.confirmPassword = '';
         wrapper.setData(initialData);
         expect(wrapper.vm.formHasValues).to.be.true;
       });
       it('should return true when there is a value in the confirm password field', () => {
-        const wrapper = shallow(EmailPasswordForm, { localVue });
+        // const wrapper = shallow(EmailPasswordForm, { localVue });
         initialData.submissionDetails.email = '';
         initialData.submissionDetails.password = '';
         wrapper.setData(initialData);
         expect(wrapper.vm.formHasValues).to.be.true;
       });
       it('should return true when there is a value in all of the fields', () => {
-        const wrapper = shallow(EmailPasswordForm, { localVue });
+        // const wrapper = shallow(EmailPasswordForm, { localVue });
         initialData.confirmPassword = 'j';
         initialData.submissionDetails.email = 'j';
         initialData.submissionDetails.password = 'j';
@@ -92,11 +91,9 @@ describe('EmailPasswordForm.vue', () => {
     });
     describe('standard fields valid', () => {
       it('should default to false', () => {
-        const wrapper = shallow(EmailPasswordForm, { localVue });
         expect(wrapper.vm.standardFieldsValid).to.be.false;
       });
       it('should return false when there is an error in the email field', async () => {
-        const wrapper = shallow(EmailPasswordForm, { localVue });
         wrapper.vm.fields.email.dirty = true;
         wrapper.vm.fields.password.dirty = true;
         initialData.submissionDetails.email = 'xxxxxx';
@@ -105,7 +102,6 @@ describe('EmailPasswordForm.vue', () => {
         expect(wrapper.vm.standardFieldsValid).to.be.false;
       });
       it('should return false when there is an error in the password field', async () => {
-        const wrapper = shallow(EmailPasswordForm, { localVue });
         wrapper.vm.fields.email.dirty = true;
         wrapper.vm.fields.password.dirty = true;
         initialData.submissionDetails.password = 'xxx';
@@ -114,7 +110,6 @@ describe('EmailPasswordForm.vue', () => {
         expect(wrapper.vm.standardFieldsValid).to.be.false;
       });
       it('should return true when there no errors in either field', async () => {
-        const wrapper = shallow(EmailPasswordForm, { localVue });
         wrapper.vm.fields.email.dirty = true;
         wrapper.vm.fields.password.dirty = true;
         initialData.submissionDetails.password = 'xxxxxx';
@@ -126,19 +121,16 @@ describe('EmailPasswordForm.vue', () => {
     });
     describe('standard fields interacted with', () => {
       it('should return true when both the email and password fields have been interacted with', () => {
-        const wrapper = shallow(EmailPasswordForm, { localVue });
         wrapper.vm.fields.email.dirty = true;
         wrapper.vm.fields.password.dirty = true;
         expect(wrapper.vm.standardFieldsInteractedWith).to.be.true;
       });
       it('should return false when the email field has not been interacted with', () => {
-        const wrapper = shallow(EmailPasswordForm, { localVue });
         wrapper.vm.fields.email.dirty = false;
         wrapper.vm.fields.password.dirty = true;
         expect(wrapper.vm.standardFieldsInteractedWith).to.be.false;
       });
       it('should return false when the password field has not been interacted with', () => {
-        const wrapper = shallow(EmailPasswordForm, { localVue });
         wrapper.vm.fields.password.dirty = false;
         wrapper.vm.fields.email.dirty = true;
         expect(wrapper.vm.standardFieldsInteractedWith).to.be.false;
@@ -268,7 +260,6 @@ describe('EmailPasswordForm.vue', () => {
   });
   describe('validation', () => {
     it('should flag invalid email addresses', async () => {
-      const wrapper = mount(EmailPasswordForm, { localVue });
       wrapper.setData({
         submissionDetails: {
           password: 'wwwwww',
@@ -282,13 +273,11 @@ describe('EmailPasswordForm.vue', () => {
       expect(wrapper.vm.errors.first('email')).to.equal('The email field must be a valid email.');
     });
     it('should not accept blank email addresses', async () => {
-      const wrapper = mount(EmailPasswordForm, { localVue });
       await wrapper.vm.$validator.validate('email');
       expect(wrapper.vm.errors.has('email')).to.be.true;
       expect(wrapper.vm.errors.first('email')).to.equal('The email field is required.');
     });
     it('should accept valid email addresses', async () => {
-      const wrapper = mount(EmailPasswordForm, { localVue });
       wrapper.setData({
         submissionDetails: {
           password: 'wwwwww',
@@ -301,13 +290,11 @@ describe('EmailPasswordForm.vue', () => {
       expect(wrapper.vm.errors.has('email')).to.be.false;
     });
     it('should not accept blank passwords', async () => {
-      const wrapper = shallow(EmailPasswordForm, { localVue });
       await wrapper.vm.$validator.validate('password');
       expect(wrapper.vm.errors.has('password')).to.be.true;
       expect(wrapper.vm.errors.first('password')).to.equal('The password field is required.');
     });
     it('should not accept passwords of less than 6 characters', async () => {
-      const wrapper = shallow(EmailPasswordForm, { localVue });
       wrapper.setData({
         submissionDetails: {
           password: 'wwww',
@@ -321,7 +308,6 @@ describe('EmailPasswordForm.vue', () => {
       expect(wrapper.vm.errors.first('password')).to.equal('The password field must be at least 6 characters.');
     });
     it('should  accept passwords that are 6 characters', async () => {
-      const wrapper = shallow(EmailPasswordForm, { localVue });
       wrapper.setData({
         submissionDetails: {
           password: 'wwwwww',
@@ -334,7 +320,6 @@ describe('EmailPasswordForm.vue', () => {
       expect(wrapper.vm.errors.has('password')).to.be.false;
     });
     it('should attach an error to confirm password when it does not match the password', async () => {
-      const wrapper = shallow(EmailPasswordForm, { localVue });
       wrapper.setData({
         submissionDetails: {
           password: 'wwwwww',
