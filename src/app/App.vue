@@ -14,8 +14,15 @@
 <script>
   import { NavContainer } from './navigation';
   import GenericDialog from './widgets/dialogs/GenericDialog';
+  import { registerAuthStateListener } from './auth/service/FirebaseAuthService';
 
   export default {
-    components: { NavContainer, GenericDialog }
+    components: {
+      NavContainer,
+      GenericDialog
+    },
+    mounted () {
+      registerAuthStateListener();
+    }
   };
 </script>

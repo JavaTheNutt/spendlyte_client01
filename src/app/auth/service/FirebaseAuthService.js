@@ -12,3 +12,8 @@ export const signUpWithEmailAndPassword = async (email, password) => {
     return false;
   }
 };
+
+export const registerAuthStateListener = () => {
+  Logger.info('registering auth state listener');
+  firebase.auth().onAuthStateChanged(user => Logger.info('user logged in: ', user));
+};
