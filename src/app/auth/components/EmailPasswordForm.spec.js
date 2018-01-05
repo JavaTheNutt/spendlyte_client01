@@ -144,32 +144,32 @@ describe('EmailPasswordForm.vue', () => {
           beforeEach(() => {
             initialData.createAccountTicked = true;
           });
-          // FIXME: this is returning false for the confirm password field, as this seems to always be invalid
-          /* it('should return true when all fields are valid', async () => {
+          it('should return true when all fields are valid', async () => {
             wrapper.setData(initialData);
             await wrapper.vm.$validator.validateAll();
             expect(wrapper.vm.formValid).to.be.true;
-          });*/
+          });
           it('should return false when the email is missing', async () => {
-            initialData.email = '';
+            initialData.submissionDetails.email = '';
             wrapper.setData(initialData);
             await wrapper.vm.$validator.validateAll();
+            console.log(`errors: ${JSON.stringify(wrapper.vm.errors)}`);
             expect(wrapper.vm.formValid).to.be.false;
           });
           it('should return false when the email is invalid', async () => {
-            initialData.email = 'joe';
+            initialData.submissionDetails.email = 'joe';
             wrapper.setData(initialData);
             await wrapper.vm.$validator.validateAll();
             expect(wrapper.vm.formValid).to.be.false;
           });
           it('should return false when the password is missing', async () => {
-            initialData.password = '';
+            initialData.submissionDetails.password = '';
             wrapper.setData(initialData);
             await wrapper.vm.$validator.validateAll();
             expect(wrapper.vm.formValid).to.be.false;
           });
           it('should return false when the password is invalid', async () => {
-            initialData.password = 'vv';
+            initialData.submissionDetails.password = 'vv';
             wrapper.setData(initialData);
             await wrapper.vm.$validator.validateAll();
             expect(wrapper.vm.formValid).to.be.false;
@@ -296,12 +296,11 @@ describe('EmailPasswordForm.vue', () => {
         });
         await wrapper.vm.$validator.validate('confirmPassword');
         expect(wrapper.vm.errors.has('confirmPassword')).to.be.true;
-        expect(wrapper.vm.errors.first('confirmPassword')).to.equal('The confirmPassword confirmation does not match.');
+        expect(wrapper.vm.errors.first('confirmPassword')).to.equal('The confirmPassword value is not valid.');
       });
-      // FIXME: this test fails when it should pass:
       // https://stackoverflow.com/questions/48063544/testing-vee-validate-confirmed-rule
       // https://github.com/baianat/Vee-validate/issues/1015
-/*      it('should not attach an error to confirm password when it does match the password',async  () => {
+      it('should not attach an error to confirm password when it does match the password', async () => {
         wrapper.setData({
           submissionDetails: {
             password: 'wwwwww',
@@ -310,39 +309,9 @@ describe('EmailPasswordForm.vue', () => {
           createAccountTicked: true,
           confirmPassword: 'wwwwww'
         });
-        console.log('password field', wrapper.vm.fields.password);
-        console.log('confirm password field', wrapper.vm.fields.confirmPassword);
-        wrapper.vm.fields.password.dirty = true;
-        wrapper.vm.fields.password.untouched = false;
-        wrapper.vm.fields.password.touched = true;
-        wrapper.vm.fields.password.pristine = false;
-        wrapper.vm.fields.confirmPassword.dirty = true;
-        wrapper.vm.fields.confirmPassword.untouched = false;
-        wrapper.vm.fields.confirmPassword.touched = true;
-        wrapper.vm.fields.confirmPassword.pristine = false;
-
-        await wrapper.vm.$validator.validate('password');
-        console.log('password field', wrapper.vm.fields.password);
-        console.log('confirm password field', wrapper.vm.fields.confirmPassword);
-        console.log(wrapper.vm.errors.collect('confirmPassword'));
-        // LOGS: ['The confirmPassword confirmation does not match.']
-
-        console.log(wrapper.vm.submissionDetails.password === wrapper.vm.confirmPassword);
-        // LOGS: true
-
-        // expect(wrapper.vm.errors.has('confirmPassword')).to.be.false;
-        return Vue.nextTick().then(async () => {
-          await wrapper.vm.$validator.validate('confirmPassword');
-          console.log('confirm password field', wrapper.vm.fields.confirmPassword);
-          console.log(wrapper.vm.errors.collect('confirmPassword'));
-          // LOGS: ['The confirmPassword confirmation does not match.']
-
-          console.log(wrapper.vm.submissionDetails.password === wrapper.vm.confirmPassword);
-          // LOGS: true
-
-          expect(wrapper.vm.errors.has('confirmPassword')).to.be.false;
-        });
-      })*/;
+        await wrapper.vm.$validator.validate('confirmPassword');
+        expect(wrapper.vm.errors.has('confirmPassword')).to.be.false;
+      });
     });
     describe('watchers', () => {
       describe('form has values', () => {

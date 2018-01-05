@@ -52,7 +52,7 @@
             required
             :append-icon="passwordShown ? 'visibility_off': 'visibility'"
             :append-icon-cb="()=>(passwordShown = !passwordShown)"
-            v-validate="'required|confirmed:$password'"
+            v-validate="{required: true, is: submissionDetails.password}"
             data-vv-name="confirmPassword"
             :error-messages="errors.collect('confirmPassword')"
             @change="inputTriggered"
@@ -115,7 +115,7 @@
         : this.standardFieldsValid;
       },
       standardFieldsValid () {
-        return  this.standardFieldsInteractedWith && !this.errors.has('email') && !this.errors.has('password');
+        return this.standardFieldsInteractedWith && !this.errors.has('email') && !this.errors.has('password');
       },
       formInteractedWith () {
         return this.standardFieldsInteractedWith && this.fields.confirmPassword.dirty;
