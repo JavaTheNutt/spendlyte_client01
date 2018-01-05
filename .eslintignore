@@ -4,3 +4,4 @@ test/e2e/runner.js
 test/unit/index.js
 /test/unit/karma.conf.js
 /dist/
+/q.md

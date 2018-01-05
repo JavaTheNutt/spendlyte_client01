@@ -110,13 +110,12 @@
     },
     computed: {
       formValid () {
-        const standardValid = this.hasFields && this.standardFieldsValid;
         return this.createAccountTicked
-        ? standardValid && !this.errors.has('confirmPassword')
-        : standardValid;
+        ? this.standardFieldsValid && !this.errors.has('confirmPassword')
+        : this.standardFieldsValid;
       },
       standardFieldsValid () {
-        return this.standardFieldsInteractedWith && !this.errors.has('email') && !this.errors.has('password');
+        return  this.standardFieldsInteractedWith && !this.errors.has('email') && !this.errors.has('password');
       },
       formInteractedWith () {
         return this.standardFieldsInteractedWith && this.fields.confirmPassword.dirty;
@@ -130,10 +129,6 @@
       formHasValues () {
         Logger.info('evaluating form has values');
         return this.submissionDetails.email.length + this.submissionDetails.password.length + this.confirmPassword.length > 0;
-      },
-      passwordMatch () {
-        if (!this.createAccountTicked) return this.errors.collect('password').length === 0 && this.submissionDetails.password !== '';
-        return this.errors.collect('confirmPassword').length + this.errors.collect('password').length === 0 && this.submissionDetails.password !== '';
       }
     },
     watch: {
@@ -188,7 +183,6 @@
       if (this.inDialog) {
         Logger.info('login form mounted in dialog');
         _authBus.$on('reset-form', () => this.resetForm());
-        _authBus.$on('submit-form', () => this.submitForm());
       }
     }
   };
