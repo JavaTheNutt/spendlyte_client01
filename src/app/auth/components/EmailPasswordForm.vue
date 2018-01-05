@@ -145,10 +145,6 @@
         Logger.info('form submission caught');
         if (this.formValid) this.$emit('form_submitted', this.submissionDetails);
       },
-      submitForm () {
-        Logger.info('submit form event triggered in login form');
-        if (this.formValid) Logger.info('form is valid and submitted');
-      },
       inputTriggered () {
         Logger.info('input event triggered');
         if (this.formValid) {

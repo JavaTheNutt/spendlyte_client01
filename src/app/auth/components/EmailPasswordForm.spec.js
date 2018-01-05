@@ -153,7 +153,6 @@ describe('EmailPasswordForm.vue', () => {
             initialData.submissionDetails.email = '';
             wrapper.setData(initialData);
             await wrapper.vm.$validator.validateAll();
-            console.log(`errors: ${JSON.stringify(wrapper.vm.errors)}`);
             expect(wrapper.vm.formValid).to.be.false;
           });
           it('should return false when the email is invalid', async () => {
@@ -361,11 +360,32 @@ describe('EmailPasswordForm.vue', () => {
         });
       });
     });
+    describe('methods', () => {
+      describe('form submitted', () => {
+        it('should emit a form submission when the form is valid', async () => {
+          wrapper.setData(initialData);
+          await wrapper.vm.$validator.validateAll();
+          wrapper.vm.fields.email.dirty = true;
+          wrapper.vm.fields.password.dirty = true;
+          wrapper.vm.formSubmitted();
+          expect(wrapper.emitted()[ 'form_submitted' ].length).to.equal(1);
+        });
+        it('should not emit a form submission when the form is not valid', async () => {
+          initialData.submissionDetails.email = 'joe';
+          wrapper.setData(initialData);
+          await wrapper.vm.$validator.validateAll();
+          wrapper.vm.fields.email.dirty = true;
+          wrapper.vm.fields.password.dirty = true;
+          wrapper.vm.formSubmitted();
+          expect(Object.keys(wrapper.emitted())).to.not.include('form_submitted');
+        });
+      });
+    });
   });
   describe('mounted', () => {
     let emitStub;
     beforeEach(() => {
-      emitStub = sandbox.stub(_authBus, '$on');
+      emitStub = sandbox.spy(_authBus, '$on');
     });
     afterEach(() => {
       sandbox.restore();
@@ -379,6 +399,17 @@ describe('EmailPasswordForm.vue', () => {
       });
       expect(emitStub).to.be.calledOnce;
       expect(emitStub).to.be.calledWith('reset-form');
+    });
+    it('should trigger reset form when a reset form event is triggered', () => {
+      const wrapper = shallow(EmailPasswordForm, {
+        localVue,
+        propsData: {
+          inDialog: true
+        }
+      });
+      const resetSpy = sandbox.spy(wrapper.vm, 'resetForm');
+      _authBus.$emit('reset-form');
+      expect(resetSpy).to.be.calledOnce;
     });
     it('should not attach a reset form listener when not in a dialog', () => {
       shallow(EmailPasswordForm, {
