@@ -18,6 +18,7 @@ describe('EmailPasswordForm.vue', () => {
           password: 'wwwwww'
         },
         createAccountTicked: false,
+        passwordShown: false,
         confirmPassword: 'wwwwww'
       };
     });
@@ -378,6 +379,50 @@ describe('EmailPasswordForm.vue', () => {
           wrapper.vm.fields.password.dirty = true;
           wrapper.vm.formSubmitted();
           expect(Object.keys(wrapper.emitted())).to.not.include('form_submitted');
+        });
+      });
+      describe('reset-form', () => {
+        it('should reset the data to its initial values', () => {
+          wrapper.setData(initialData);
+          expect(wrapper.vm._data).to.eql(initialData);
+          wrapper.vm.resetForm();
+          expect(wrapper.vm._data).to.eql(wrapper.vm.$options.data());
+        });
+        it('should empty the error bag', async () => {
+          initialData.submissionDetails.email = 'joe';
+          wrapper.setData(initialData);
+          await wrapper.vm.$validator.validateAll();
+          expect(wrapper.vm.errors.has('email')).to.be.true;
+          await wrapper.vm.resetForm();
+          expect(wrapper.vm.errors.has('email')).to.be.false;
+        });
+        it('should reset the fields to their initial state', async () => {
+          wrapper.vm.fields.email.dirty = true;
+          wrapper.vm.fields.email.pristine = false;
+          wrapper.vm.fields.email.touched = true;
+          wrapper.vm.fields.email.untouched = false;
+          wrapper.vm.fields.password.dirty = true;
+          wrapper.vm.fields.password.pristine = false;
+          wrapper.vm.fields.password.touched = true;
+          wrapper.vm.fields.password.untouched = false;
+          wrapper.vm.fields.confirmPassword.dirty = true;
+          wrapper.vm.fields.confirmPassword.pristine = false;
+          wrapper.vm.fields.confirmPassword.touched = true;
+          wrapper.vm.fields.confirmPassword.untouched = false;
+          await wrapper.vm.$validator.validateAll();
+          await wrapper.vm.resetForm();
+          expect(wrapper.vm.fields.email.dirty).to.be.false;
+          expect(wrapper.vm.fields.password.dirty).to.be.false;
+          expect(wrapper.vm.fields.confirmPassword.dirty).to.be.false;
+          expect(wrapper.vm.fields.email.pristine).to.be.true;
+          expect(wrapper.vm.fields.password.pristine).to.be.true;
+          expect(wrapper.vm.fields.confirmPassword.pristine).to.be.true;
+          expect(wrapper.vm.fields.email.touched).to.be.false;
+          expect(wrapper.vm.fields.password.touched).to.be.false;
+          expect(wrapper.vm.fields.confirmPassword.touched).to.be.false;
+          expect(wrapper.vm.fields.email.untouched).to.be.true;
+          expect(wrapper.vm.fields.password.untouched).to.be.true;
+          expect(wrapper.vm.fields.confirmPassword.untouched).to.be.true;
         });
       });
     });

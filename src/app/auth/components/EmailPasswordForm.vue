@@ -110,9 +110,8 @@
     },
     computed: {
       formValid () {
-        return this.createAccountTicked
-        ? this.standardFieldsValid && !this.errors.has('confirmPassword')
-        : this.standardFieldsValid;
+        return this.createAccountTicked ? this.standardFieldsValid && !this.errors.has('confirmPassword')
+          : this.standardFieldsValid;
       },
       standardFieldsValid () {
         return this.standardFieldsInteractedWith && !this.errors.has('email') && !this.errors.has('password');
@@ -155,12 +154,32 @@
           });
         }
       },
+      clearFormData () {
+        return new Promise(resolve => {
+          Object.assign(this.$data, this.$options.data.call(this));
+          this.$nextTick().then(() => resolve());
+        });
+      },
       resetForm () {
         Logger.info('reset login form triggered');
+        const self = this;
+        return new Promise(resolve => {
+          this.clearFormData().then(() => {
+            this.$nextTick().then(() => {
+              self.$validator.reset();
+              self.errors.clear();
+              resolve();
+            });
+          });
+        });
+
         // found at: https://stackoverflow.com/a/40856312/4108556 resets data object to initial
-        Object.assign(this.$data, this.$options.data.call(this));
+        // Object.assign(this.$data, this.$options.data.call(this));
+        /* this.$nextTick().then(function() {
+          this.$validator.reset();
+        });*/
         // found at: https://github.com/baianat/vee-validate/issues/285
-        this.$nextTick(function () {
+        /* this.$nextTick(function () {
           const self = this;
           Object.keys(this.fields).some(key => {
             self.$validator.flag(key, {
@@ -172,7 +191,7 @@
           });
           this.errors.clear();
           // this.inputTriggered();
-        });
+        });*/
       }
     },
     mounted () {
