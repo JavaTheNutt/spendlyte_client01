@@ -17,7 +17,8 @@
     "serve-coverage": "serve test/unit/coverage/lcov-report"
   },
   "dependencies": {
-    "D": "^1.0.0",
+    "dotenv": "^4.0.0",
+    "firebase": "^4.8.1",
     "loglevel": "^1.6.0",
     "vee-validate": "^2.0.0",
     "vue": "^2.3.3",
