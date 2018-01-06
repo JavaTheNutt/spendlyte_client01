@@ -165,12 +165,12 @@
       },
       resetForm () {
         Logger.info('reset login form triggered');
-        const self = this;
+        // const self = this;
         return new Promise(resolve => {
           this.clearFormData().then(() => {
             this.$nextTick().then(() => {
-              self.$validator.reset();
-              self.errors.clear();
+              this.$validator.reset();
+              this.errors.clear();
               resolve();
             });
           });
