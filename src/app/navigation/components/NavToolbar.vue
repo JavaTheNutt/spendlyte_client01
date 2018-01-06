@@ -40,10 +40,10 @@
         this.logOut();
         await signOut();
         // fixme move re-routing to the authentication handler
-        this.$router.push('/');
+        // this.$router.push('/');
       },
       logInClicked () {
-        this.logIn();
+        // this.logIn();
         Bus.$emit('show_dialog', { card: 'login-form-dialog-adapter' });
       }
     }

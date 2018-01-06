@@ -1,6 +1,11 @@
 // @flow
 import * as Logger from 'loglevel';
 import firebase from 'firebase';
+// eslint-disable-next-line flowtype-errors/show-errors
+import store from '@/store';
+// eslint-disable-next-line flowtype-errors/show-errors
+import router from '@/router';
+import types from '../vuex/types';
 
 export const signUpWithEmailAndPassword = async (email: String, password: String) => {
   Logger.info('attempting to sign in with email and password');
@@ -16,7 +21,12 @@ export const signUpWithEmailAndPassword = async (email: String, password: String
 
 export const registerAuthStateListener = () => {
   Logger.info('registering auth state listener');
-  firebase.auth().onAuthStateChanged(user => Logger.info('user logged in: ', user));
+  firebase.auth().onAuthStateChanged(user => authStateChanged(user));
+};
+
+export const authStateChanged = (user: Object) => {
+  Logger.info('user:', user);
+  user ? logIn(user) : logOut();
 };
 
 export const signOut = async () => {
@@ -29,4 +39,14 @@ export const signOut = async () => {
     Logger.warn('error while signing out', e);
     return false;
   }
+};
+
+const logIn = user => {
+  store.dispatch(types.actions.logIn);
+  router.push('/profile');
+};
+
+const logOut = () => {
+  store.dispatch(types.actions.logOut);
+  router.push('/');
 };

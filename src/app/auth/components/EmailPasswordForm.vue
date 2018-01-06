@@ -69,19 +69,6 @@
           />
         </v-flex>
       </v-layout>
-      <!--<v-layout row>
-        <v-flex v-if="loading">
-          <v-progress-circular indeterminate color="primary" ></v-progress-circular>
-        </v-flex>
-        <v-flex v-if="!loading">
-          <v-btn :disabled="!formValid"  color="warning" class="white&#45;&#45;text" @click.stop="logIn" name="submitPasswordLoginDetails">Log In</v-btn>
-        </v-flex>
-      </v-layout>-->
-      <!--<v-layout v-if="hasError">
-        <v-flex>
-          <p>{{errorMessage}}</p>
-        </v-flex>
-      </v-layout>-->
     </v-container>
   </form>
 </template>
