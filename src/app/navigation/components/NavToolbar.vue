@@ -21,6 +21,8 @@
   import Bus from '@/app/events/bus';
   import { mapGetters, mapActions } from 'vuex';
   import authTypes from '@/app/auth/vuex/types';
+  import { signOut } from '../../auth/service/FirebaseAuthService';
+
   export default {
     name: 'nav-toolbar',
     computed: {
@@ -34,8 +36,9 @@
         NavBus.$emit('toggle_drawer_button_clicked');
       },
       ...mapActions({ logIn: authTypes.actions.logIn, logOut: authTypes.actions.logOut }),
-      logOutClicked () {
+      async logOutClicked () {
         this.logOut();
+        await signOut();
         // fixme move re-routing to the authentication handler
         this.$router.push('/');
       },
