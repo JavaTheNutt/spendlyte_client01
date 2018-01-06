@@ -1,15 +1,21 @@
 import NavToolbar from './NavToolbar';
 import NavBus from '../service/navBus';
 import { createLocalVue, mount, shallow } from 'vue-test-utils';
+import firebase from 'firebase';
 import authTypes from '@/app/auth/vuex/types';
 import Vuex from 'vuex';
 
 const sandbox = sinon.sandbox.create();
-describe('NavToolbar.vue', () => {
-  let emitStub, store, state, getters, actions, localVue, logOutStub, propsData, pushStub, mockedRouter;
+describe.only('NavToolbar.vue', () => {
+  let emitStub, store, state, getters, actions, localVue, logOutStub, propsData, pushStub, mockedRouter, signOutStub, authStub;
   beforeEach(() => {
     propsData = { hasLinks: true };
     emitStub = sandbox.stub(NavBus, '$emit');
+    signOutStub = sandbox.stub();
+    authStub = sandbox.stub(firebase, 'auth');
+    authStub.returns({
+      signOut: signOutStub
+    });
     actions = {};
     getters = {};
     logOutStub = sandbox.stub();
@@ -71,5 +77,20 @@ describe('NavToolbar.vue', () => {
     const signOutButton = wrapper.find('#clickSignOut');
     signOutButton.trigger('click');
     expect(logOutStub).to.be.calledOnce;
+  });
+  it('should trigger a logout from firebase when the logout button is clicked', () => {
+    const wrapper = mount(NavToolbar, {
+      localVue,
+      store,
+      propsData,
+      beforeCreate () {
+        this._router = mockedRouter;
+      }
+    });
+    const triggerMenu = wrapper.find('#openSignOutMenu');
+    triggerMenu.trigger('click');
+    const signOutButton = wrapper.find('#clickSignOut');
+    signOutButton.trigger('click');
+    expect(signOutStub).to.be.calledOnce;
   });
 });
