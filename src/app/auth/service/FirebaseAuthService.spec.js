@@ -6,13 +6,15 @@ import types from '../vuex/types';
 const sandbox = sinon.sandbox.create();
 
 describe('FirebaseAuthService.js', () => {
-  let signUpWithEmailAndPasswordStub, signInWithEmailAndPasswordStub, authContainer, authStub;
+  let signUpWithEmailAndPasswordStub, signInWithEmailAndPasswordStub, authContainer, authStub, onAuthStateChangedStub;
   beforeEach(() => {
     signUpWithEmailAndPasswordStub = sandbox.stub();
     signInWithEmailAndPasswordStub = sandbox.stub();
+    onAuthStateChangedStub = sandbox.stub();
     authContainer = {
       createUserWithEmailAndPassword: signUpWithEmailAndPasswordStub,
-      signInWithEmailAndPassword: signInWithEmailAndPasswordStub
+      signInWithEmailAndPassword: signInWithEmailAndPasswordStub,
+      onAuthStateChanged: onAuthStateChangedStub
     };
     authStub = sandbox.stub(firebase, 'auth');
     authStub.returns(authContainer);
@@ -94,6 +96,12 @@ describe('FirebaseAuthService.js', () => {
         firebaseAuthService.authStateChanged();
         expect(store.state.auth.loggedIn).to.be.false;
       });
+    });
+  });
+  describe.only('registerAuthStateListener', () => {
+    it('should call Firebase.auth().onAuthStateChanged', () => {
+      firebaseAuthService.registerAuthStateListener();
+      expect(onAuthStateChangedStub).calledOnce;
     });
   });
 });
