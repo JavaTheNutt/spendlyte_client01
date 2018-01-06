@@ -8,7 +8,7 @@ import router from '@/router';
 import types from '../vuex/types';
 
 export const signUpWithEmailAndPassword = async (email: String, password: String) => {
-  Logger.info('attempting to sign in with email and password');
+  Logger.info('attempting to sign up with email and password');
   try {
     await firebase.auth().createUserWithEmailAndPassword(email, password);
     Logger.debug('sign up assumed successful');
@@ -18,7 +18,23 @@ export const signUpWithEmailAndPassword = async (email: String, password: String
     return false;
   }
 };
-
+export const signInWithEmailAndPassword = async (email: String, password:String) => {
+  Logger.info('attempting to sign in with email and password');
+  try {
+    await firebase.auth().signInWithEmailAndPassword(email, password);
+    Logger.debug('sign in assumed successful');
+    return true;
+  } catch (e) {
+    Logger.warn('there was an error while signing in', e);
+    return false;
+  }
+};
+export const loginEventTriggered = async (email: String, password:String, createNew: boolean) => {
+  Logger.info('login event triggered');
+  Logger.debug('creating new account? ', createNew);
+  const fn = createNew ? signUpWithEmailAndPassword : signInWithEmailAndPassword;
+  return await fn(email, password);
+};
 export const registerAuthStateListener = () => {
   Logger.info('registering auth state listener');
   firebase.auth().onAuthStateChanged(user => authStateChanged(user));

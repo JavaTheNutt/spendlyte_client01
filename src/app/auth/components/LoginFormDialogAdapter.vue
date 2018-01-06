@@ -54,7 +54,12 @@
         Logger.info('submit clicked');
         _authBus.$emit('submit-form');
         if (this.formSubmittable) {
-          await firebaseAuthService.signUpWithEmailAndPassword(this.formData.email, this.formData.password);
+          this.loading = true;
+          const result = await firebaseAuthService.signUpWithEmailAndPassword(this.formData.email, this.formData.password);
+          this.loading = false;
+          if (result) {
+            this.closeDialog();
+          }
         }
       },
       resetClicked () {
