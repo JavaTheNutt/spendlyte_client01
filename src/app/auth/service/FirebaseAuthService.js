@@ -4,7 +4,7 @@ import firebase from 'firebase';
 export const signUpWithEmailAndPassword = async (email, password) => {
   Logger.info('attempting to sign in with email and password');
   try {
-    await firebase.auth().signUpWithEmailAndPassword(email, password);
+    await firebase.auth().createUserWithEmailAndPassword(email, password);
     Logger.debug('sign up assumed successful');
     return true;
   } catch (e) {

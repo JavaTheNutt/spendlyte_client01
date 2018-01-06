@@ -28,6 +28,7 @@
   import _authBus from '../service/internalAuthBus';
   import EmailPasswordForm from './EmailPasswordForm';
   import * as Logger from 'loglevel';
+  import * as firebaseAuthService from '../service/FirebaseAuthService';
 
   export default {
     name: 'login-form-dialog-adapter',
@@ -48,10 +49,13 @@
         this.$emit('dialog-closed');
         _authBus.$emit('reset-form');
       },
-      submitClicked () {
+      async submitClicked () {
         // this.loading = true;
         Logger.info('submit clicked');
         _authBus.$emit('submit-form');
+        if (this.formSubmittable) {
+          await firebaseAuthService.signUpWithEmailAndPassword(this.formData.email, this.formData.password);
+        }
       },
       resetClicked () {
         Logger.info('reset clicked');

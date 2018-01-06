@@ -7,7 +7,7 @@ describe('FirebaseAuthService.js', () => {
   let signUpWithEmailAndPasswordStub, authContainer, authStub;
   beforeEach(() => {
     signUpWithEmailAndPasswordStub = sandbox.stub();
-    authContainer = { signUpWithEmailAndPassword: signUpWithEmailAndPasswordStub };
+    authContainer = { createUserWithEmailAndPassword: signUpWithEmailAndPasswordStub };
     authStub = sandbox.stub(firebase, 'auth');
     authStub.returns(authContainer);
   });
