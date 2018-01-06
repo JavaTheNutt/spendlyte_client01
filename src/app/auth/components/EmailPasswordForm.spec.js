@@ -320,7 +320,7 @@ describe('EmailPasswordForm.vue', () => {
           return Vue.nextTick().then(() => {
             expect(Object.keys(wrapper.emitted())).to.include('has-values-updated');
             expect(Object.keys(wrapper.emitted()[ 'has-values-updated' ]).length).to.equal(1);
-            expect(wrapper.emitted()[ 'has-values-updated' ][ 0 ]).to.eql([ true ]);
+            expect(wrapper.emitted()[ 'has-values-updated' ][ 0 ]).to.eql([true]);
           });
         });
         it('should emit an event when all values are removed from the form', () => {
@@ -337,7 +337,7 @@ describe('EmailPasswordForm.vue', () => {
             return Vue.nextTick().then(() => {
               expect(Object.keys(wrapper.emitted())).to.include('has-values-updated');
               expect(Object.keys(wrapper.emitted()[ 'has-values-updated' ]).length).to.equal(2);
-              expect(wrapper.emitted()[ 'has-values-updated' ][ 1 ]).to.eql([ false ]);
+              expect(wrapper.emitted()[ 'has-values-updated' ][ 1 ]).to.eql([false]);
             });
           });
         });
@@ -355,7 +355,7 @@ describe('EmailPasswordForm.vue', () => {
             return Vue.nextTick().then(() => {
               expect(Object.keys(wrapper.emitted())).to.include('has-values-updated');
               expect(Object.keys(wrapper.emitted()[ 'has-values-updated' ]).length).to.equal(1);
-              expect(wrapper.emitted()[ 'has-values-updated' ][ 0 ]).to.eql([ true ]);
+              expect(wrapper.emitted()[ 'has-values-updated' ][ 0 ]).to.eql([true]);
             });
           });
         });

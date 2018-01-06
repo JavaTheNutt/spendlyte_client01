@@ -55,7 +55,7 @@
         _authBus.$emit('submit-form');
         if (this.formSubmittable) {
           this.loading = true;
-          const result = await firebaseAuthService.signUpWithEmailAndPassword(this.formData.email, this.formData.password);
+          const result = await firebaseAuthService.loginEventTriggered(this.formData.email, this.formData.password);
           this.loading = false;
           if (result) {
             this.closeDialog();

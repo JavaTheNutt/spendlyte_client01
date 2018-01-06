@@ -6,7 +6,7 @@ import authTypes from '@/app/auth/vuex/types';
 import Vuex from 'vuex';
 
 const sandbox = sinon.sandbox.create();
-describe.only('NavToolbar.vue', () => {
+describe('NavToolbar.vue', () => {
   let emitStub, store, state, getters, actions, localVue, logOutStub, propsData, pushStub, mockedRouter, signOutStub, authStub;
   beforeEach(() => {
     propsData = { hasLinks: true };
