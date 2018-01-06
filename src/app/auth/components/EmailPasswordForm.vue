@@ -137,6 +137,9 @@
       formValid (newVal, oldVal) {
         if (newVal !== oldVal) this.$emit('validity-updated', newVal);
         if (newVal) this.inputTriggered();
+      },
+      async createAccountTicked (newVal) {
+        if (newVal) await this.$validator.validate('confirmPassword');
       }
     },
     methods: {
@@ -172,26 +175,6 @@
             });
           });
         });
-
-        // found at: https://stackoverflow.com/a/40856312/4108556 resets data object to initial
-        // Object.assign(this.$data, this.$options.data.call(this));
-        /* this.$nextTick().then(function() {
-          this.$validator.reset();
-        });*/
-        // found at: https://github.com/baianat/vee-validate/issues/285
-        /* this.$nextTick(function () {
-          const self = this;
-          Object.keys(this.fields).some(key => {
-            self.$validator.flag(key, {
-              touched: false,
-              untouched: true,
-              dirty: false,
-              pristine: true
-            });
-          });
-          this.errors.clear();
-          // this.inputTriggered();
-        });*/
       }
     },
     mounted () {

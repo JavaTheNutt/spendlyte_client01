@@ -1,19 +1,20 @@
 import firebase from 'firebase';
 import * as firebaseAuthService from './FirebaseAuthService';
+
 const sandbox = sinon.sandbox.create();
 
 describe('FirebaseAuthService.js', () => {
   let signUpWithEmailAndPasswordStub, authContainer, authStub;
-  beforeEach(()=> {
+  beforeEach(() => {
     signUpWithEmailAndPasswordStub = sandbox.stub();
     authContainer = { signUpWithEmailAndPassword: signUpWithEmailAndPasswordStub };
     authStub = sandbox.stub(firebase, 'auth');
     authStub.returns(authContainer);
   });
-  afterEach(()=>{
+  afterEach(() => {
     sandbox.restore();
   });
-  describe.only('signUpWithEmailAndPassword', () => {
+  describe('signUpWithEmailAndPassword', () => {
     it('should handle successful sign ups', async () => {
       signUpWithEmailAndPasswordStub.resolves(true);
       const result = await firebaseAuthService.signUpWithEmailAndPassword('root@root.com', 'zzzzzz');
