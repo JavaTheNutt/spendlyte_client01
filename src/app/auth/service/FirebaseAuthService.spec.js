@@ -74,7 +74,7 @@ describe('FirebaseAuthService.js', () => {
       });
     });
   });
-  describe('signUpWithEmailAndPassword', () => {
+  /* describe('signUpWithEmailAndPassword', () => {
     it('should handle successful sign ups', async () => {
       signUpWithEmailAndPasswordStub.resolves(true);
       const result = await firebaseAuthService.signUpWithEmailAndPassword('root@root.com', 'zzzzzz');
@@ -87,7 +87,7 @@ describe('FirebaseAuthService.js', () => {
       expect(signUpWithEmailAndPasswordStub).to.be.calledOnce;
       expect(result).to.be.false;
     });
-  });
+  });*/
   describe('authStateChanged', () => {
     describe('log in', () => {
       it('should update the store with the logged in variable to true', () => {
