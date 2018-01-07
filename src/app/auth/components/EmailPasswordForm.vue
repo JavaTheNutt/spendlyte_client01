@@ -126,6 +126,7 @@
         if (newVal) this.inputTriggered();
       },
       async createAccountTicked (newVal) {
+        this.$emit('auth-request-type-updated', newVal);
         if (newVal) await this.$validator.validate('confirmPassword');
       }
     },

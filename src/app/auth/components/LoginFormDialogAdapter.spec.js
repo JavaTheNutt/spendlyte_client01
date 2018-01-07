@@ -60,5 +60,13 @@ describe('LoginFormDialogAdapter.vue', () => {
         expect(wrapper.vm.formHasValues).to.be.false;
       });
     });
+     describe.only('auth-request-type-updated', () => {
+      it('should set the isCreate flag to the value emitted', () => {
+        wrapper.vm.$refs.loginForm.$emit('auth-request-type-updated', true);
+        expect(wrapper.vm.isCreateNew).to.be.true;
+        wrapper.vm.$refs.loginForm.$emit('auth-request-type-updated', false);
+        expect(wrapper.vm.isCreateNew).to.be.false;
+      });
+    });
   });
 });

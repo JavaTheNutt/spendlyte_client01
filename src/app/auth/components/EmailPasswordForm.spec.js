@@ -360,6 +360,17 @@ describe('EmailPasswordForm.vue', () => {
           });
         });
       });
+      describe('createAccountTicked', () => {
+        it('should emit the current value of createAccountTicked', () => {
+          initialData.createAccountTicked = true;
+          wrapper.setData(initialData);
+          return Vue.nextTick().then(() => {
+            expect(Object.keys(wrapper.emitted())).to.include('auth-request-type-updated');
+            expect(Object.keys(wrapper.emitted()[ 'auth-request-type-updated' ]).length).to.equal(1);
+            expect(wrapper.emitted()[ 'auth-request-type-updated' ][ 0 ]).to.eql([true]);
+          });
+        });
+      });
     });
     describe('methods', () => {
       describe('form submitted', () => {

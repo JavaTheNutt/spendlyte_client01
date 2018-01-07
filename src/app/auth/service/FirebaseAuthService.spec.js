@@ -98,7 +98,7 @@ describe('FirebaseAuthService.js', () => {
       });
     });
   });
-  describe.only('registerAuthStateListener', () => {
+  describe('registerAuthStateListener', () => {
     it('should call Firebase.auth().onAuthStateChanged', () => {
       firebaseAuthService.registerAuthStateListener();
       expect(onAuthStateChangedStub).calledOnce;

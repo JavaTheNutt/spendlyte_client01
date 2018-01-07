@@ -6,6 +6,7 @@
     <email-password-form @input-triggered="inputTriggered"
                          @validity-updated="validityUpdated"
                          @has-values-updated="valuesUpdated"
+                         @auth-request-type-updated="authRequestTypeUpdated"
                          ref="loginForm"/>
     <v-card-actions>
       <submit-form-button-group
@@ -36,6 +37,7 @@
       return {
         formSubmittable: false,
         formHasValues: false,
+        isCreateNew: false,
         formData: {},
         loading: false
       };
@@ -75,6 +77,9 @@
       },
       valuesUpdated (hasValues) {
         this.formHasValues = hasValues;
+      },
+      authRequestTypeUpdated (isCreate) {
+        this.isCreateNew = isCreate;
       }
     }
   };
