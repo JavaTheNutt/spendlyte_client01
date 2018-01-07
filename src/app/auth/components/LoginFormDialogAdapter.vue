@@ -53,11 +53,11 @@
       },
       async submitClicked () {
         // this.loading = true;
-        Logger.info('submit clicked');
-        _authBus.$emit('submit-form');
+        Logger.info('submit clicked');/*
+        _authBus.$emit('submit-form');*/
         if (this.formSubmittable) {
           this.loading = true;
-          const result = await firebaseAuthService.loginEventTriggered(this.formData.email, this.formData.password);
+          const result = await firebaseAuthService.loginEventTriggered(this.formData.email, this.formData.password, this.isCreateNew);
           this.loading = false;
           if (result) {
             this.closeDialog();
