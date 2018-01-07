@@ -62,7 +62,7 @@
           <v-checkbox label="Create new account?"
                       v-model="createAccountTicked"
                       color="info"
-                      value="yes"
+                      :value="true"
                       hide-details
                       id="createNewAccountCheckbox"
                       @change="inputTriggered"
@@ -126,7 +126,7 @@
         if (newVal) this.inputTriggered();
       },
       async createAccountTicked (newVal) {
-        this.$emit('auth-request-type-updated', newVal);
+        this.$emit('auth-request-type-updated', newVal || false);
         if (newVal) await this.$validator.validate('confirmPassword');
       }
     },

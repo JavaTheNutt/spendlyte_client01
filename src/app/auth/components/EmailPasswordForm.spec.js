@@ -361,7 +361,7 @@ describe('EmailPasswordForm.vue', () => {
         });
       });
       describe('createAccountTicked', () => {
-        it('should emit the current value of createAccountTicked', () => {
+        it('should emit true if createAccountTicked === yes', () => {
           initialData.createAccountTicked = true;
           wrapper.setData(initialData);
           return Vue.nextTick().then(() => {
