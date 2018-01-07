@@ -1,9 +1,7 @@
 // @flow
 import * as Logger from 'loglevel';
 import firebase from 'firebase';
-// eslint-disable-next-line flowtype-errors/show-errors
 import store from '@/store';
-// eslint-disable-next-line flowtype-errors/show-errors
 import router from '@/router';
 import types from '../vuex/types';
 
@@ -14,11 +12,12 @@ import types from '../vuex/types';
  * @param createNew {boolean} flag for login or signup. true for signup, false for login
  * @returns {Promise<boolean>} true if operation successful, false otherwise
  */
-export const loginEventTriggered = async (email: String, password:String, createNew: boolean) => {
+export const loginEventTriggered = async (email: String, password: String, createNew: boolean) => {
   Logger.info('login event triggered');
   Logger.debug('creating new account? ', createNew);
   const fn = createNew ? signUpWithEmailAndPassword : signInWithEmailAndPassword;
-  return await fn(email, password);
+  const res : { success?: boolean, error?: Object} = await fn(email, password);
+  return !res.error;
 };
 
 /**
@@ -75,17 +74,17 @@ const logOut = () => {
  * Create a new user using an email password combination
  * @param email {String} the email address to be used
  * @param password {String} the password to be used
- * @returns {Promise<boolean>} true if sign up successful, false otherwise
+ * @returns {Promise<boolean | object>} true if sign up successful, false otherwise
  */
-const signUpWithEmailAndPassword = async (email: String, password: String) => {
+const signUpWithEmailAndPassword = async (email: String, password: String) : {success?: boolean, error?: Object} => {
   Logger.info('attempting to sign up with email and password');
   try {
     await firebase.auth().createUserWithEmailAndPassword(email, password);
     Logger.debug('sign up assumed successful');
-    return true;
+    return { success: true };
   } catch (e) {
     Logger.warn('there was an error while signing up', e);
-    return false;
+    return { error: { msg: handleFirebaseError(e.code) }};
   }
 };
 
@@ -93,16 +92,35 @@ const signUpWithEmailAndPassword = async (email: String, password: String) => {
  * Login with email and password
  * @param email {String} the email address to be used
  * @param password {String} the password to be used
- * @returns {Promise<boolean>} true if sign in successful, false otherwise
+ * @returns {Promise<object>} true if sign in successful, false otherwise
  */
-const signInWithEmailAndPassword = async (email: String, password:String) => {
+const signInWithEmailAndPassword = async (email: String, password: String) : {success?: boolean, error?: Object} => {
   Logger.info('attempting to sign in with email and password');
   try {
     await firebase.auth().signInWithEmailAndPassword(email, password);
     Logger.debug('sign in assumed successful');
-    return true;
+    return { success: 'true' };
   } catch (e) {
     Logger.warn('there was an error while signing in', e);
-    return false;
+    return { error: { msg: handleFirebaseError(e.code) }};
   }
 };
+const handleFirebaseError = (errCode: String) => {
+  switch (errCode) {
+  case 'auth/user-not-found':
+    return 'Email is not registered on the system';
+  case 'auth/wrong-password':
+    return 'Password is incorrect';
+  case 'auth/email-already-in-use':
+    return 'The specified email address is already in use';
+  case 'auth/invalid-email':
+    return 'The specified email address is invalid';
+  case 'auth/weak-password':
+    return 'The specified password is too weak';
+  case 'auth/account-exists-with-different-credential':
+    return 'You already signed into this app using the same email, but from a different provider';
+  default:
+    return 'An unknown error has occurred';
+  }
+};
+

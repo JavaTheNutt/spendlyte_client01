@@ -1,0 +1,5 @@
+[options]
+module.name_mapper='^@' ->'<PROJECT_ROOT>/src'
+[ignore]
+.*/node_modules/protobufjs/.*
+.*/node_modules/config-chain/.*
