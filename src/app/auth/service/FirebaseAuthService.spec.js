@@ -175,10 +175,10 @@ describe('FirebaseAuthService.js', () => {
   describe('registerAuthStateListener', () => {
     it('should call Firebase.auth().onAuthStateChanged', () => {
       firebaseAuthService.registerAuthStateListener();
-      expect(onAuthStateChangedStub).calledOnce;
+      expect(onAuthStateChangedStub).to.be.calledOnce;
     });
   });
-  describe.only('signOut', () => {
+  describe('signOut', () => {
     it('should return true when signOut is successful', async () => {
       const result = await firebaseAuthService.signOut();
       expect(result).to.be.true;
