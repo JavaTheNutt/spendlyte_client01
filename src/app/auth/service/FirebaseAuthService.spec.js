@@ -7,15 +7,18 @@ import types from '../vuex/types';
 const sandbox = sinon.sandbox.create();
 
 describe('FirebaseAuthService.js', () => {
-  let signUpWithEmailAndPasswordStub, signInWithEmailAndPasswordStub, authContainer, authStub, onAuthStateChangedStub, emitStub;
+  let signUpWithEmailAndPasswordStub, signInWithEmailAndPasswordStub, authContainer, authStub, onAuthStateChangedStub,
+    emitStub, signOutStub;
   beforeEach(() => {
     signUpWithEmailAndPasswordStub = sandbox.stub();
     signInWithEmailAndPasswordStub = sandbox.stub();
     onAuthStateChangedStub = sandbox.stub();
+    signOutStub = sandbox.stub();
     authContainer = {
       createUserWithEmailAndPassword: signUpWithEmailAndPasswordStub,
       signInWithEmailAndPassword: signInWithEmailAndPasswordStub,
-      onAuthStateChanged: onAuthStateChangedStub
+      onAuthStateChanged: onAuthStateChangedStub,
+      signOut: signOutStub
     };
     authStub = sandbox.stub(firebase, 'auth');
     authStub.returns(authContainer);
@@ -175,7 +178,15 @@ describe('FirebaseAuthService.js', () => {
       expect(onAuthStateChangedStub).calledOnce;
     });
   });
-  /* describe('signOut', () => {
-
-  });*/
+  describe.only('signOut', () => {
+    it('should return true when signOut is successful', async () => {
+      const result = await firebaseAuthService.signOut();
+      expect(result).to.be.true;
+    });
+    it('should return false when signout throws an error', async () => {
+      signOutStub.throws(Error('i am an error'));
+      const result = await firebaseAuthService.signOut();
+      expect(result).to.be.false;
+    });
+  });
 });
