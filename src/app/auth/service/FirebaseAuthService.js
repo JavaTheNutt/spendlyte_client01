@@ -1,5 +1,6 @@
 // @flow
 import * as Logger from 'loglevel';
+import Bus from '@/app/events/bus';
 import firebase from 'firebase';
 import store from '@/store';
 import router from '@/router';
@@ -17,6 +18,9 @@ export const loginEventTriggered = async (email: String, password: String, creat
   Logger.debug('creating new account? ', createNew);
   const fn = createNew ? signUpWithEmailAndPassword : signInWithEmailAndPassword;
   const res : { success?: boolean, error?: Object} = await fn(email, password);
+  if (res.error) {
+    Bus.$emit('show-snack', res.error.msg, 'error');
+  }
   return !res.error;
 };
 
