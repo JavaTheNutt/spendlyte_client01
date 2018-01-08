@@ -19,6 +19,7 @@
             ref="emailField"
             @change="inputTriggered"
             @input="inputTriggered"
+            id="emailField"
           />
         </v-flex>
         <v-flex>
@@ -38,6 +39,7 @@
             ref="password"
             @change="inputTriggered"
             @input="inputTriggered"
+            id="passwordField"
           />
         </v-flex>
 
@@ -56,7 +58,9 @@
             data-vv-name="confirmPassword"
             :error-messages="errors.collect('confirmPassword')"
             @change="inputTriggered"
-            @input="inputTriggered"/>
+            @input="inputTriggered"
+            id="confirmPasswordField"
+          />
         </v-flex>
         <v-flex>
           <v-checkbox label="Create new account?"

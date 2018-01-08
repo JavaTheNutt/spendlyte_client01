@@ -5,7 +5,7 @@ var createTestCafe   = require('testcafe');
 var testcafe         = null;
 var glob             = require('glob');
 
-const testFiles = glob.sync('test/e2e/specs/*.js');
+const testFiles = glob.sync('test/e2e/specs/auth.js');
 server.ready.then(() => {
   createTestCafe('localhost').then(tc => {
     testcafe     = tc;

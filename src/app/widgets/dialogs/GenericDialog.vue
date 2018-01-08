@@ -16,6 +16,13 @@
         width: '700px'
       };
     },
+    watch: {
+      dialogShown (newVal) {
+        if (!newVal) {
+          this.currentCard = '';
+        }
+      }
+    },
     components: {
       LoginFormDialogAdapter
     },
