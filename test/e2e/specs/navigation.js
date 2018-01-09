@@ -25,7 +25,6 @@ test('toggle open close drawer', async t => {
 });
 
 test('navigate', async t => {
-  // const getLocation = ClientFunction(() => document.location.href);
   await logIn(t);
   const navData = await openDrawer(t);
   const homeLink = Selector('#link-Home');
