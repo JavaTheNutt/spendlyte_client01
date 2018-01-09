@@ -5,7 +5,10 @@
 </template>
 <script>
   import Bus from '@/app/events/bus';
-  import LoginFormDialogAdapter from '@/app/auth/components/LoginFormDialogAdapter';
+  // import LoginFormDialogAdapter from '@/app/auth/components/LoginFormDialogAdapter';
+  const LoginFormDialogAdapter = () => import(
+    /* webpackChunkName: "login-form-dialog"*/ '@/app/auth/components/LoginFormDialogAdapter'
+    );
 
   export default {
     name: 'generic-dialog',

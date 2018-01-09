@@ -42,7 +42,7 @@ describe('guards', () => {
       it('should assume implicit authentication when meta propety does not specify auth', () => {
         guards.globalAuthGuard(to, from, next);
         expect(next).calledWith('/');
-      })
+      });
     });
     describe('user logged in', () => {
       beforeEach(() => {

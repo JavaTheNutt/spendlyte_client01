@@ -15,9 +15,8 @@
 <script>
   import { NavContainer } from './navigation';
   import GenericDialog from './widgets/dialogs/GenericDialog';
-  import Snackbar from './widgets/snackbar/Snackbar';
   import { registerAuthStateListener } from './auth/service/FirebaseAuthService';
-
+  import Snackbar from './widgets/snackbar/Snackbar';
   export default {
     components: {
       NavContainer,

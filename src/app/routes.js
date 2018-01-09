@@ -14,7 +14,7 @@ const createRouteMeta = routeDef => (routeDef.map(route => ({
   title: `${route.name[0].toUpperCase()}${route.name.substring(1)}`,
   path: route.path,
   icon: route.icon,
-  shown: !route.meta ? true : !route.meta.requireAuth
+  hidden: !route.meta ? true : !route.meta.noAuth
 })));
 
 const mapRoutes = () => ({

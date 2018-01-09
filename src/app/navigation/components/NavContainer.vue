@@ -10,7 +10,6 @@
   import NavigationDrawer from './NavDrawer';
   import { mapGetters } from 'vuex';
   import authTypes from '@/app/auth/vuex/types';
-
   export default {
     data () {
       return {
