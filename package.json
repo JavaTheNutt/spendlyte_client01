@@ -14,10 +14,10 @@
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit/specs",
     "lint:fix": "npm run lint -- --fix",
-    "serve-coverage": "serve test/unit/coverage/lcov-report"
+    "serve-coverage": "serve test/unit/coverage/lcov-report",
+    "serve:prod": "node build/prod-server.js"
   },
   "dependencies": {
-    "dotenv": "^4.0.0",
     "firebase": "^4.8.1",
     "loglevel": "^1.6.0",
     "vee-validate": "^2.0.0",
@@ -48,6 +48,7 @@
     "cross-env": "^5.0.1",
     "css-loader": "^0.28.0",
     "cssnano": "^3.10.0",
+    "dotenv": "^4.0.0",
     "eslint": "^3.19.0",
     "eslint-config-vue": "^2.0.2",
     "eslint-friendly-formatter": "^3.0.0",
