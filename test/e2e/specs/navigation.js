@@ -3,8 +3,9 @@ import VueSelector from 'testcafe-vue-selectors';
 import { Selector } from 'testcafe';
 import { logIn } from '../util/uiUtils';
 import { getLocation } from '../util/browserUtils';
+import { addUser } from '../util/firebaseAuth';
 
-fixture `test navigation`.page(`http://localhost:${process.env.PORT}`);
+fixture `test navigation`.page(`http://localhost:${process.env.PORT}`).before(async t => await addUser());
 
 const openDrawer = async t => {
   const toggleDrawerButton = Selector('#toggleNavDrawerButton');
@@ -27,8 +28,10 @@ test('toggle open close drawer', async t => {
 test('navigate', async t => {
   await logIn(t);
   const navData = await openDrawer(t);
+  await t.takeScreenshot(`nav-open-profile-${new Date()}.png`);
   const homeLink = Selector('#link-Home');
-  await t.click(homeLink);
+  await t.click(homeLink)
+  .takeScreenshot(`nav-open-home-${new Date()}.png`);
   const loc = await getLocation();
   expect(loc[loc.length - 1]).equals('/');
   let navDrawerVue = await navData.getVue();

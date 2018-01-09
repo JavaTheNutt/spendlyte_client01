@@ -4,7 +4,7 @@ import { Selector } from 'testcafe';
 export const logIn = async t => {
   await firebaseAuthUtils.addUser();
   await openLoginDialog(t);
-  await t.typeText('#emailField', 'iamtheuserthatisusedforacceptancetests@test.com');
+  await t.typeText('#emailField', 'test_user@test.com');
   await t.typeText('#passwordField', 'wwwwww');
   const submitButton = Selector('#submitButton');
   await t.click(submitButton);

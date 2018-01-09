@@ -30,7 +30,12 @@ server.ready.then(() => {
     console.log('test cafe instance created');
     testcafe     = tc;
     const runner = testcafe.createRunner();
+    const takeScreenshots = !process.env.TRAVIS;
     console.log('runner created');
+    console.log('taking screenshots?', takeScreenshots);
+    if (takeScreenshots) {
+      runner.screenshots('reports/screenshots/', true);
+    }
     return runner.src(testFiles).browsers(['chrome']).run();
   }).then(failedCount => {
     console.log(`tests failed: ${failedCount}`);

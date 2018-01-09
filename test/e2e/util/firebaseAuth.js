@@ -1,11 +1,11 @@
 import admin from 'firebase-admin';
 export const addUser = async() => {
   try {
-    const user = await admin.auth().getUserByEmail('root@root.com');
+    const user = await admin.auth().getUserByEmail('test_user@test.com');
     if (!user) {
       await
         admin.auth().createUser({
-          email: 'root@root.com',
+          email: 'test_user@test.com',
           password: 'wwwwww'
         });
     }
@@ -16,7 +16,7 @@ export const addUser = async() => {
 
 export const deleteUser = async() => {
   try {
-    const user = await admin.auth().getUserByEmail('iamtheuserthatisusedforacceptancetests@test.com');
+    const user = await admin.auth().getUserByEmail('test_user@test.com');
     if (user) await admin.auth().deleteUser(user.uid);
   } catch (e) {
     console.log(e);
