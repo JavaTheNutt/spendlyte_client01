@@ -1,12 +1,12 @@
+require('dotenv').config();
 process.env.NODE_ENV = 'test';
 process.env.PORT     = '9090';
-var server           = require('../../build/dev-server');
+var server           = require('../../build/prod-server');
 var createTestCafe   = require('testcafe');
 var testcafe         = null;
 var glob             = require('glob');
 var strippedKey = process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n');
 const admin = require('firebase-admin');
-
 // fixme: travis build failing. see https://stackoverflow.com/questions/44360792/unable-to-set-rsa-private-key-as-config-var
 admin.initializeApp({
   credential: admin.credential.cert({
