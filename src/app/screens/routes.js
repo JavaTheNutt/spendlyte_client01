@@ -1,4 +1,6 @@
-import Home from './home/Home';
+const Home = () => import(
+  /* webpackChunkName: home-view */ './home/Home'
+  );
 
 export default [{
   name: 'home',
