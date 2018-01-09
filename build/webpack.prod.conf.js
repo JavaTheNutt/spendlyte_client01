@@ -12,7 +12,7 @@ var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 var loadMinified = require('./load-minified')
 
-var env = process.env.NODE_ENV === 'testing'
+var env = process.env.NODE_ENV === 'test'
   ? require('../config/test.env')
   : config.build.env
 
