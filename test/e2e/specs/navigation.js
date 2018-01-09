@@ -1,7 +1,8 @@
 import { expect } from 'chai';
 import VueSelector from 'testcafe-vue-selectors';
-import { Selector, ClientFunction } from 'testcafe';
+import { Selector } from 'testcafe';
 import { logIn } from '../util/uiUtils';
+import { getLocation } from '../util/browserUtils';
 
 fixture `test navigation`.page(`http://localhost:${process.env.PORT}`);
 
@@ -11,10 +12,7 @@ const openDrawer = async t => {
   await t.click(toggleDrawerButton);
   return navDrawer;
 };
-const clickLogin = async t => {
-  const loginButton = Selector('#loginButton');
-  return await t.click(loginButton);
-};
+
 test('toggle open close drawer', async t => {
   await logIn(t);
   const navData = await openDrawer(t);
@@ -27,7 +25,7 @@ test('toggle open close drawer', async t => {
 });
 
 test('navigate', async t => {
-  const getLocation = ClientFunction(() => document.location.href);
+  // const getLocation = ClientFunction(() => document.location.href);
   await logIn(t);
   const navData = await openDrawer(t);
   const homeLink = Selector('#link-Home');
@@ -36,7 +34,7 @@ test('navigate', async t => {
   expect(loc[loc.length - 1]).equals('/');
   let navDrawerVue = await navData.getVue();
   expect(navDrawerVue.state.shown).to.be.false;
-  /* navData = */await openDrawer(t);
+  await openDrawer(t);
   const profileLink = Selector('#link-Profile');
   await t.click(profileLink);
   expect(await getLocation()).contains('/profile');
