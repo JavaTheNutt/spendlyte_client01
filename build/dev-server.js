@@ -75,7 +75,7 @@ console.log('> Starting dev server...')
 devMiddleware.waitUntilValid(() => {
   console.log('> Listening at ' + uri + '\n')
   // when env is testing, don't need open it
-  if (autoOpenBrowser && process.env.NODE_ENV !== 'testing') {
+  if (autoOpenBrowser && process.env.NODE_ENV !== 'test') {
     opn(uri)
   }
   _resolve()
