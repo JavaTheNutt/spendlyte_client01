@@ -24,15 +24,25 @@ describe('guards', () => {
           }
         });
       });
-      it('should redirect to home when the route requires auth', () => {
-        to.meta = { requireAuth: true };
+      it('should redirect to home when the route explicitly requires auth', () => {
+        to.meta.noAuth = false;
         guards.globalAuthGuard(to, from, next);
         expect(next).calledWith('/');
       });
       it('should allow navigation when the route does not require auth', () => {
+        to.meta.noAuth = true;
         guards.globalAuthGuard(to, from, next);
         expect(next).calledWith();
       });
+      it('should assume that a route that does not have a meta property requires authentication', () => {
+        to = {};
+        guards.globalAuthGuard(to, from, next);
+        expect(next).calledWith('/');
+      });
+      it('should assume implicit authentication when meta propety does not specify auth', () => {
+        guards.globalAuthGuard(to, from, next);
+        expect(next).calledWith('/');
+      })
     });
     describe('user logged in', () => {
       beforeEach(() => {
@@ -47,11 +57,11 @@ describe('guards', () => {
         });
       });
       it('should allow navigation on unsecured routes', () => {
+        to.meta.noAuth = true;
         guards.globalAuthGuard(to, from, next);
         expect(next).calledWith();
       });
       it('should allow navigation on secured routes', () => {
-        to.meta.requireAuth = true;
         guards.globalAuthGuard(to, from, next);
         expect(next).calledWith();
       });

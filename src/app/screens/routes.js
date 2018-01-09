@@ -6,6 +6,6 @@ export default [{
   component: Home,
   icon: 'home',
   meta: {
-    requireAuth: false
+    noAuth: true
   }
 }];
