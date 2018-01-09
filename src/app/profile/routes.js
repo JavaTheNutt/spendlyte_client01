@@ -1,4 +1,7 @@
-import Profile from './components/Profile';
+// import Profile from './components/Profile';
+const Profile = () => import(
+  /* webpackChunkName: profile-page*/ './components/Profile'
+  );
 
 export default [{
   name: 'profile',
