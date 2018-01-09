@@ -17,7 +17,7 @@ before_script:
   - sleep 3
 
 script:
-  - npm run unit
+  - npm test
   - npm run build
 
 deploy:
