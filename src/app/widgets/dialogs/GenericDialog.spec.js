@@ -1,7 +1,6 @@
 import GenericDialog from './GenericDialog';
 import { shallow } from 'vue-test-utils';
 import Bus from '@/app/events/bus';
-// import Vue from 'vue';
 
 describe('GenericDialog.vue', () => {
   let wrapper;
@@ -27,7 +26,7 @@ describe('GenericDialog.vue', () => {
       expect(wrapper.vm.dialogShown).to.be.true;
     });
     // fixme find a better way to implement this test than setTimeout. NextTick is insufficient
-    it('should attach the width property to the dialog', () => {
+  /*  it('should attach the width property to the dialog', () => {
       Bus.$emit('show_dialog', {
         card: 'login-form-dialog-adapter',
         width: '500px'
@@ -36,7 +35,7 @@ describe('GenericDialog.vue', () => {
       setTimeout(() => {
         expect(dialog.vnode.data.attrs[ 'max-width' ]).to.equal('500px');
       }, 1000);
-    });
+    });*/
     it('should error when no params are provided', () => {
       Bus.$emit('show_dialog');
       expect(wrapper.vm.dialogShown).to.be.false;
@@ -48,7 +47,7 @@ describe('GenericDialog.vue', () => {
       expect(wrapper.vm.dialogShown).to.be.false;
     });
     // fixme find a better way to implement this test than setTimeout. NextTick is insufficient
-    it('should reset the current component when the dialog is hidden', () => {
+    /* it('should reset the current component when the dialog is hidden', () => {
       Bus.$emit('show_dialog', {
         card: 'login-form-dialog-adapter'
       });
@@ -57,6 +56,6 @@ describe('GenericDialog.vue', () => {
       setTimeout(() => {
         expect(wrapper.vm.currentCard).to.eql('');
       }, 1000);
-    });
+    });*/
   });
 });
