@@ -8,7 +8,6 @@ var strippedKey = process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n');
 const admin = require('firebase-admin');
 
 // fixme: travis build failing. see https://stackoverflow.com/questions/44360792/unable-to-set-rsa-private-key-as-config-var
-// fixme tests failing with "unable to skip null" errors
 admin.initializeApp({
   credential: admin.credential.cert({
     'type': process.env.FIREBASE_TYPE,
@@ -24,7 +23,7 @@ admin.initializeApp({
   }),
   databaseURL: JSON.stringify(process.env.FIREBASE_DATABASE_URL)
 });
-const testFiles = glob.sync('test/e2e/specs/auth.js');
+const testFiles = glob.sync('test/e2e/specs/*.js');
 server.ready.then(() => {
   console.log('server ready');
   createTestCafe('localhost').then(tc => {
