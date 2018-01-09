@@ -199,3 +199,4 @@ typings/
 node_modules
 /dist/
 /q.md
+/FirebaseServiceKey.json
