@@ -28,21 +28,37 @@ test('toggle open close drawer', async t => {
   expect(navDrawerVue.state.shown).to.be.false;
 });
 
-test('navigate', async t => {
+test('navigate visually', async t => {
   await logIn(t);
   const navData = await openDrawer(t);
   await t.takeScreenshot(`nav-open-profile-${currentTimestamp}.png`);
-  const homeLink = Selector('#link-Home');
-  await t.click(homeLink)
+  await t.click('#link-Home')
   .takeScreenshot(`nav-open-home-${currentTimestamp}.png`);
   const loc = await getLocation();
   expect(loc[loc.length - 1]).equals('/');
   let navDrawerVue = await navData.getVue();
   expect(navDrawerVue.state.shown).to.be.false;
   await openDrawer(t);
-  const profileLink = Selector('#link-Profile');
-  await t.click(profileLink);
+  await t.click('#link-Profile');
   expect(await getLocation()).contains('/profile');
   navDrawerVue = await navData.getVue();
   expect(navDrawerVue.state.shown).to.be.false;
+  await openDrawer(t);
+  await t.click('#link-About');
+  expect(await getLocation()).contains('/about');
+  await t.takeScreenshot(`about-page-${currentTimestamp}.png`);
+  navDrawerVue = await navData.getVue();
+  expect(navDrawerVue.state.shown).to.be.false;
 });
+
+// fixme: this test fails, navigation via url seems to break it.
+/* test('navigate by url', async t => {
+  await logIn(t);
+  console.log(await getLocation())
+  const currentLocation = await getLocation();
+  const newUrl = `${currentLocation.substring(0, currentLocation.lastIndexOf('/'))}/about`;
+  await t.navigateTo(newUrl);
+  expect(await getLocation()).contains('/profile');
+  const aboutComponent = VueSelector('profile');
+  expect(await aboutComponent.exists);
+});*/
