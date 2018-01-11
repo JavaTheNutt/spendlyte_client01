@@ -12,18 +12,24 @@
           <v-avatar size="128px"><img :src="photoUrl" alt="profile picture"/></v-avatar>
         </v-flex>-->
       </v-layout>
-     <!-- <v-card-actions>
+      <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn fab color="primary" dark @click.stop="editProfile">
-          <v-icon>edit</v-icon>
+        <v-btn fab color="primary" dark @click.stop="addGroup">
+          <v-icon>add</v-icon>
         </v-btn>
-      </v-card-actions>-->
+      </v-card-actions>
     </v-container>
     <!--<edit-user-dialog></edit-user-dialog>-->
   </v-card>
 </template>
 <script>
+  import * as Logger from 'loglevel';
   export default {
-    name: 'group-details'
+    name: 'group-details',
+    methods: {
+      addGroup () {
+        Logger.debug('add group triggered');
+      }
+    }
   };
 </script>
