@@ -10,7 +10,7 @@
     "build": "node build/build.js",
     "prebuild": "npm run lint:fix",
     "e2e": "npm run e2e:no-build",
-    "e2e:no-build":"cross-env NODE_ENV=test node test/e2e/runner",
+    "e2e:no-build": "cross-env NODE_ENV=test node test/e2e/runner",
     "pree2e": "npm run build",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "unit:verbose": "cross-env LOG_LEVEL=trace npm run unit",
@@ -20,7 +20,8 @@
     "serve-coverage": "serve test/unit/coverage/lcov-report",
     "serve:prod": "npm run serve:prod:no-build",
     "serve:prod:no-build": "node build/prod-server.js",
-    "preserve:prod": "npm run build"
+    "preserve:prod": "npm run build",
+    "flow": "flow start"
   },
   "dependencies": {
     "firebase": "^4.8.1",

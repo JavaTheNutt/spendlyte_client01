@@ -1,4 +1,5 @@
 // @flow
+
 import * as Logger from 'loglevel';
 import Bus from '@/app/events/bus';
 import firebase from 'firebase';

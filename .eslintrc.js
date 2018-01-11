@@ -25,7 +25,7 @@ module.exports = {
   'rules': {
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
-    "flowtype-errors/show-errors":2,
+    "flowtype-errors/show-errors":0,
     "no-useless-concat": "error",
     "require-jsdoc": "error",
     "require-await": "error",
