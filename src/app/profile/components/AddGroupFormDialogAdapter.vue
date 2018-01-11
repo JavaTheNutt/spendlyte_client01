@@ -23,12 +23,31 @@
 <script>
   import SubmitFormButtonGroup from '@/app/widgets/forms/buttonGroups/SubmitFormButtonGroup';
   import AddGroupForm from './AddGroupForm';
+  import FormDialogAdapter from '@/app/mixins/FormDialogAdapter';
+  import _profileBus from '../service/profileBus';
+  import * as Logger from 'loglevel';
 
   export default {
     name: 'add-group-form-dialog-adapter',
+    data () {
+      return {
+        /* This references the local event bus that will be used for communication between the form and the buttons. Cached in
+        * the component instance so that it can be called from the mixin*/
+        _evb: null
+      };
+    },
     components: {
       SubmitFormButtonGroup,
       AddGroupForm
+    },
+    mixins: [FormDialogAdapter],
+    created () {
+      this._evb = _profileBus;
+    },
+    methods: {
+      submitClicked () {
+        Logger.info('submit clicked');
+      }
     }
   };
 </script>

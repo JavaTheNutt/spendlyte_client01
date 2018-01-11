@@ -1,7 +1,6 @@
 <template>
   <form novalidate
         ref="loginForm"
-        v-model="formValid"
         @submit.stop.prevent="formSubmitted"
         @keyup.enter="formSubmitted">
     <v-container grid-list-md text-xs-center>
