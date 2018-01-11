@@ -6,7 +6,7 @@ export default {
   },
   computed: {
     formHasValues () {
-      return Object.values(this.submissionDetails).reduce((res, elem) => res += elem.length) > 0;
+      return Object.values(this.submissionDetails).map(elem => elem.length).reduce((res, elem) => res += elem, 0) > 0;
     }
   },
   watch: {

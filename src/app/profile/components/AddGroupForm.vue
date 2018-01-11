@@ -9,7 +9,7 @@
           <v-text-field
             name="groupName"
             label="Enter a name for this group"
-            v-model="groupDetails.name"
+            v-model="submissionDetails.name"
             type="text"
             required
             v-validate="'required|min:3'"
@@ -24,13 +24,10 @@
             name="groupDescriptionField"
             label="Enter your Password"
             hint="At least 6 characters"
-            v-model="groupDetails.password"
+            v-model="submissionDetails.description"
             type="text"
             min="6"
-            v-validate="'min:6'"
-            data-vv-name="groupDescription"
-            :error-messages="errors.collect('groupDescription')"
-            ref="password"
+            ref="groupDescriptionField"
             id="groupDescriptionField"
           />
         </v-flex>
@@ -39,15 +36,22 @@
   </form>
 </template>
 <script>
+  import FormMixin from '@/app/mixins/Form';
   export default {
     name: 'add-group-form',
     data () {
       return {
-        groupDetails: {
+        submissionDetails: {
           name: '',
           description: ''
         }
       };
-    }
+    },
+    computed: {
+      formValid () {
+        return this.fields.groupName.dirty && !this.errors.has('groupName');
+      }
+    },
+    mixins: [FormMixin]
   };
 </script>
