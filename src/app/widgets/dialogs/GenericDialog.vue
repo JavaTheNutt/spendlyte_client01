@@ -9,6 +9,9 @@
   const LoginFormDialogAdapter = () => import(
     /* webpackChunkName: "login-form-dialog"*/ '@/app/auth/components/LoginFormDialogAdapter'
     );
+  const AddGroupFormDialogAdapter = () => import(
+    /* webpackChunkName: "add-group-dialog"*/ '@/app/profile/components/AddGroupFormDialogAdapter'
+    );
 
   export default {
     name: 'generic-dialog',
@@ -27,7 +30,8 @@
       }
     },
     components: {
-      LoginFormDialogAdapter
+      LoginFormDialogAdapter,
+      AddGroupFormDialogAdapter
     },
     mounted () {
       Bus.$on('show_dialog', params => {

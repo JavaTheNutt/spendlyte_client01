@@ -24,11 +24,13 @@
 </template>
 <script>
   import * as Logger from 'loglevel';
+  import Bus from '@/app/events/bus';
   export default {
     name: 'group-details',
     methods: {
       addGroup () {
         Logger.debug('add group triggered');
+        Bus.$emit('show_dialog', { card: 'add-group-form-dialog-adapter' });
       }
     }
   };
