@@ -1,10 +1,13 @@
 <template>
   <v-container fluid>
-    <p>This is the profile page</p>
+    <group-details></group-details>
   </v-container>
 </template>
 <script>
+  import GroupDetails from './GroupDetails';
+
   export default {
+    components: { GroupDetails },
     name: 'profile'
   };
 </script>
