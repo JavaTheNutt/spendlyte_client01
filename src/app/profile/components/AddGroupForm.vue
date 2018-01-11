@@ -37,6 +37,8 @@
 </template>
 <script>
   import FormMixin from '@/app/mixins/Form';
+  import _profileBus from '../service/profileBus';
+
   export default {
     name: 'add-group-form',
     data () {
@@ -52,6 +54,9 @@
         return this.fields.groupName.dirty && !this.errors.has('groupName');
       }
     },
-    mixins: [FormMixin]
+    mixins: [FormMixin],
+    created () {
+      this._evb = _profileBus;
+    }
   };
 </script>

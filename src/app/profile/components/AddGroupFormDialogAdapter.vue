@@ -3,7 +3,10 @@
     <v-card-title primary-title>
       <h3 class="headline mb-0">Please log in or sign up to use this service</h3>
     </v-card-title>
-    <add-group-form ref="addGroupForm"/>
+    <add-group-form ref="addGroupForm"
+                    @input-triggered="inputTriggered"
+                    @validity-updated="validityUpdated"
+                    @has-values-updated="valuesUpdated"/>
     <v-card-actions>
       <submit-form-button-group
         :has-close="true"

@@ -1,7 +1,8 @@
 export default {
   data () {
     return {
-      submissionDetails: {}
+      submissionDetails: {},
+      _evb: null
     };
   },
   computed: {
@@ -48,5 +49,8 @@ export default {
         });
       });
     }
+  },
+  mounted () {
+    this._evb.$on('reset-form', () => this.resetForm());
   }
 };

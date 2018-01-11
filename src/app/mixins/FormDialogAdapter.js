@@ -15,6 +15,15 @@ export default {
     },
     resetClicked () {
       this._evb.$emit('reset-form');
+    },
+    inputTriggered (data) {
+      this.formData = data.details;
+    },
+    validityUpdated (valid) {
+      this.formSubmittable = valid;
+    },
+    valuesUpdated (hasValues) {
+      this.formHasValues = hasValues;
     }
   }
 };
