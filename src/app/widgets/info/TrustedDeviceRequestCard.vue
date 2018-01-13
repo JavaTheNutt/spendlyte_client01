@@ -6,8 +6,9 @@
     <v-card-title>
       <span>
         Is this a trusted device? If so, offline persistence can be enabled. This will allow your data to be available even when you are offline.
-
-    Would you like to set this as a trusted device?
+      </span>
+      <span>
+        Would you like to set this as a trusted device?
       </span>
     </v-card-title>
     <v-card-actions>
@@ -15,7 +16,7 @@
         :has-close="false"
         :form-submittable="true"
         :form-has-values="true"
-        :loading="false"
+        :loading="loading"
         positive-text="Yes"
         negative-text="No"
         @submit-clicked="yesClicked"
@@ -28,16 +29,30 @@
 <script>
   import SubmitFormButtonGroup from '../forms/buttonGroups/SubmitFormButtonGroup';
   import * as Logger from 'loglevel';
+// eslint-disable-next-line no-unused-vars
+  import { clientDataStore } from '@/app/localForage/init';
 
   export default {
     name: 'trusted-device-request-card',
     components: { SubmitFormButtonGroup },
+    data () {
+      return {
+        loading: false
+      };
+    },
     methods: {
-      yesClicked () {
+      async yesClicked () {
         Logger.info('yes clicked');
+        this.loading = true;
+        await clientDataStore.setPreference('trusted_device', true);
+        this.loading = false;
+        this.$emit('dialog-closed');
       },
-      noClicked () {
+      async noClicked () {
         Logger.info('no clicked');
+        this.loading = true;
+        await clientDataStore.removePreference('trusted_device');
+        this.loading = false;
         this.$emit('dialog-closed');
       }
     }
