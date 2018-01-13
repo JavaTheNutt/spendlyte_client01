@@ -17,6 +17,10 @@ class ClientDataStore {
     Logger.info('removing preference', key);
     await reset(this._preferenceDataStore, key);
   }
+  async getPreference (key) {
+    Logger.info('fetching preference', key);
+    return await get(this._preferenceDataStore, key);
+  }
 }
 
 export const clientDataStore = new ClientDataStore();
@@ -27,5 +31,4 @@ const set = async (store, key, value) => {
 const reset = async(store, key) => {
   await store.removeItem(key);
 };
-// eslint-disable-next-line no-unused-vars
 const get = async(store, key) => await store.get(key);
