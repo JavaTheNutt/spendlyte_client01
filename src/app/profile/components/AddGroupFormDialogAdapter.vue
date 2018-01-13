@@ -28,6 +28,7 @@
   import AddGroupForm from './AddGroupForm';
   import FormDialogAdapter from '@/app/mixins/FormDialogAdapter';
   import _profileBus from '../service/profileBus';
+  import Bus from '@/app/events/bus';
   import * as Logger from 'loglevel';
 
   export default {
@@ -50,6 +51,7 @@
     methods: {
       submitClicked () {
         Logger.info('submit clicked');
+        Bus.$emit('show_dialog', { card: 'trusted-device-request-card' });
       }
     }
   };

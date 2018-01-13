@@ -12,6 +12,9 @@
   const AddGroupFormDialogAdapter = () => import(
     /* webpackChunkName: "add-group-dialog"*/ '@/app/profile/components/AddGroupFormDialogAdapter'
     );
+  const TrustedDeviceRequestCard = () => import(
+    /* webpackChunkName: "trusted-device-request-card */ '@/app/widgets/info/TrustedDeviceRequestCard'
+    );
 
   export default {
     name: 'generic-dialog',
@@ -31,7 +34,8 @@
     },
     components: {
       LoginFormDialogAdapter,
-      AddGroupFormDialogAdapter
+      AddGroupFormDialogAdapter,
+      TrustedDeviceRequestCard
     },
     mounted () {
       Bus.$on('show_dialog', params => {

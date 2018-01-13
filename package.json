@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "firebase": "^4.8.1",
+    "localforage": "^1.5.5",
     "loglevel": "^1.6.0",
     "vee-validate": "^2.0.0",
     "vue": "^2.3.3",
