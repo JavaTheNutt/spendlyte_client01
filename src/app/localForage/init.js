@@ -11,12 +11,21 @@ class ClientDataStore {
   }
   async setPreference (key, value) {
     Logger.info('setting preference', key, 'to', value);
-    await this._preferenceDataStore.setItem(key, value);
+    await set(this._preferenceDataStore, key, value);
   }
   async removePreference (key) {
     Logger.info('removing preference', key);
-    await this._preferenceDataStore.removeItem(key);
+    await reset(this._preferenceDataStore, key);
   }
 }
 
 export const clientDataStore = new ClientDataStore();
+
+const set = async (store, key, value) => {
+  await store.setItem(key, value);
+};
+const reset = async(store, key) => {
+  await store.removeItem(key);
+};
+// eslint-disable-next-line no-unused-vars
+const get = async(store, key) => await store.get(key);
