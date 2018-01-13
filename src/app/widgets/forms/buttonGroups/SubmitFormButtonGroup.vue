@@ -4,7 +4,7 @@
       <v-flex class="text-xs-right" v-if="!loading">
         <v-btn color="primary" @click="submitClicked" :disabled="!formSubmittable" ref="positiveButton" id="submitButton">{{positiveText}}</v-btn>
         <v-btn color="accent" @click="resetClicked" :disabled="!formHasValues" ref="negativeButton">{{negativeText}}</v-btn>
-        <v-btn flat color="primary" v-if="hasClose" @click.stop="closeClicked" ref="closeButton">close</v-btn>
+        <v-btn flat color="primary" v-if="hasClose" @click.stop="closeClicked" ref="closeButton">{{closeText}}</v-btn>
       </v-flex>
       <v-flex v-if="loading" class="text-xs-right" ref="loadingContainer">
         <v-progress-circular indeterminate color="primary"/>
@@ -26,6 +26,10 @@
       negativeText: {
         type: String,
         default: 'reset'
+      },
+      closeText: {
+        type: String,
+        default: 'close'
       },
       loading: {
         type: Boolean,

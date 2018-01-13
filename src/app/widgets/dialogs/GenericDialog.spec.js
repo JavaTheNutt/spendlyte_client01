@@ -7,7 +7,7 @@ describe('GenericDialog.vue', () => {
   beforeEach(() => {
     wrapper = shallow(GenericDialog);
   });
-  describe.only('show dialog', () => {
+  describe('show dialog', () => {
     it('should correctly display a specified card', () => {
       Bus.$emit('show_dialog', {
         card: 'login-form-dialog-adapter',
