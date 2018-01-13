@@ -1,5 +1,6 @@
-import localForage from 'localForage';
+import localForage from 'localforage';
 import * as Logger from 'loglevel';
+
 class ClientDataStore {
   constructor () {
     this._preferenceDataStore = localForage.createInstance({
@@ -31,4 +32,4 @@ const set = async (store, key, value) => {
 const reset = async(store, key) => {
   await store.removeItem(key);
 };
-const get = async(store, key) => await store.get(key);
+const get = async(store, key) => await store.getItem(key);
