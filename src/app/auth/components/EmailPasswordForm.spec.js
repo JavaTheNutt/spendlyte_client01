@@ -422,18 +422,20 @@ describe('EmailPasswordForm.vue', () => {
           wrapper.vm.fields.confirmPassword.untouched = false;
           await wrapper.vm.$validator.validateAll();
           await wrapper.vm.resetForm();
-          expect(wrapper.vm.fields.email.dirty).to.be.false;
-          expect(wrapper.vm.fields.password.dirty).to.be.false;
-          expect(wrapper.vm.fields.confirmPassword.dirty).to.be.false;
-          expect(wrapper.vm.fields.email.pristine).to.be.true;
-          expect(wrapper.vm.fields.password.pristine).to.be.true;
-          expect(wrapper.vm.fields.confirmPassword.pristine).to.be.true;
-          expect(wrapper.vm.fields.email.touched).to.be.false;
-          expect(wrapper.vm.fields.password.touched).to.be.false;
-          expect(wrapper.vm.fields.confirmPassword.touched).to.be.false;
-          expect(wrapper.vm.fields.email.untouched).to.be.true;
-          expect(wrapper.vm.fields.password.untouched).to.be.true;
-          expect(wrapper.vm.fields.confirmPassword.untouched).to.be.true;
+          return Vue.nextTick().then(() => {
+            expect(wrapper.vm.fields.email.dirty).to.be.false;
+            expect(wrapper.vm.fields.password.dirty).to.be.false;
+            expect(wrapper.vm.fields.confirmPassword.dirty).to.be.false;
+            expect(wrapper.vm.fields.email.pristine).to.be.true;
+            expect(wrapper.vm.fields.password.pristine).to.be.true;
+            expect(wrapper.vm.fields.confirmPassword.pristine).to.be.true;
+            expect(wrapper.vm.fields.email.touched).to.be.false;
+            expect(wrapper.vm.fields.password.touched).to.be.false;
+            expect(wrapper.vm.fields.confirmPassword.touched).to.be.false;
+            expect(wrapper.vm.fields.email.untouched).to.be.true;
+            expect(wrapper.vm.fields.password.untouched).to.be.true;
+            expect(wrapper.vm.fields.confirmPassword.untouched).to.be.true;
+          })
         });
       });
     });
