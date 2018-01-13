@@ -31,6 +31,7 @@
   import * as Logger from 'loglevel';
 // eslint-disable-next-line no-unused-vars
   import { clientDataStore } from '@/app/localForage/init';
+  import preferenceTypes from '@/app/store/preferences/types';
 
   export default {
     name: 'trusted-device-request-card',
@@ -45,6 +46,7 @@
         Logger.info('yes clicked');
         this.loading = true;
         await clientDataStore.setPreference('trusted_device', true);
+        await this.$store.dispatch(preferenceTypes.actions.testTrustedDevice);
         this.loading = false;
         this.$emit('dialog-closed');
       },
@@ -52,6 +54,7 @@
         Logger.info('no clicked');
         this.loading = true;
         await clientDataStore.removePreference('trusted_device');
+        await this.$store.dispatch(preferenceTypes.actions.testTrustedDevice);
         this.loading = false;
         this.$emit('dialog-closed');
       }
