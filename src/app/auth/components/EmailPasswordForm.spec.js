@@ -435,7 +435,7 @@ describe('EmailPasswordForm.vue', () => {
             expect(wrapper.vm.fields.email.untouched).to.be.true;
             expect(wrapper.vm.fields.password.untouched).to.be.true;
             expect(wrapper.vm.fields.confirmPassword.untouched).to.be.true;
-          })
+          });
         });
       });
     });

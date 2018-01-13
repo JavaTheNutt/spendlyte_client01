@@ -29,7 +29,6 @@
 <script>
   import SubmitFormButtonGroup from '../forms/buttonGroups/SubmitFormButtonGroup';
   import * as Logger from 'loglevel';
-// eslint-disable-next-line no-unused-vars
   import { clientDataStore } from '@/app/localForage/init';
   import preferenceTypes from '@/app/store/preferences/types';
 

@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialogShown" :max-width="width" ref="genericDialog">
+  <v-dialog v-model="dialogShown" :max-width="width" ref="genericDialog" :persistent="persistent">
     <component :is="currentCard" @dialog-closed="dialogShown = false" ref="currentComponent"/>
   </v-dialog>
 </template>
@@ -22,7 +22,8 @@
       return {
         dialogShown: false,
         currentCard: '',
-        width: '700px'
+        width: '700px',
+        persistent: false
       };
     },
     watch: {
@@ -43,6 +44,7 @@
         this.currentCard = params.card;
         this.width = params.width || '700px';
         this.dialogShown = true;
+        this.persistent = params.persistent || false;
       });
     }
   };
