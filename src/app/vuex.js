@@ -1,3 +1,3 @@
 import { vuex as auth } from './auth';
-
-export default { auth };
+import { preferences } from './store';
+export default { auth, preferences };
