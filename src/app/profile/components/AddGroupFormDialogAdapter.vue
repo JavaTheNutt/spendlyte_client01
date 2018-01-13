@@ -30,6 +30,8 @@
   import _profileBus from '../service/profileBus';
   import Bus from '@/app/events/bus';
   import * as Logger from 'loglevel';
+  import { mapGetters } from 'vuex';
+  import preferenceTypes from '@/app/store/preferences/types';
 
   export default {
     name: 'add-group-form-dialog-adapter',
@@ -39,6 +41,9 @@
         * the component instance so that it can be called from the mixin*/
         _evb: null
       };
+    },
+    computed: {
+      ...mapGetters({ trustedDevice: preferenceTypes.getters.isTrustedDevice })
     },
     components: {
       SubmitFormButtonGroup,
@@ -51,7 +56,8 @@
     methods: {
       submitClicked () {
         Logger.info('submit clicked');
-        Bus.$emit('show_dialog', { card: 'trusted-device-request-card' });
+        if (!this.trustedDevice) Bus.$emit('show_dialog', { card: 'trusted-device-request-card' });
+        else Logger.info('device is trusted');
       }
     }
   };

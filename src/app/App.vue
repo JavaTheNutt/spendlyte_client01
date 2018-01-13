@@ -16,6 +16,7 @@
   import { NavContainer } from './navigation';
   import GenericDialog from './widgets/dialogs/GenericDialog';
   import { registerAuthStateListener } from './auth/service/FirebaseAuthService';
+  import preferenceTypes from './store/preferences/types';
   import Snackbar from './widgets/snackbar/Snackbar';
   export default {
     components: {
@@ -23,8 +24,9 @@
       GenericDialog,
       Snackbar
     },
-    mounted () {
+    async mounted () {
       registerAuthStateListener();
+      await this.$store.dispatch(preferenceTypes.actions.testTrustedDevice);
     }
   };
 </script>
