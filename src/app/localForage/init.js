@@ -13,7 +13,7 @@ class ClientDataStore {
   }
   async trustDevice () {
     Logger.info('trusting device');
-    await this.setPreference('trust_device', true);
+    await this.setPreference('trusted_device', true);
     await this.removePreference('ask_trusted');
   }
   async setPreference (key, value) {

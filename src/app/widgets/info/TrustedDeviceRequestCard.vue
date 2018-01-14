@@ -13,7 +13,7 @@
       <br>
     </v-card-title>
     <v-card-title>
-      <v-checkbox label="Dont ask again"
+      <v-checkbox label="Don't ask again"
                   v-model="noAskTrusted"
                   color="info"
                   :value="true"
@@ -57,8 +57,8 @@
       async yesClicked () {
         Logger.info('yes clicked');
         this.loading = true;
-        await clientDataStore.trustDevice();
-        await this.$store.dispatch(preferenceTypes.actions.testTrustedDevice);
+        // await clientDataStore.trustDevice();
+        await this.$store.dispatch(preferenceTypes.actions.trustDevice);
         this.loading = false;
         // fixme return to calling function
         this.$emit('revert-state');
