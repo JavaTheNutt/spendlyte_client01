@@ -24,6 +24,9 @@ export default {
     },
     valuesUpdated (hasValues) {
       this.formHasValues = hasValues;
+    },
+    cacheValues () {
+      this.$emit('cache-state', this.formData);
     }
   }
 };
