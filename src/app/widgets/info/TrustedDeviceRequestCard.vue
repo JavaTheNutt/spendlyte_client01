@@ -13,14 +13,16 @@
     </v-card-title>
     <v-card-actions>
       <submit-form-button-group
-        :has-close="false"
+        :has-close="true"
         :form-submittable="true"
         :form-has-values="true"
         :loading="loading"
-        positive-text="Yes"
-        negative-text="No"
+        positive-text="yes"
+        negative-text="no"
+        close-text="cancel"
         @submit-clicked="yesClicked"
         @reset-clicked="noClicked"
+        @close-clicked="closeClicked"
         ref="trustedDeviceActions"
       />
     </v-card-actions>
@@ -47,6 +49,7 @@
         await clientDataStore.setPreference('trusted_device', true);
         await this.$store.dispatch(preferenceTypes.actions.testTrustedDevice);
         this.loading = false;
+       // fixme return to calling function
         this.$emit('dialog-closed');
       },
       async noClicked () {
@@ -55,6 +58,9 @@
         await clientDataStore.removePreference('trusted_device');
         await this.$store.dispatch(preferenceTypes.actions.testTrustedDevice);
         this.loading = false;
+        this.$emit('dialog-closed');
+      },
+      closeClicked () {
         this.$emit('dialog-closed');
       }
     }
