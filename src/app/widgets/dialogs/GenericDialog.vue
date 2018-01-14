@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="dialogShown" :max-width="width" ref="genericDialog" :persistent="persistent">
-    <component :is="currentCard" @dialog-closed="dialogShown = false" ref="currentComponent"/>
+    <component :is="currentCard" @dialog-closed="dialogShown = false" ref="currentComponent" @cache-state="cacheState"/>
   </v-dialog>
 </template>
 <script>
@@ -23,14 +23,28 @@
         dialogShown: false,
         currentCard: '',
         width: '700px',
-        persistent: false
+        persistent: false,
+        cachedState: {
+          component: '',
+          data: {}
+        }
       };
     },
     watch: {
       dialogShown (newVal) {
         if (!newVal) {
           this.currentCard = '';
+          this.cachedState = {
+            component: '',
+            data: {}
+          };
         }
+      }
+    },
+    methods: {
+      cacheState (state) {
+        this.cachedState.component = this.currentCard;
+        this.cachedState.data = state;
       }
     },
     components: {

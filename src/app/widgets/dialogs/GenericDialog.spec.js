@@ -1,6 +1,7 @@
 import GenericDialog from './GenericDialog';
 import { shallow } from 'vue-test-utils';
 import Bus from '@/app/events/bus';
+import Vue from 'vue';
 
 describe('GenericDialog.vue', () => {
   let wrapper;
@@ -26,16 +27,16 @@ describe('GenericDialog.vue', () => {
       expect(wrapper.vm.dialogShown).to.be.true;
     });
     // fixme find a better way to implement this test than setTimeout. NextTick is insufficient
-  /*  it('should attach the width property to the dialog', () => {
-      Bus.$emit('show_dialog', {
-        card: 'login-form-dialog-adapter',
-        width: '500px'
-      });
-      const dialog = wrapper.find({ ref: 'genericDialog' });
-      setTimeout(() => {
-        expect(dialog.vnode.data.attrs[ 'max-width' ]).to.equal('500px');
-      }, 1000);
-    });*/
+    /*  it('should attach the width property to the dialog', () => {
+        Bus.$emit('show_dialog', {
+          card: 'login-form-dialog-adapter',
+          width: '500px'
+        });
+        const dialog = wrapper.find({ ref: 'genericDialog' });
+        setTimeout(() => {
+          expect(dialog.vnode.data.attrs[ 'max-width' ]).to.equal('500px');
+        }, 1000);
+      });*/
     it('should error when no params are provided', () => {
       Bus.$emit('show_dialog');
       expect(wrapper.vm.dialogShown).to.be.false;
@@ -86,5 +87,31 @@ describe('GenericDialog.vue', () => {
         expect(wrapper.vm.currentCard).to.eql('');
       }, 1000);
     });*/
+  });
+  describe('cache state', () => {
+    it('should cache the current state when a child component emits an event', () => {
+      Bus.$emit('show_dialog', {
+        card: 'login-form-dialog-adapter'
+      });
+      return Vue.nextTick().then(() => {
+        wrapper.vm.$refs.currentComponent.$emit('cache-state', { data: { name: 'joe bloggs' }});
+        expect(wrapper.vm.cachedState.data).to.eql({ data: { name: 'joe bloggs' }});
+        expect(wrapper.vm.cachedState.component).to.equal('login-form-dialog-adapter');
+      });
+    });
+    it('should reset the cache when the dialog is closed', () => {
+      Bus.$emit('show_dialog', {
+        card: 'login-form-dialog-adapter'
+      });
+      return Vue.nextTick().then(() => {
+        wrapper.vm.$refs.currentComponent.$emit('cache-state', { data: { name: 'joe bloggs' }});
+        wrapper.vm.dialogShown = false;
+        return Vue.nextTick().then(() => {
+          console.log(wrapper.vm.cachedState.data);
+          expect(wrapper.vm.cachedState.data).to.eql({});
+          expect(wrapper.vm.cachedState.component).to.equal('');
+        });
+      });
+    });
   });
 });
