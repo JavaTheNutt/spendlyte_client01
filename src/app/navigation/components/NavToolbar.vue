@@ -12,6 +12,9 @@
         <v-list-tile @click.stop="logOutClicked" id="clickSignOut">
           <v-list-tile-title >Sign Out</v-list-tile-title>
         </v-list-tile>
+        <v-list-tile @click.stop="settingsClicked" id="clickSettings">
+          <v-list-tile-title >Settings</v-list-tile-title>
+        </v-list-tile>
       </v-list>
     </v-menu>
   </v-toolbar>
@@ -22,6 +25,7 @@
   import { mapGetters, mapActions } from 'vuex';
   import authTypes from '@/app/auth/vuex/types';
   import { signOut } from '../../auth/service/FirebaseAuthService';
+  import * as Logger from 'loglevel';
 
   export default {
     name: 'nav-toolbar',
@@ -37,10 +41,11 @@
       },
       ...mapActions({ logIn: authTypes.actions.logIn, logOut: authTypes.actions.logOut }),
       async logOutClicked () {
-        this.logOut();
+        // this.logOut();
         await signOut();
-        // fixme move re-routing to the authentication handler
-        // this.$router.push('/');
+      },
+      settingsClicked () {
+        Logger.info('settings clicked');
       },
       logInClicked () {
         // this.logIn();
