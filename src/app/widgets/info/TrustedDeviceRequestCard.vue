@@ -10,6 +10,16 @@
       <span>
         Would you like to set this as a trusted device?
       </span>
+      <br>
+    </v-card-title>
+    <v-card-title>
+      <v-checkbox label="Dont ask again"
+                  v-model="noAskTrusted"
+                  color="info"
+                  :value="true"
+                  hide-details
+                  id="askAgainTrustedCheckbox"
+      />
     </v-card-title>
     <v-card-actions>
       <submit-form-button-group
@@ -39,23 +49,26 @@
     components: { SubmitFormButtonGroup },
     data () {
       return {
-        loading: false
+        loading: false,
+        noAskTrusted: false
       };
     },
     methods: {
       async yesClicked () {
         Logger.info('yes clicked');
         this.loading = true;
-        await clientDataStore.setPreference('trusted_device', true);
+        await clientDataStore.trustDevice();
         await this.$store.dispatch(preferenceTypes.actions.testTrustedDevice);
         this.loading = false;
-       // fixme return to calling function
+        // fixme return to calling function
         this.$emit('dialog-closed');
       },
       async noClicked () {
         Logger.info('no clicked');
         this.loading = true;
         await clientDataStore.removePreference('trusted_device');
+        console.log(this.noAskTrusted);
+        if (this.noAskTrusted) await clientDataStore.setPreference('ask_trusted', false);
         await this.$store.dispatch(preferenceTypes.actions.testTrustedDevice);
         this.loading = false;
         this.$emit('dialog-closed');
