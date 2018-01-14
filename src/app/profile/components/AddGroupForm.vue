@@ -46,17 +46,28 @@
         submissionDetails: {
           name: '',
           description: ''
-        }
+        },
+        prevalidated: false
       };
+    },
+    props: {
+      initialData: Object
     },
     computed: {
       formValid () {
-        return !!this.fields.groupName && this.fields.groupName.dirty && !this.errors.has('groupName');
+        // fixme, after reverting state, this defaults to false
+        return !!this.fields.groupName && (this.prevalidated || this.fields.groupName.dirty) && !this.errors.has('groupName');
       }
     },
     mixins: [FormMixin],
     created () {
       this._evb = _profileBus;
+    },
+    mounted () {
+      if (!this.initialData || this.initialData !== {}) {
+        this.submissionDetails = Object.assign({}, this.initialData);
+        this.prevalidated = true;
+      }
     }
   };
 </script>

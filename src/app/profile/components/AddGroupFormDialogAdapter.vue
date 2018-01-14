@@ -4,6 +4,7 @@
       <h3 class="headline mb-0">Please log in or sign up to use this service</h3>
     </v-card-title>
     <add-group-form ref="addGroupForm"
+                    :initial-data="formData"
                     @input-triggered="inputTriggered"
                     @validity-updated="validityUpdated"
                     @has-values-updated="valuesUpdated"/>
