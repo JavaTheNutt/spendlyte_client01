@@ -52,6 +52,13 @@
     mixins: [FormDialogAdapter],
     created () {
       this._evb = _profileBus;
+      if (this.initData && this.initData !== {}) {
+        Logger.info('loading add group form with', this.initData);
+        this.formData = Object.assign({}, this.initData);
+      }
+    },
+    props: {
+      initData: Object
     },
     methods: {
       submitClicked () {
