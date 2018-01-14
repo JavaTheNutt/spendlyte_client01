@@ -51,7 +51,7 @@
     },
     computed: {
       formValid () {
-        return this.fields.groupName.dirty && !this.errors.has('groupName');
+        return !!this.fields.groupName && this.fields.groupName.dirty && !this.errors.has('groupName');
       }
     },
     mixins: [FormMixin],

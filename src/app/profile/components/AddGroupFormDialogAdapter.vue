@@ -57,7 +57,7 @@
       submitClicked () {
         Logger.info('submit clicked');
         if (this.askTrusted) {
-          this.cacheState();
+          this.cacheValues();
           Bus.$emit('show_dialog', {
             card: 'trusted-device-request-card',
             persistent: true
