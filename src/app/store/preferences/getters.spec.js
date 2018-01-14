@@ -1,7 +1,7 @@
 import getters from './getters';
 import types from './types';
 describe('preferences getters', () => {
-  describe.only('doAskTrusted', () => {
+  describe('doAskTrusted', () => {
     it('should return false when the device is trusted', () => {
       const state = {
         trustedDevice: true,

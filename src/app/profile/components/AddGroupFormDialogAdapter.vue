@@ -43,7 +43,7 @@
       };
     },
     computed: {
-      ...mapGetters({ trustedDevice: preferenceTypes.getters.isTrustedDevice })
+      ...mapGetters({ askTrusted: preferenceTypes.getters.doAskTrusted })
     },
     components: {
       SubmitFormButtonGroup,
@@ -56,8 +56,8 @@
     methods: {
       submitClicked () {
         Logger.info('submit clicked');
-        if (!this.trustedDevice) Bus.$emit('show_dialog', { card: 'trusted-device-request-card', persistent: true });
-        else Logger.info('device is trusted');
+        if (this.askTrusted) Bus.$emit('show_dialog', { card: 'trusted-device-request-card', persistent: true });
+        else Logger.info('device is trusted, or user does not wish to be asked');
       }
     }
   };
