@@ -27,6 +27,9 @@ export default {
     },
     cacheValues () {
       this.$emit('cache-state', this.formData);
+    },
+    revertState () {
+      this.$emit('revert-state');
     }
   }
 };
