@@ -3,11 +3,13 @@ import { shallow } from 'vue-test-utils';
 import Bus from '@/app/events/bus';
 import Vue from 'vue';
 
+const sandbox = sinon.sandbox.create();
 describe('GenericDialog.vue', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = shallow(GenericDialog);
   });
+  afterEach(() => sandbox.restore())
   describe('show dialog', () => {
     it('should correctly display a specified card', () => {
       Bus.$emit('show_dialog', {
@@ -94,8 +96,8 @@ describe('GenericDialog.vue', () => {
         card: 'login-form-dialog-adapter'
       });
       return Vue.nextTick().then(() => {
-        wrapper.vm.$refs.currentComponent.$emit('cache-state', { data: { name: 'joe bloggs' }});
-        expect(wrapper.vm.cachedState.data).to.eql({ data: { name: 'joe bloggs' }});
+        wrapper.vm.$refs.currentComponent.$emit('cache-state', { data: { name: 'joe bloggs' } });
+        expect(wrapper.vm.cachedState.data).to.eql({ data: { name: 'joe bloggs' } });
         expect(wrapper.vm.cachedState.component).to.equal('login-form-dialog-adapter');
       });
     });
@@ -104,14 +106,77 @@ describe('GenericDialog.vue', () => {
         card: 'login-form-dialog-adapter'
       });
       return Vue.nextTick().then(() => {
-        wrapper.vm.$refs.currentComponent.$emit('cache-state', { data: { name: 'joe bloggs' }});
+        wrapper.vm.$refs.currentComponent.$emit('cache-state', { data: { name: 'joe bloggs' } });
         wrapper.vm.dialogShown = false;
         return Vue.nextTick().then(() => {
-          console.log(wrapper.vm.cachedState.data);
           expect(wrapper.vm.cachedState.data).to.eql({});
           expect(wrapper.vm.cachedState.component).to.equal('');
         });
       });
+    });
+  });
+  describe('revert state', () => {
+    it('should revert the current state to the cached state', () => {
+      Bus.$emit('show_dialog', {
+        card: 'add-group-form-dialog-adapter'
+      });
+      wrapper.setData({
+        dialogShown: true,
+        currentCard: 'trusted-device-request-card',
+        width: '500px',
+        persistent: true,
+        cachedState: {
+          component: 'add-group-form-dialog-adapter',
+          width: '700px',
+          persistent: false,
+          data: {
+            groupName: 'family group',
+            description: 'this is a group'
+          }
+        }
+      });
+      expect(wrapper.vm.currentCard).to.equal('trusted-device-request-card');
+      wrapper.vm.revertState();
+      expect(wrapper.vm.currentCard).to.equal('add-group-form-dialog-adapter');
+      expect(wrapper.vm.width).to.equal('700px');
+      expect(wrapper.vm.persistent).to.equal(false);
+      expect(wrapper.vm.formInitData).to.eql({
+        groupName: 'family group',
+        description: 'this is a group'
+      });
+    });
+    it('should trigger the revert state function when a revert state event is received', () => {
+      const revertSpy = sandbox.spy(wrapper.vm, 'revertState');
+      Bus.$emit('show_dialog', {
+        card: 'login-form-dialog-adapter'
+      });
+      return Vue.nextTick().then(() => {
+        wrapper.vm.$refs.currentComponent.$emit('revert-state', { data: { name: 'joe bloggs' } });
+        expect(revertSpy).to.be.calledOnce;
+      });
+    });
+    it('should reset the cached data when the revert function is called', () => {
+      Bus.$emit('show_dialog', {
+        card: 'add-group-form-dialog-adapter'
+      });
+      wrapper.setData({
+        dialogShown: true,
+        currentCard: 'trusted-device-request-card',
+        width: '500px',
+        persistent: true,
+        cachedState: {
+          component: 'add-group-form-dialog-adapter',
+          width: '700px',
+          persistent: false,
+          data: {
+            groupName: 'family group',
+            description: 'this is a group'
+          }
+        }
+      });
+      expect(wrapper.vm.currentCard).to.equal('trusted-device-request-card');
+      wrapper.vm.revertState();
+      expect(wrapper.vm.cachedState).to.eql({});
     });
   });
 });

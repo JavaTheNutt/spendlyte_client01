@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="dialogShown" :max-width="width" ref="genericDialog" :persistent="persistent">
-    <component :is="currentCard" @dialog-closed="dialogShown = false" ref="currentComponent" @cache-state="cacheState"/>
+    <component :is="currentCard" @dialog-closed="dialogShown = false" ref="currentComponent" @cache-state="cacheState" @revert-state="revertState" :init-data="formInitData"/>
   </v-dialog>
 </template>
 <script>
@@ -27,7 +27,8 @@
         cachedState: {
           component: '',
           data: {}
-        }
+        },
+        formInitData: {}
       };
     },
     watch: {
@@ -44,7 +45,16 @@
     methods: {
       cacheState (state) {
         this.cachedState.component = this.currentCard;
+        this.cachedState.width = this.width;
+        this.cachedState.persistent = this.persistent;
         this.cachedState.data = state;
+      },
+      revertState () {
+        this.formInitData = Object.assign({}, this.cachedState.data);
+        this.width = this.cachedState.width;
+        this.persistent = this.cachedState.persistent;
+        this.currentCard = this.cachedState.component;
+        this.cachedState = {};
       }
     },
     components: {
