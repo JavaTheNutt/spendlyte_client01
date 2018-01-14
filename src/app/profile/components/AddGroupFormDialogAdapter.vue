@@ -56,8 +56,15 @@
     methods: {
       submitClicked () {
         Logger.info('submit clicked');
-        if (this.askTrusted) Bus.$emit('show_dialog', { card: 'trusted-device-request-card', persistent: true });
-        else Logger.info('device is trusted, or user does not wish to be asked');
+        if (this.askTrusted) {
+          this.cacheState();
+          Bus.$emit('show_dialog', {
+            card: 'trusted-device-request-card',
+            persistent: true
+          });
+        } else {
+          Logger.info('device is trusted, or user does not wish to be asked');
+        }
       }
     }
   };
