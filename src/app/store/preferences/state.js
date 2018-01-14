@@ -1,3 +1,4 @@
 export default {
-  trustedDevice: false
+  trustedDevice: false,
+  askTrusted: true
 };

@@ -18,4 +18,22 @@ describe('preferences mutations', () => {
       expect(state.trustedDevice).to.be.false;
     });
   });
+  describe('SET_ASK_TRUSTED', () => {
+    it('should set "askTrusted" to true', () => {
+      const state = {
+        trustedDevice: false,
+        askTrusted: false
+      };
+      mutations[types.mutations.SET_ASK_TRUSTED](state, true);
+      expect(state.askTrusted).to.be.true;
+    });
+    it('should set "askTrusted" to false', () => {
+      const state = {
+        trustedDevice: false,
+        askTrusted: true
+      };
+      mutations[types.mutations.SET_ASK_TRUSTED](state, false);
+      expect(state.askTrusted).to.be.false;
+    });
+  });
 });

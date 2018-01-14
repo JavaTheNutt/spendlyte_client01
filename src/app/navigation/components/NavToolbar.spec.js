@@ -63,7 +63,7 @@ describe('NavToolbar.vue', () => {
     expect(emitStub).to.be.calledOnce;
     expect(emitStub).to.be.calledWith('toggle_drawer_button_clicked');
   });
-  it('should dispatch log out when log out is clicked', () => {
+ /* it('should dispatch log out when log out is clicked', () => {
     const wrapper = mount(NavToolbar, {
       localVue,
       store,
@@ -77,7 +77,7 @@ describe('NavToolbar.vue', () => {
     const signOutButton = wrapper.find('#clickSignOut');
     signOutButton.trigger('click');
     expect(logOutStub).to.be.calledOnce;
-  });
+  });*/
   it('should trigger a logout from firebase when the logout button is clicked', () => {
     const wrapper = mount(NavToolbar, {
       localVue,

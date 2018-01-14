@@ -1,7 +1,7 @@
 import namespace from '@/app/util/namespace';
 
 export default namespace('preferences', {
-  getters: ['isTrustedDevice'],
+  getters: ['isTrustedDevice', 'doAskTrusted'],
   actions: ['testTrustedDevice'],
-  mutations: ['SET_TRUSTED_DEVICE']
+  mutations: ['SET_TRUSTED_DEVICE', 'SET_ASK_TRUSTED']
 });
