@@ -61,7 +61,7 @@
         await this.$store.dispatch(preferenceTypes.actions.testTrustedDevice);
         this.loading = false;
         // fixme return to calling function
-        this.$emit('dialog-closed');
+        this.$emit('revert-state');
       },
       async noClicked () {
         Logger.info('no clicked');
@@ -71,7 +71,7 @@
         if (this.noAskTrusted) await clientDataStore.setPreference('ask_trusted', false);
         await this.$store.dispatch(preferenceTypes.actions.testTrustedDevice);
         this.loading = false;
-        this.$emit('dialog-closed');
+        this.$emit('revert-state');
       },
       closeClicked () {
         this.$emit('dialog-closed');
