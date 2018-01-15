@@ -64,7 +64,7 @@
       this._evb = _profileBus;
     },
     mounted () {
-      if (!this.initialData || this.initialData !== {}) {
+      if (this.initialData && this.initialData !== {}) {
         this.submissionDetails = Object.assign({}, this.initialData);
         this.prevalidated = true;
       }

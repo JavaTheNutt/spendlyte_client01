@@ -9,7 +9,7 @@ describe('GenericDialog.vue', () => {
   beforeEach(() => {
     wrapper = shallow(GenericDialog);
   });
-  afterEach(() => sandbox.restore())
+  afterEach(() => sandbox.restore());
   describe('show dialog', () => {
     it('should correctly display a specified card', () => {
       Bus.$emit('show_dialog', {
@@ -96,8 +96,8 @@ describe('GenericDialog.vue', () => {
         card: 'login-form-dialog-adapter'
       });
       return Vue.nextTick().then(() => {
-        wrapper.vm.$refs.currentComponent.$emit('cache-state', { data: { name: 'joe bloggs' } });
-        expect(wrapper.vm.cachedState.data).to.eql({ data: { name: 'joe bloggs' } });
+        wrapper.vm.$refs.currentComponent.$emit('cache-state', { data: { name: 'joe bloggs' }});
+        expect(wrapper.vm.cachedState.data).to.eql({ data: { name: 'joe bloggs' }});
         expect(wrapper.vm.cachedState.component).to.equal('login-form-dialog-adapter');
       });
     });
@@ -106,7 +106,7 @@ describe('GenericDialog.vue', () => {
         card: 'login-form-dialog-adapter'
       });
       return Vue.nextTick().then(() => {
-        wrapper.vm.$refs.currentComponent.$emit('cache-state', { data: { name: 'joe bloggs' } });
+        wrapper.vm.$refs.currentComponent.$emit('cache-state', { data: { name: 'joe bloggs' }});
         wrapper.vm.dialogShown = false;
         return Vue.nextTick().then(() => {
           expect(wrapper.vm.cachedState.data).to.eql({});
@@ -151,7 +151,7 @@ describe('GenericDialog.vue', () => {
         card: 'login-form-dialog-adapter'
       });
       return Vue.nextTick().then(() => {
-        wrapper.vm.$refs.currentComponent.$emit('revert-state', { data: { name: 'joe bloggs' } });
+        wrapper.vm.$refs.currentComponent.$emit('revert-state', { data: { name: 'joe bloggs' }});
         expect(revertSpy).to.be.calledOnce;
       });
     });

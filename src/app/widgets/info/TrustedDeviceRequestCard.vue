@@ -57,10 +57,8 @@
       async yesClicked () {
         Logger.info('yes clicked');
         this.loading = true;
-        // await clientDataStore.trustDevice();
         await this.$store.dispatch(preferenceTypes.actions.trustDevice);
         this.loading = false;
-        // fixme return to calling function
         this.$emit('revert-state');
       },
       async noClicked () {
