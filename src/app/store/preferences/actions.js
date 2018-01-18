@@ -15,7 +15,7 @@ export default {
   [types.actions.trustDevice]: async ({ commit }) => {
     Logger.info('action called to trust current device');
     await clientDataStore.trustDevice();
-    commit(types.mutations.SET_TRUSTED_DEVICE, true);
-    commit(types.mutations.SET_ASK_TRUSTED, false);
+    commit(types.mutations.TRUST_DEVICE);
+    // commit(types.mutations.SET_ASK_TRUSTED, false);
   }
 };

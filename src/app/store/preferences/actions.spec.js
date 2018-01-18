@@ -4,12 +4,12 @@ import { clientDataStore } from '@/app/localForage/init';
 
 const sandbox = sinon.sandbox.create();
 describe('preferences actions', () => {
+  let commitStub;
+  beforeEach(() => {
+    commitStub = sandbox.stub();
+  });
   afterEach(() => sandbox.restore());
   describe('testTrustedDevice', () => {
-    let commitStub;
-    beforeEach(() => {
-      commitStub = sandbox.stub();
-    });
     describe('is trusted', () => {
       before(async () => {
         await clientDataStore.setPreference('trusted_device', true);
@@ -53,6 +53,21 @@ describe('preferences actions', () => {
           expect(commitStub).to.be.calledWith(types.mutations.SET_ASK_TRUSTED, false);
         });
       });
+    });
+  });
+  describe('trustDevice', () => {
+    let trustDeviceStub;
+    beforeEach(() => {
+      trustDeviceStub = sandbox.stub(clientDataStore, 'trustDevice');
+    });
+    it('should tell the datastore to trust the device', async () => {
+      await actions[types.actions.trustDevice]({ commit: commitStub });
+      expect(trustDeviceStub).to.be.calledOnce;
+    });
+    it('should tell the store to trust the device', async () => {
+      await actions[types.actions.trustDevice]({ commit: commitStub });
+      expect(commitStub).to.be.calledOnce;
+      expect(commitStub).to.be.calledWith(types.mutations.TRUST_DEVICE);
     });
   });
 });
