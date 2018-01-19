@@ -23,6 +23,12 @@ class ClientDataStore {
 
     return await this.getPreference('ask_trusted') !== false;
   }
+  async fetchTrustStatus () {
+    return {
+      trustedDevice: await this.isTrustedDevice(),
+      askTrusted: await this.shouldAskTrusted()
+    };
+  }
   async untrustDevice () {
     const trustedState = {};
     const isTrusted = await this.isTrustedDevice();

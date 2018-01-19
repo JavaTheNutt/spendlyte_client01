@@ -95,4 +95,27 @@ describe('ClientDatastore.js', () => {
       });
     });
   });
+  describe('fetchTrustStatus', () => {
+    it('should return a trusted status when the data points to being trusted', async () => {
+      await clientDataStore.preferenceDataStore.removeItem('ask_trusted');
+      await clientDataStore.preferenceDataStore.setItem('trusted_device', true);
+      const res = await clientDataStore.fetchTrustStatus();
+      expect(res.trustedDevice).to.be.true;
+      expect(res.askTrusted).to.be.false;
+    });
+    it('should return an untrusted status when the data points to being untrusted', async () => {
+      await clientDataStore.preferenceDataStore.removeItem('ask_trusted');
+      await clientDataStore.preferenceDataStore.setItem('trusted_device', false);
+      const res = await clientDataStore.fetchTrustStatus();
+      expect(res.trustedDevice).to.be.false;
+      expect(res.askTrusted).to.be.true;
+    });
+    it('should return an untrusted status, but respect the ask_trusted flag, when the data points to being untrusted', async () => {
+      await clientDataStore.preferenceDataStore.setItem('ask_trusted', false);
+      await clientDataStore.preferenceDataStore.removeItem('trusted_device', false);
+      const res = await clientDataStore.fetchTrustStatus();
+      expect(res.trustedDevice).to.be.false;
+      expect(res.askTrusted).to.be.false;
+    });
+  });
 });
