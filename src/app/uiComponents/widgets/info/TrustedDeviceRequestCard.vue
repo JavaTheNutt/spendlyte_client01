@@ -41,7 +41,7 @@
 <script>
   import SubmitFormButtonGroup from '../forms/buttonGroups/SubmitFormButtonGroup';
   ;
-  import { clientDataStore } from '@/app/data/localForage/init';
+  import { preferenceDataStore } from '@/app/data/localForage/PreferenceDataStore';
   import preferenceTypes from '@/app/data/store/preferences/types';
 
   export default {
@@ -64,9 +64,9 @@
       async noClicked () {
         console.log('no clicked');
         this.loading = true;
-        await clientDataStore.removePreference('trusted_device');
+        await preferenceDataStore.removePreference('trusted_device');
         console.log(this.noAskTrusted);
-        if (this.noAskTrusted) await clientDataStore.setPreference('ask_trusted', false);
+        if (this.noAskTrusted) await preferenceDataStore.setPreference('ask_trusted', false);
         await this.$store.dispatch(preferenceTypes.actions.testTrustedDevice);
         this.loading = false;
         this.$emit('revert-state');

@@ -1,7 +1,7 @@
 import localForage from 'localforage';
 ;
 
-class ClientDataStore {
+class PreferenceDataStore {
   constructor () {
     this._preferenceDataStore = localForage.createInstance({
       name: 'preferenceDataStore'
@@ -60,7 +60,7 @@ class ClientDataStore {
   }
 }
 
-export const clientDataStore = new ClientDataStore();
+export const preferenceDataStore = new PreferenceDataStore();
 
 const set = async (store, key, value) => {
   await store.setItem(key, value);
