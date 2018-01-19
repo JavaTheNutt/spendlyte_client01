@@ -13,12 +13,36 @@ describe('ClientDatastore.js', () => {
       expect(await clientDataStore.isTrustedDevice()).to.be.false;
     });
   });
-
+  describe('untrustDevice', () => {
+    describe('state', () => {
+      it('should set "trusted_device" to null', async () => {
+        await clientDataStore.preferenceDataStore.setItem('trusted_device', true);
+        expect(await clientDataStore.preferenceDataStore.getItem('trusted_device'), 'set up failed: device is not trusted').to.be.true;
+        await clientDataStore.untrustDevice();
+        expect(await clientDataStore.preferenceDataStore.getItem('trusted_device')).to.not.exist;
+      });
+      it('should_set "ask_trusted" to null when "trusted_device" was true', async () => {
+        await clientDataStore.preferenceDataStore.setItem('trusted_device', true);
+        await clientDataStore.preferenceDataStore.setItem('ask_trusted', true);
+        expect(await clientDataStore.preferenceDataStore.getItem('trusted_device'), 'set up failed: device is not trusted').to.be.true;
+        expect(await clientDataStore.preferenceDataStore.getItem('ask_trusted'), 'set up failed: device is not asking for trust').to.be.true;
+        await clientDataStore.untrustDevice();
+        expect(await clientDataStore.preferenceDataStore.getItem('ask_trusted')).to.not.exist;
+      });
+      it('should not change "ask_trusted" when "trusted_device" was null', async () => {
+        await clientDataStore.preferenceDataStore.removeItem('trusted_device');
+        await clientDataStore.preferenceDataStore.setItem('ask_trusted', true);
+        expect(await clientDataStore.preferenceDataStore.getItem('trusted_device'), 'set up failed: device is trusted').to.not.exist;
+        expect(await clientDataStore.preferenceDataStore.getItem('ask_trusted'), 'set up failed: device is not asking for trust').to.be.true;
+        await clientDataStore.untrustDevice();
+        expect(await clientDataStore.preferenceDataStore.getItem('ask_trusted')).to.be.true;
+      });
+    });
+  });
   describe('shouldAskTrusted', () => {
     describe('state', () => {
       it('should return false when the trusted flag is true, even when the ask flag is true', async () => {
         await clientDataStore.preferenceDataStore.setItem('trusted_device', true);
-        console.log(await clientDataStore.preferenceDataStore.getItem('trusted_device'));
         await clientDataStore.preferenceDataStore.setItem('ask_trusted', true);
         expect(await clientDataStore.shouldAskTrusted()).to.be.false;
       });
