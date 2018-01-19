@@ -1,5 +1,5 @@
 import localForage from 'localforage';
-import * as Logger from 'loglevel';
+;
 
 class ClientDataStore {
   constructor () {
@@ -13,7 +13,7 @@ class ClientDataStore {
   }
 
   async trustDevice () {
-    Logger.info('trusting device');
+    console.log('trusting device');
     await this.setPreference('trusted_device', true);
     await this.removePreference('ask_trusted');
   }
@@ -45,17 +45,17 @@ class ClientDataStore {
   }
 
   async setPreference (key, value) {
-    Logger.info('setting preference', key, 'to', value);
+    console.log('setting preference', key, 'to', value);
     await set(this._preferenceDataStore, key, value);
   }
 
   async removePreference (key) {
-    Logger.info('removing preference', key);
+    console.log('removing preference', key);
     await reset(this._preferenceDataStore, key);
   }
 
   async getPreference (key) {
-    Logger.info('fetching preference', key);
+    console.log('fetching preference', key);
     return await get(this._preferenceDataStore, key);
   }
 }

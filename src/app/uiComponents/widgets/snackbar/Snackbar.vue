@@ -9,7 +9,7 @@
 </template>
 <script>
   import Bus from '@/app/events/bus';
-  import * as Logger from 'loglevel';
+  ;
 
   export default {
     name: 'snackbar',
@@ -27,7 +27,7 @@
     },
     methods: {
       showSnack (msg, status) {
-        Logger.info(`show snack message received. showing "${msg}"`);
+        console.log(`show snack message received. showing "${msg}"`);
         this.message = msg;
         this.status = status || 'success';
         this.snackbarShown = true;

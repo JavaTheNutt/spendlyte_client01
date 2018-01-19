@@ -78,7 +78,7 @@
 </template>
 <script>
   import _authBus from '../service/internalAuthBus';
-  import * as Logger from 'loglevel';
+  ;
 
   export default {
     name: 'email-password-form',
@@ -117,7 +117,7 @@
         return !!this.fields.email && !!this.fields.password;
       },
       formHasValues () {
-        Logger.info('evaluating form has values');
+        console.log('evaluating form has values');
         return this.submissionDetails.email.length + this.submissionDetails.password.length + this.confirmPassword.length > 0;
       }
     },
@@ -136,11 +136,11 @@
     },
     methods: {
       formSubmitted () {
-        Logger.info('form submission caught');
+        console.log('form submission caught');
         if (this.formValid) this.$emit('form_submitted', this.submissionDetails);
       },
       inputTriggered () {
-        Logger.info('input event triggered');
+        console.log('input event triggered');
         if (this.formValid) {
           this.$nextTick(function () {
             this.$emit('input-triggered', {
@@ -156,7 +156,7 @@
         });
       },
       resetForm () {
-        Logger.info('reset login form triggered');
+        console.log('reset login form triggered');
         // const self = this;
         return new Promise(resolve => {
           this.clearFormData().then(() => {
@@ -171,7 +171,7 @@
     },
     mounted () {
       if (this.inDialog) {
-        Logger.info('login form mounted in dialog');
+        console.log('login form mounted in dialog');
         _authBus.$on('reset-form', () => this.resetForm());
       }
     }

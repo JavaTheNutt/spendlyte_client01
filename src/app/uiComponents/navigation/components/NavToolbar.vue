@@ -25,7 +25,7 @@
   import { mapGetters, mapActions } from 'vuex';
   import authTypes from '@/app/uiComponents/auth/vuex/types';
   import { signOut } from '../../auth/service/FirebaseAuthService';
-  import * as Logger from 'loglevel';
+  ;
 
   export default {
     name: 'nav-toolbar',
@@ -45,7 +45,7 @@
         await signOut();
       },
       settingsClicked () {
-        Logger.info('settings clicked');
+        console.log('settings clicked');
       },
       logInClicked () {
         // this.logIn();

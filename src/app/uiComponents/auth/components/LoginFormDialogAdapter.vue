@@ -28,7 +28,7 @@
   import SubmitFormButtonGroup from '@/app/uiComponents/widgets/forms/buttonGroups/SubmitFormButtonGroup';
   import _authBus from '../service/internalAuthBus';
   import EmailPasswordForm from './EmailPasswordForm';
-  import * as Logger from 'loglevel';
+  ;
   import * as firebaseAuthService from '../service/FirebaseAuthService';
 
   export default {
@@ -53,7 +53,7 @@
       },
       async submitClicked () {
         // this.loading = true;
-        Logger.info('submit clicked');/*
+        console.log('submit clicked');/*
         _authBus.$emit('submit-form');*/
         if (this.formSubmittable) {
           this.loading = true;
@@ -65,11 +65,11 @@
         }
       },
       resetClicked () {
-        Logger.info('reset clicked');
+        console.log('reset clicked');
         _authBus.$emit('reset-form');
       },
       inputTriggered (data) {
-        Logger.info(`input triggered: ${JSON.stringify(data)}`);
+        console.log(`input triggered: ${JSON.stringify(data)}`);
         this.formData = data.details;
       },
       validityUpdated (valid) {

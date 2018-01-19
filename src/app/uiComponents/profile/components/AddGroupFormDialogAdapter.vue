@@ -30,7 +30,7 @@
   import FormDialogAdapter from '@/app/uiComponents/mixins/FormDialogAdapter';
   import _profileBus from '../service/profileBus';
   import Bus from '@/app/events/bus';
-  import * as Logger from 'loglevel';
+  ;
   import { mapGetters } from 'vuex';
   import preferenceTypes from '@/app/data/store/preferences/types';
 
@@ -54,7 +54,7 @@
     created () {
       this._evb = _profileBus;
       if (this.initData && this.initData !== {}) {
-        Logger.info('loading add group form with', this.initData);
+        console.log('loading add group form with', this.initData);
         this.formData = Object.assign({}, this.initData);
       }
     },
@@ -63,7 +63,7 @@
     },
     methods: {
       submitClicked () {
-        Logger.info('submit clicked');
+        console.log('submit clicked');
         if (this.askTrusted) {
           this.cacheValues();
           Bus.$emit('show_dialog', {
@@ -71,7 +71,7 @@
             persistent: true
           });
         } else {
-          Logger.info('device is trusted, or user does not wish to be asked');
+          console.log('device is trusted, or user does not wish to be asked');
         }
       }
     }

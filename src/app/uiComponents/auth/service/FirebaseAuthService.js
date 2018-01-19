@@ -1,6 +1,6 @@
 // @flow
 
-import * as Logger from 'loglevel';
+;
 import Bus from '@/app/events/bus';
 import firebase from 'firebase';
 import store from '@/store';
@@ -15,8 +15,8 @@ import types from '../vuex/types';
  * @returns {Promise<boolean>} true if operation successful, false otherwise
  */
 export const loginEventTriggered = async (email: String, password: String, createNew: boolean) => {
-  Logger.info('login event triggered');
-  Logger.debug('creating new account? ', createNew);
+  console.log('login event triggered');
+  console.debug('creating new account? ', createNew);
   const fn = createNew ? signUpWithEmailAndPassword : signInWithEmailAndPassword;
   const res : { success?: boolean, error?: Object} = await fn(email, password);
   if (res.error) {
@@ -29,7 +29,7 @@ export const loginEventTriggered = async (email: String, password: String, creat
  * Register Firebase Auth State Listener
  */
 export const registerAuthStateListener = () => {
-  Logger.info('registering auth state listener');
+  console.log('registering auth state listener');
   firebase.auth().onAuthStateChanged(user => authStateChanged(user));
 };
 
@@ -38,7 +38,7 @@ export const registerAuthStateListener = () => {
  * @param user {Object} the firebase user. If provided, considered as sign in, if not, sign out
  */
 export const authStateChanged = (user: ?Object) => {
-  Logger.info('user:', user);
+  console.log('user:', user);
   user ? logIn(user) : logOut();
 };
 
@@ -47,13 +47,13 @@ export const authStateChanged = (user: ?Object) => {
  * @returns {Promise<boolean>} true if sign out successful, false otherwise
  */
 export const signOut = async () => {
-  Logger.info('sign out function triggered');
+  console.log('sign out function triggered');
   try {
     await firebase.auth().signOut();
-    Logger.debug('sign out assumed successful');
+    console.debug('sign out assumed successful');
     return true;
   } catch (e) {
-    Logger.warn('error while signing out', e);
+    console.warn('error while signing out', e);
     return false;
   }
 };
@@ -82,13 +82,13 @@ const logOut = () => {
  * @returns {Promise<boolean | object>} true if sign up successful, false otherwise
  */
 const signUpWithEmailAndPassword = async (email: String, password: String) : {success?: boolean, error?: Object} => {
-  Logger.info('attempting to sign up with email and password');
+  console.log('attempting to sign up with email and password');
   try {
     await firebase.auth().createUserWithEmailAndPassword(email, password);
-    Logger.debug('sign up assumed successful');
+    console.debug('sign up assumed successful');
     return { success: true };
   } catch (e) {
-    Logger.warn('there was an error while signing up', e);
+    console.warn('there was an error while signing up', e);
     return { error: { msg: handleFirebaseError(e.code) }};
   }
 };
@@ -100,13 +100,13 @@ const signUpWithEmailAndPassword = async (email: String, password: String) : {su
  * @returns {Promise<object>} true if sign in successful, false otherwise
  */
 const signInWithEmailAndPassword = async (email: String, password: String) : {success?: boolean, error?: Object} => {
-  Logger.info('attempting to sign in with email and password');
+  console.log('attempting to sign in with email and password');
   try {
     await firebase.auth().signInWithEmailAndPassword(email, password);
-    Logger.debug('sign in assumed successful');
+    console.debug('sign in assumed successful');
     return { success: 'true' };
   } catch (e) {
-    Logger.warn('there was an error while signing in', e);
+    console.warn('there was an error while signing in', e);
     return { error: { msg: handleFirebaseError(e.code) }};
   }
 };

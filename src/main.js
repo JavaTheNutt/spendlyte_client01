@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import VeeValidate from 'vee-validate';
-import * as Logger from 'loglevel';
+;
 import firebase from 'firebase';
 import 'vuetify/dist/vuetify.css';
 
@@ -12,8 +12,10 @@ import colors from 'vuetify/es5/util/colors';
 console.log('setting log level in app bootstrap');
 const logLevel = process.env.LOG_LEVEL || 'silent';
 console.log('current log level ', logLevel);
-logLevel === 'silent' ? Logger.disableAll() : Logger.enableAll();
-// Logger.setLevel(process.env.LOG_LEVEL || 'silent');
+
+// logLevel === 'silent' ? console.disableAll() : console.enableAll();
+if (logLevel === 'silent') console.log = () => {};
+// console.setLevel(process.env.LOG_LEVEL || 'silent');
 Vue.use(VeeValidate);
 Vue.use(Vuetify, {
   theme: {

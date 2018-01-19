@@ -40,7 +40,7 @@
 </template>
 <script>
   import SubmitFormButtonGroup from '../forms/buttonGroups/SubmitFormButtonGroup';
-  import * as Logger from 'loglevel';
+  ;
   import { clientDataStore } from '@/app/data/localForage/init';
   import preferenceTypes from '@/app/data/store/preferences/types';
 
@@ -55,14 +55,14 @@
     },
     methods: {
       async yesClicked () {
-        Logger.info('yes clicked');
+        console.log('yes clicked');
         this.loading = true;
         await this.$store.dispatch(preferenceTypes.actions.trustDevice);
         this.loading = false;
         this.$emit('revert-state');
       },
       async noClicked () {
-        Logger.info('no clicked');
+        console.log('no clicked');
         this.loading = true;
         await clientDataStore.removePreference('trusted_device');
         console.log(this.noAskTrusted);

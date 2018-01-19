@@ -16,7 +16,9 @@ logLevel === 'silent' ? Logger.disableAll() : Logger.enableAll();
 // Logger.setLevel(logLevel);
 module.exports = function (config) {
   const karmaLogLevel = logLevel === 'silent' ? config.LOG_DISABLE : config.LOG_INFO;
+  const showLogs = karmaLogLevel !== config.LOG_DISABLE;
   console.log('karma log level', karmaLogLevel);
+  console.log('show logs', showLogs);
   config.set({
     // to run in additional browsers:
     // 1. install corresponding karma launcher
@@ -40,14 +42,14 @@ module.exports = function (config) {
         { type: 'text-summary' }
       ]
     },
-    logLevel: karmaLogLevel,
+    logLevel: config.LOG_DEBUG,
     browserConsoleLogOptions: {
-      level: karmaLogLevel,
+      level: 'debug',
       format: '%b %T: %m',
-      terminal: karmaLogLevel === config.LOG_INFO
+      terminal: true
     },
     client: {
-      captureConsole: karmaLogLevel === config.LOG_INFO,
+      captureConsole: true
     }
   });
 };
