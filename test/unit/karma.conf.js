@@ -2,7 +2,6 @@
 //   http://karma-runner.github.io/0.13/config/configuration-file.html
 // we are also using it with karma-webpack
 //   https://github.com/webpack/karma-webpack
-const Logger = require('loglevel');
 var webpackConfig = require('../../build/webpack.test.conf');
 var browsers = ['PhantomJS'];
 if (process.env.TRAVIS) {
@@ -11,12 +10,12 @@ if (process.env.TRAVIS) {
 }
 console.log('setting log level in karma config');
 const logLevel = process.env.LOG_LEVEL || 'silent';
+const showLogs = logLevel !== 'silent';
 console.log('current log level is ', logLevel);
-logLevel === 'silent' ? Logger.disableAll() : Logger.enableAll();
 // Logger.setLevel(logLevel);
 module.exports = function (config) {
   const karmaLogLevel = logLevel === 'silent' ? config.LOG_DISABLE : config.LOG_INFO;
-  const showLogs = karmaLogLevel !== config.LOG_DISABLE;
+
   console.log('karma log level', karmaLogLevel);
   console.log('show logs', showLogs);
   config.set({
@@ -42,14 +41,14 @@ module.exports = function (config) {
         { type: 'text-summary' }
       ]
     },
-    logLevel: config.LOG_DEBUG,
+    logLevel: showLogs ? config.LOG_DEBUG : config.LOG_DISABLE,
     browserConsoleLogOptions: {
       level: 'debug',
       format: '%b %T: %m',
-      terminal: true
+      terminal: showLogs
     },
     client: {
-      captureConsole: true
+      captureConsole: showLogs
     }
   });
 };
