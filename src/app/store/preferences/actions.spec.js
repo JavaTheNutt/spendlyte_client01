@@ -83,7 +83,7 @@ describe('preferences actions', () => {
       expect(doNotTrustDeviceStub).to.be.calledOnce;
     });
     it('should tell the vuex store not to trust the device', async () => {
-      const response = { trustDevice: false, askTrusted: true};
+      const response = { trustDevice: false, askTrusted: true };
       doNotTrustDeviceStub.resolves(response);
       await actions[types.actions.untrustDevice]({ commit: commitStub });
       expect(commitStub).to.be.calledOnce;

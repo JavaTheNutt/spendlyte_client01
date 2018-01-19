@@ -36,7 +36,7 @@
   </form>
 </template>
 <script>
-  import FormMixin from '@/app/mixins/Form';
+  import FormMixin from '@/app/uiComponents/mixins/Form';
   import _profileBus from '../service/profileBus';
 
   export default {

@@ -1,5 +1,5 @@
-import { routes as screens } from './screens';
-import { routes as profile } from './profile';
+import { routes as screens } from './uiComponents/screens';
+import { routes as profile } from './uiComponents/profile';
 
 const importedRoutes = [...screens, ...profile];
 

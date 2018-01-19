@@ -25,7 +25,7 @@
   </v-card>
 </template>
 <script>
-  import SubmitFormButtonGroup from '@/app/widgets/forms/buttonGroups/SubmitFormButtonGroup';
+  import SubmitFormButtonGroup from '@/app/uiComponents/widgets/forms/buttonGroups/SubmitFormButtonGroup';
   import _authBus from '../service/internalAuthBus';
   import EmailPasswordForm from './EmailPasswordForm';
   import * as Logger from 'loglevel';

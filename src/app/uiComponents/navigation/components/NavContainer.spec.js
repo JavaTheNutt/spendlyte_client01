@@ -3,7 +3,7 @@ import NavToolbar from './NavToolbar';
 import NavDrawer from './NavDrawer';
 import NavBus from '../service/navBus';
 import * as navService from '../service/navigationService';
-import authTypes from '@/app/auth/vuex/types';
+import authTypes from '@/app/uiComponents/auth/vuex/types';
 import Vuex from 'vuex';
 import { createLocalVue, mount, shallow } from 'vue-test-utils';
 

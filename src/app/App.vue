@@ -13,11 +13,11 @@
 </template>
 
 <script>
-  import { NavContainer } from './navigation';
-  import GenericDialog from './widgets/dialogs/GenericDialog';
-  import { registerAuthStateListener } from './auth/service/FirebaseAuthService';
+  import { NavContainer } from './uiComponents/navigation';
+  import GenericDialog from './uiComponents/widgets/dialogs/GenericDialog';
+  import { registerAuthStateListener } from './uiComponents/auth/service/FirebaseAuthService';
   import preferenceTypes from './store/preferences/types';
-  import Snackbar from './widgets/snackbar/Snackbar';
+  import Snackbar from './uiComponents/widgets/snackbar/Snackbar';
   export default {
     components: {
       NavContainer,

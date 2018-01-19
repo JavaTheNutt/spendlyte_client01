@@ -7,13 +7,13 @@
   import Bus from '@/app/events/bus';
   // import LoginFormDialogAdapter from '@/app/auth/components/LoginFormDialogAdapter';
   const LoginFormDialogAdapter = () => import(
-    /* webpackChunkName: "login-form-dialog"*/ '@/app/auth/components/LoginFormDialogAdapter'
+    /* webpackChunkName: "login-form-dialog"*/ '@/app/uiComponents/auth/components/LoginFormDialogAdapter'
     );
   const AddGroupFormDialogAdapter = () => import(
-    /* webpackChunkName: "add-group-dialog"*/ '@/app/profile/components/AddGroupFormDialogAdapter'
+    /* webpackChunkName: "add-group-dialog"*/ '@/app/uiComponents/profile/components/AddGroupFormDialogAdapter'
     );
   const TrustedDeviceRequestCard = () => import(
-    /* webpackChunkName: "trusted-device-request-card */ '@/app/widgets/info/TrustedDeviceRequestCard'
+    /* webpackChunkName: "trusted-device-request-card */ '@/app/uiComponents/widgets/info/TrustedDeviceRequestCard'
     );
 
   export default {

@@ -25,9 +25,9 @@
   </v-card>
 </template>
 <script>
-  import SubmitFormButtonGroup from '@/app/widgets/forms/buttonGroups/SubmitFormButtonGroup';
+  import SubmitFormButtonGroup from '@/app/uiComponents/widgets/forms/buttonGroups/SubmitFormButtonGroup';
   import AddGroupForm from './AddGroupForm';
-  import FormDialogAdapter from '@/app/mixins/FormDialogAdapter';
+  import FormDialogAdapter from '@/app/uiComponents/mixins/FormDialogAdapter';
   import _profileBus from '../service/profileBus';
   import Bus from '@/app/events/bus';
   import * as Logger from 'loglevel';
