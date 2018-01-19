@@ -20,7 +20,6 @@ class PreferenceDataStore {
 
   async shouldAskTrusted () {
     if (await this.isTrustedDevice()) return false;
-
     return await this.getPreference('ask_trusted') !== false;
   }
   async fetchTrustStatus () {
@@ -39,6 +38,12 @@ class PreferenceDataStore {
     }
     await this.removePreference('trusted_device');
     return trustedState;
+  }
+  async disableTrustReminder () {
+    console.debug('disabling trust reminders');
+    await this.removePreference('trusted_device');
+    await this.setPreference('ask_trusted', false);
+    return { trustedDevice: false, askTrusted: false };
   }
   async isTrustedDevice () {
     return await this.getPreference('trusted_device') || false;

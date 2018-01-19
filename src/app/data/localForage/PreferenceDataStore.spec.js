@@ -118,4 +118,36 @@ describe('preferenceDataStore.js', () => {
       expect(res.askTrusted).to.be.false;
     });
   });
+  describe('disableTrustReminder', () => {
+    it('should set ask_trusted to false', async () => {
+      await preferenceDataStore.preferenceDataStore.setItem('ask_trusted', true);
+      await preferenceDataStore.disableTrustReminder();
+      expect(await preferenceDataStore.preferenceDataStore.getItem('ask_trusted')).to.be.false;
+    });
+    it('should set trusted_device to false', async () => {
+      await preferenceDataStore.preferenceDataStore.setItem('trusted_device', true);
+      await preferenceDataStore.disableTrustReminder();
+      expect(await preferenceDataStore.preferenceDataStore.getItem('trusted_device')).to.not.exist;
+    });
+    it('should tell the persistent store not to trust the device', async () => {
+      await preferenceDataStore.preferenceDataStore.setItem('trusted_device', true);
+      await preferenceDataStore.disableTrustReminder();
+      expect(await preferenceDataStore.preferenceDataStore.getItem('trusted_device')).to.not.exist;
+    });
+    it('should return the correct data', async () => {
+      await preferenceDataStore.preferenceDataStore.setItem('trusted_device', true);
+      const res = await preferenceDataStore.disableTrustReminder();
+      expect(res).to.eql({ trustedDevice: false, askTrusted: false });
+    });
+    it('should cause isTrustedDevice to return false', async () => {
+      await preferenceDataStore.preferenceDataStore.setItem('trusted_device', true);
+      await preferenceDataStore.disableTrustReminder();
+      expect(await preferenceDataStore.isTrustedDevice()).to.be.false;
+    });
+    it('should cause shouldAskTrusted to return false', async () => {
+      await preferenceDataStore.preferenceDataStore.setItem('trusted_device', true);
+      await preferenceDataStore.disableTrustReminder();
+      expect(await preferenceDataStore.shouldAskTrusted()).to.be.false;
+    });
+  });
 });
