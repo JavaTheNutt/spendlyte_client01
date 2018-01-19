@@ -11,14 +11,23 @@ class ClientDataStore {
   get preferenceDataStore () {
     return this._preferenceDataStore;
   }
+
   async trustDevice () {
     Logger.info('trusting device');
     await this.setPreference('trusted_device', true);
     await this.removePreference('ask_trusted');
   }
+
+  async shouldAskTrusted () {
+    if (await this.isTrustedDevice()) return false;
+
+    return await this.getPreference('ask_trusted') !== false;
+  }
+
   async isTrustedDevice () {
     return await this.getPreference('trusted_device') || false;
   }
+
   async setPreference (key, value) {
     Logger.info('setting preference', key, 'to', value);
     await set(this._preferenceDataStore, key, value);
