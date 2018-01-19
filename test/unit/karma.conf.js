@@ -39,15 +39,15 @@ module.exports = function (config) {
         { type: 'lcov', subdir: '.' },
         { type: 'text-summary' }
       ]
-    }/* ,
+    },
     logLevel: karmaLogLevel,
     browserConsoleLogOptions: {
-      level: config.LOG_DEBUG,
+      level: karmaLogLevel,
       format: '%b %T: %m',
-      terminal: true
+      terminal: karmaLogLevel === config.LOG_DEBUG
     },
     client: {
-      captureConsole: true,
-    }*/
+      captureConsole: karmaLogLevel === config.LOG_DEBUG,
+    }
   });
 };
