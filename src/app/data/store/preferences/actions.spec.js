@@ -20,9 +20,8 @@ describe('preferences actions', () => {
       });
       it('should commit true when the device is trusted', async () => {
         await actions[ types.actions.testTrustedDevice ]({ commit: commitStub });
-        expect(commitStub).to.be.calledTwice;
-        expect(commitStub).to.be.calledWith(types.mutations.SET_TRUSTED_DEVICE, true);
-        expect(commitStub).to.be.calledWith(types.mutations.SET_ASK_TRUSTED, false);
+        expect(commitStub).to.be.calledOnce;
+        expect(commitStub).to.be.calledWith(types.mutations.UPDATE_TRUSTED_STATUS, { trustedDevice: true, askTrusted: false });
       });
     });
     describe('not trusted', () => {
@@ -31,8 +30,8 @@ describe('preferences actions', () => {
       });
       it('should commit false when the device is untrusted', async () => {
         await actions[ types.actions.testTrustedDevice ]({ commit: commitStub });
-        expect(commitStub).to.be.calledTwice;
-        expect(commitStub).to.be.calledWith(types.mutations.SET_TRUSTED_DEVICE, false);
+        expect(commitStub).to.be.calledOnce;
+        expect(commitStub).to.be.calledWith(types.mutations.UPDATE_TRUSTED_STATUS, { trustedDevice: false, askTrusted: true });
       });
       describe('ask trusted', () => {
         before(async () => {
@@ -40,20 +39,20 @@ describe('preferences actions', () => {
         });
         it('should commit true when an askTrusted key does not exist', async () => {
           await actions[ types.actions.testTrustedDevice ]({ commit: commitStub });
-          expect(commitStub).to.be.calledTwice;
-          expect(commitStub).to.be.calledWith(types.mutations.SET_ASK_TRUSTED, true);
+          expect(commitStub).to.be.calledOnce;
+          expect(commitStub).to.be.calledWith(types.mutations.UPDATE_TRUSTED_STATUS, { trustedDevice: false, askTrusted: true });
         });
         it('should commit true when the key explicitly says so', async () => {
           await preferenceDataStore.setPreference('ask_trusted', true);
           await actions[ types.actions.testTrustedDevice ]({ commit: commitStub });
-          expect(commitStub).to.be.calledTwice;
-          expect(commitStub).to.be.calledWith(types.mutations.SET_ASK_TRUSTED, true);
+          expect(commitStub).to.be.calledOnce;
+          expect(commitStub).to.be.calledWith(types.mutations.UPDATE_TRUSTED_STATUS, { trustedDevice: false, askTrusted: true });
         });
         it('should commit false when the key explicitly says not to ask', async () => {
           await preferenceDataStore.setPreference('ask_trusted', false);
           await actions[ types.actions.testTrustedDevice ]({ commit: commitStub });
-          expect(commitStub).to.be.calledTwice;
-          expect(commitStub).to.be.calledWith(types.mutations.SET_ASK_TRUSTED, false);
+          expect(commitStub).to.be.calledOnce;
+          expect(commitStub).to.be.calledWith(types.mutations.UPDATE_TRUSTED_STATUS, { trustedDevice: false, askTrusted: false });
         });
       });
     });
@@ -87,7 +86,7 @@ describe('preferences actions', () => {
       doNotTrustDeviceStub.resolves(response);
       await actions[types.actions.untrustDevice]({ commit: commitStub });
       expect(commitStub).to.be.calledOnce;
-      expect(commitStub).to.be.calledWith(types.mutations.UPDATE_TRUST_STATUS, response);
+      expect(commitStub).to.be.calledWith(types.mutations.UPDATE_TRUSTED_STATUS, response);
     });
   });
   describe('doNotAskToTrustDevice', () => {
