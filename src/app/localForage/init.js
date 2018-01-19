@@ -24,8 +24,15 @@ class ClientDataStore {
     return await this.getPreference('ask_trusted') !== false;
   }
   async untrustDevice () {
-    if (await this.isTrustedDevice()) await this.removePreference('ask_trusted');
+    const trustedState = {};
+    const isTrusted = await this.isTrustedDevice();
+    trustedState.askTrusted = isTrusted ? false : ((await this.getPreference('ask_trusted') || false));
+    trustedState.trustedDevice = false;
+    if (isTrusted) {
+      await this.removePreference('ask_trusted');
+    }
     await this.removePreference('trusted_device');
+    return trustedState;
   }
   async isTrustedDevice () {
     return await this.getPreference('trusted_device') || false;

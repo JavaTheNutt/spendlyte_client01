@@ -1,3 +1,7 @@
+/*global describe*/
+/*global it*/
+/*global sinon*/
+
 import { clientDataStore } from './init';
 
 describe('ClientDatastore.js', () => {
@@ -36,6 +40,29 @@ describe('ClientDatastore.js', () => {
         expect(await clientDataStore.preferenceDataStore.getItem('ask_trusted'), 'set up failed: device is not asking for trust').to.be.true;
         await clientDataStore.untrustDevice();
         expect(await clientDataStore.preferenceDataStore.getItem('ask_trusted')).to.be.true;
+      });
+    });
+    describe('values', () => {
+      it('should return both as false when trusted was true', async () => {
+        await (clientDataStore.preferenceDataStore.setItem('trusted_device', true));
+        await (clientDataStore.preferenceDataStore.setItem('ask_trusted', true));
+        const res = await clientDataStore.untrustDevice();
+        expect(res.trustedDevice).to.be.false;
+        expect(res.askTrusted).to.be.false;
+      });
+      it('should return ask as true when ask was true and trusted was false', async () => {
+        await (clientDataStore.preferenceDataStore.setItem('trusted_device', false));
+        await (clientDataStore.preferenceDataStore.setItem('ask_trusted', true));
+        const res = await clientDataStore.untrustDevice();
+        expect(res.trustedDevice).to.be.false;
+        expect(res.askTrusted).to.be.true;
+      });
+      it('should return both as false when both were false', async () => {
+        await (clientDataStore.preferenceDataStore.setItem('trusted_device', false));
+        await (clientDataStore.preferenceDataStore.setItem('ask_trusted', false));
+        const res = await clientDataStore.untrustDevice();
+        expect(res.trustedDevice, 'trusted device is true').to.be.false;
+        expect(res.askTrusted, 'ask trusted is true').to.be.false;
       });
     });
   });
