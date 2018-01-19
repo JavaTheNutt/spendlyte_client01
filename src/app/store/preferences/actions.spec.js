@@ -1,3 +1,6 @@
+/*global describe*/
+/*global it*/
+/*global sinon*/
 import types from './types';
 import actions from './actions';
 import { clientDataStore } from '@/app/localForage/init';
@@ -69,6 +72,27 @@ describe('preferences actions', () => {
       expect(commitStub).to.be.calledOnce;
       expect(commitStub).to.be.calledWith(types.mutations.TRUST_DEVICE);
     });
+  });
+  describe.only('untrustDevice', () => {
+    let doNotTrustDeviceStub;
+    beforeEach(() => {
+      doNotTrustDeviceStub = sandbox.stub(clientDataStore, 'untrustDevice');
+    });
+    it('should tell the persistent store not to trust the device', async () => {
+      await actions[types.actions.untrustDevice]({ commit: commitStub });
+      expect(doNotTrustDeviceStub).to.be.calledOnce;
+    });
+    it('should tell the vuex store not to trust the device', async () => {
+      await actions[types.actions.untrustDevice]({ commit: commitStub });
+      expect(commitStub).to.be.calledOnce;
+      expect(commitStub).to.be.calledWith(types.mutations.UNTRUST_DEVICE);
+    });
+  });
+  describe('doNotAskToTrustDevice', () => {
+    it('should tell the persistent store not to ask to trust the device');
+    it('should tell the persistent store not to trust the device');
+    it('should tell the persistent store not to ask to trust the device');
+    it('should tell the persistent store not to trust the device');
   });
 });
 
