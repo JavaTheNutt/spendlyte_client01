@@ -73,7 +73,7 @@ describe('preferences actions', () => {
       expect(commitStub).to.be.calledWith(types.mutations.TRUST_DEVICE);
     });
   });
-  describe.only('untrustDevice', () => {
+  describe('untrustDevice', () => {
     let doNotTrustDeviceStub;
     beforeEach(() => {
       doNotTrustDeviceStub = sandbox.stub(clientDataStore, 'untrustDevice');
@@ -83,9 +83,11 @@ describe('preferences actions', () => {
       expect(doNotTrustDeviceStub).to.be.calledOnce;
     });
     it('should tell the vuex store not to trust the device', async () => {
+      const response = { trustDevice: false, askTrusted: true};
+      doNotTrustDeviceStub.resolves(response);
       await actions[types.actions.untrustDevice]({ commit: commitStub });
       expect(commitStub).to.be.calledOnce;
-      expect(commitStub).to.be.calledWith(types.mutations.UNTRUST_DEVICE);
+      expect(commitStub).to.be.calledWith(types.mutations.UPDATE_TRUST_STATUS, response);
     });
   });
   describe('doNotAskToTrustDevice', () => {

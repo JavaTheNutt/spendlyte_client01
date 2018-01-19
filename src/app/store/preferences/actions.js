@@ -19,7 +19,7 @@ export default {
     // commit(types.mutations.SET_ASK_TRUSTED, false);
   },
   [types.actions.untrustDevice]: async ({ commit }) => {
-    await clientDataStore.untrustDevice();
-    commit(types.mutations.UNTRUST_DEVICE);
+    const trustDetails = await clientDataStore.untrustDevice();
+    commit(types.mutations.UPDATE_TRUST_STATUS, trustDetails);
   }
 };
