@@ -1,3 +1,5 @@
+/*global describe*/
+/*global it*/
 import types from './types';
 import mutations from './mutations';
 
@@ -48,6 +50,30 @@ describe('preferences mutations', () => {
     it('should set ask to false', () => {
       mutations[types.mutations.TRUST_DEVICE](state);
       expect(state.askTrusted).to.be.false;
+    });
+  });
+  describe('UNTRUST_DEVICE', () => {
+    let state;
+    beforeEach(() => {
+      state = {
+        trustedDevice: true,
+        askTrusted: false
+      };
+    });
+    it('should set trusted to false', () => {
+      mutations[types.mutations.UNTRUST_DEVICE](state);
+      expect(state.trustedDevice).to.be.false;
+    });
+    it('should set askTrusted to false when trustedDevice was true', () => {
+      state.askTrusted = true;
+      mutations[types.mutations.UNTRUST_DEVICE](state);
+      expect(state.askTrusted).to.be.false;
+    });
+    it('should not change ask trusted when trustedDevice was false', () => {
+      state.trustedDevice = false;
+      state.askTrusted = true;
+      mutations[types.mutations.UNTRUST_DEVICE](state);
+      expect(state.askTrusted).to.be.true;
     });
   });
 });

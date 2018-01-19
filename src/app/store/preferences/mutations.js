@@ -6,5 +6,9 @@ export default {
   [types.mutations.TRUST_DEVICE]: state => {
     state.askTrusted = false;
     state.trustedDevice = true;
+  },
+  [types.mutations.UNTRUST_DEVICE]: state => {
+    if (state.trustedDevice) state.askTrusted = false;
+    state.trustedDevice = false;
   }
 };
