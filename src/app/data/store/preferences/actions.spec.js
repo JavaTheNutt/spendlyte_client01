@@ -3,7 +3,7 @@
 /*global sinon*/
 import types from './types';
 import actions from './actions';
-import { clientDataStore } from '@/app/localForage/init';
+import { clientDataStore } from '@/app/data/localForage/init';
 
 const sandbox = sinon.sandbox.create();
 describe('preferences actions', () => {

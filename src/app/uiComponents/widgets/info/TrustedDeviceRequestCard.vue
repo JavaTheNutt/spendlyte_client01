@@ -41,8 +41,8 @@
 <script>
   import SubmitFormButtonGroup from '../forms/buttonGroups/SubmitFormButtonGroup';
   import * as Logger from 'loglevel';
-  import { clientDataStore } from '@/app/localForage/init';
-  import preferenceTypes from '@/app/store/preferences/types';
+  import { clientDataStore } from '@/app/data/localForage/init';
+  import preferenceTypes from '@/app/data/store/preferences/types';
 
   export default {
     name: 'trusted-device-request-card',

@@ -32,7 +32,7 @@
   import Bus from '@/app/events/bus';
   import * as Logger from 'loglevel';
   import { mapGetters } from 'vuex';
-  import preferenceTypes from '@/app/store/preferences/types';
+  import preferenceTypes from '@/app/data/store/preferences/types';
 
   export default {
     name: 'add-group-form-dialog-adapter',
