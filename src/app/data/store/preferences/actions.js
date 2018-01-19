@@ -1,5 +1,5 @@
 import types from './types';
-import { clientDataStore } from '@/app/localForage/init';
+import { clientDataStore } from '@/app/data/localForage/init';
 import * as Logger from 'loglevel';
 
 export default {

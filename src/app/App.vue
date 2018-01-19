@@ -16,7 +16,7 @@
   import { NavContainer } from './uiComponents/navigation';
   import GenericDialog from './uiComponents/widgets/dialogs/GenericDialog';
   import { registerAuthStateListener } from './uiComponents/auth/service/FirebaseAuthService';
-  import preferenceTypes from './store/preferences/types';
+  import preferenceTypes from './data/store/preferences/types';
   import Snackbar from './uiComponents/widgets/snackbar/Snackbar';
   export default {
     components: {
