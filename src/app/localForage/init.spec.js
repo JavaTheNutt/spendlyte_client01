@@ -1,10 +1,10 @@
-import {clientDataStore} from './init';
+import { clientDataStore } from './init';
 
 describe('ClientDatastore.js', () => {
+  beforeEach(async () => {
+    await clientDataStore.preferenceDataStore.clear();
+  });
   describe('isTrustedDevice', () => {
-    beforeEach(async () => {
-      await clientDataStore.preferenceDataStore.clear();
-    });
     it('should return true when the device is trusted', async () => {
       await clientDataStore.trustDevice();
       expect(await clientDataStore.isTrustedDevice()).to.be.true;
