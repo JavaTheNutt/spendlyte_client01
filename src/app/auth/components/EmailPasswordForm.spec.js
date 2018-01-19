@@ -3,7 +3,8 @@ import _authBus from '../service/internalAuthBus';
 import { createLocalVue, shallow } from 'vue-test-utils';
 import VeeValidate from 'vee-validate';
 import Vue from 'vue';
-
+/* global describe*/
+/* global it */
 const localVue = createLocalVue();
 localVue.use(VeeValidate);
 const sandbox = sinon.sandbox.create();
