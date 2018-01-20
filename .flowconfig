@@ -1,5 +1,6 @@
 [options]
 module.name_mapper='^@' ->'<PROJECT_ROOT>/src'
+unsafe.enable_getters_and_setters=true
 [ignore]
 .*/node_modules/protobufjs/.*
 .*/node_modules/config-chain/.*
