@@ -20,10 +20,10 @@ export default {
       this.formData = data.details;
     },
     validityUpdated (valid) {
-      this.formSubmittable = valid;
+      this.formSubmittable = !!valid;
     },
     valuesUpdated (hasValues) {
-      this.formHasValues = hasValues;
+      this.formHasValues = !!hasValues;
     },
     cacheValues () {
       this.$emit('cache-state', this.formData);
