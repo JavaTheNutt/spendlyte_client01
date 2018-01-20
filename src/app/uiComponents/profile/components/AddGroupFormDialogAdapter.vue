@@ -30,7 +30,6 @@
   import FormDialogAdapter from '@/app/uiComponents/mixins/FormDialogAdapter';
   import _profileBus from '../service/profileBus';
   import Bus from '@/app/events/bus';
-  ;
   import { mapGetters } from 'vuex';
   import preferenceTypes from '@/app/data/store/preferences/types';
 
