@@ -40,9 +40,8 @@
 </template>
 <script>
   import SubmitFormButtonGroup from '../forms/buttonGroups/SubmitFormButtonGroup';
-  ;
-  import { preferenceDataStore } from '@/app/data/localForage/PreferenceDataStore';
   import preferenceTypes from '@/app/data/store/preferences/types';
+  import { mapActions } from 'vuex';
 
   export default {
     name: 'trusted-device-request-card',
@@ -54,20 +53,24 @@
       };
     },
     methods: {
+      ...mapActions({
+        trustDevice: preferenceTypes.actions.trustDevice,
+        untrustDevice: preferenceTypes.actions.untrustDevice,
+        disableTrustReminder: preferenceTypes.actions.disableTrustReminder
+      }),
       async yesClicked () {
         console.log('yes clicked');
         this.loading = true;
-        await this.$store.dispatch(preferenceTypes.actions.trustDevice);
+        await
+        this.trustDevice();
         this.loading = false;
         this.$emit('revert-state');
       },
       async noClicked () {
         console.log('no clicked');
         this.loading = true;
-        await preferenceDataStore.removePreference('trusted_device');
-        console.log(this.noAskTrusted);
-        if (this.noAskTrusted) await preferenceDataStore.setPreference('ask_trusted', false);
-        await this.$store.dispatch(preferenceTypes.actions.testTrustedDevice);
+        console.log('disable ask trusted?', this.noAskTrusted);
+        this.noAskTrusted ? await this.disableTrustReminder() : await this.untrustDevice();
         this.loading = false;
         this.$emit('revert-state');
       },

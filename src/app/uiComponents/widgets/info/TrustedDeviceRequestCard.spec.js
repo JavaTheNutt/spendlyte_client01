@@ -7,7 +7,7 @@ import store from '@/store';
 import preferencesTypes from '@/app/data/store/preferences/types';
 import { preferenceDataStore } from '@/app/data/localForage/PreferenceDataStore';
 
-describe.only('TrustedDeviceRequestCard.vue', () => {
+describe('TrustedDeviceRequestCard.vue', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
   let wrapper;
@@ -34,10 +34,44 @@ describe.only('TrustedDeviceRequestCard.vue', () => {
       });
     });
     describe('noClicked', () => {
-      it('should set trusted to false');
-      it('should set ask to true when ask is not ticked');
-      it('should set ask to false when ask is ticked');
-      it('should not set asked to false when it is not ticked');
+      describe('do not ask ticked', () => {
+        beforeEach(() => wrapper.vm.noAskTrusted = true);
+        it('should set trusted to false locally', async () => {
+          await wrapper.vm.noClicked();
+          expect(wrapper.vm.$store.getters[preferencesTypes.getters.isTrustedDevice]).to.be.false;
+        });
+        it('should set trusted to false persistent', async () => {
+          await wrapper.vm.noClicked();
+          expect(await preferenceDataStore.preferenceDataStore.getItem('trusted_device')).to.not.exist;
+        });
+        it('should set ask to false locally when ask is ticked', async () => {
+          await wrapper.vm.noClicked();
+          expect(wrapper.vm.$store.getters[preferencesTypes.getters.doAskTrusted]).to.be.false;
+        });
+        it('should set ask to false persistently when ask is ticked', async () => {
+          await wrapper.vm.noClicked();
+          expect(await preferenceDataStore.preferenceDataStore.getItem('ask_trusted')).to.be.false;
+        });
+      });
+      describe('do not ask not ticked', () => {
+        before(() => wrapper.vm.noAskTrusted = false);
+        it('should set ask to true locally when ask is not ticked', async () => {
+          await wrapper.vm.noClicked();
+          expect(wrapper.vm.$store.getters[preferencesTypes.getters.doAskTrusted]).to.be.true;
+        });
+        it('should set ask to true persistently when ask is not ticked', async () => {
+          await wrapper.vm.noClicked();
+          expect(await preferenceDataStore.preferenceDataStore.getItem('ask_trusted')).to.be.true;
+        });
+        it('should set trusted to false locally when it is not ticked', async () => {
+          await wrapper.vm.noClicked();
+          expect(wrapper.vm.$store.getters[preferencesTypes.getters.isTrustedDevice]).to.be.false;
+        });
+        it('should set trusted to false persistently when it is not ticked', async () => {
+          await wrapper.vm.noClicked();
+          expect(await preferenceDataStore.preferenceDataStore.getItem('trusted_device')).to.not.exist;
+        });
+      });
     });
   });
 });
