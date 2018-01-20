@@ -11,7 +11,10 @@ describe('preferences actions', () => {
   beforeEach(() => {
     commitStub = sandbox.stub();
   });
-  afterEach(() => sandbox.restore());
+  afterEach(() => {
+    sandbox.restore();
+    preferenceDataStore.preferenceDataStore.clear();
+  });
   describe('testTrustedDevice', () => {
     describe('is trusted', () => {
       before(async () => {
@@ -82,18 +85,25 @@ describe('preferences actions', () => {
       expect(doNotTrustDeviceStub).to.be.calledOnce;
     });
     it('should tell the vuex store not to trust the device', async () => {
-      const response = { trustDevice: false, askTrusted: true };
+      const response = { trustedDevice: false, askTrusted: true };
       doNotTrustDeviceStub.resolves(response);
       await actions[types.actions.untrustDevice]({ commit: commitStub });
       expect(commitStub).to.be.calledOnce;
       expect(commitStub).to.be.calledWith(types.mutations.UPDATE_TRUSTED_STATUS, response);
     });
-  });
-  describe('doNotAskToTrustDevice', () => {
-    it('should tell the persistent store not to ask to trust the device');
-    it('should tell the persistent store not to trust the device');
-    it('should tell the persistent store not to ask to trust the device');
-    it('should tell the persistent store not to trust the device');
+    describe('disableTrustReminder', () => {
+      it('should call disable trust reminder', async () => {
+        await actions[types.actions.disableTrustReminder]({ commit: commitStub });
+        expect(commitStub).to.be.calledOnce;
+      });
+      it('should call commit with the response returned from the disable trust reminder function', async () => {
+        const response = { trustedDevice: false, askTrusted: false };
+        doNotTrustDeviceStub.resolves(response);
+        await actions[types.actions.disableTrustReminder]({ commit: commitStub });
+        expect(commitStub).to.be.calledOnce;
+        expect(commitStub).to.be.calledWith(types.mutations.UPDATE_TRUSTED_STATUS, response);
+      });
+    });
   });
 });
 
