@@ -41,6 +41,10 @@ describe('preferenceDataStore.js', () => {
         await preferenceDataStore.untrustDevice();
         expect(await preferenceDataStore.preferenceDataStore.getItem('ask_trusted')).to.be.true;
       });
+      it('should set "ask_trusted" to true when both were null', async () => {
+        await preferenceDataStore.untrustDevice();
+        expect(await preferenceDataStore.preferenceDataStore.getItem('ask_trusted')).to.be.true;
+      });
     });
     describe('values', () => {
       it('should return both as false when trusted was true', async () => {
@@ -57,12 +61,12 @@ describe('preferenceDataStore.js', () => {
         expect(res.trustedDevice).to.be.false;
         expect(res.askTrusted).to.be.true;
       });
-      it('should return both as false when both were false', async () => {
+      it('should return ask as true and trusted as false when both were false', async () => {
         await (preferenceDataStore.preferenceDataStore.setItem('trusted_device', false));
         await (preferenceDataStore.preferenceDataStore.setItem('ask_trusted', false));
         const res = await preferenceDataStore.untrustDevice();
         expect(res.trustedDevice, 'trusted device is true').to.be.false;
-        expect(res.askTrusted, 'ask trusted is true').to.be.false;
+        expect(res.askTrusted, 'ask trusted is true').to.be.true;
       });
     });
   });

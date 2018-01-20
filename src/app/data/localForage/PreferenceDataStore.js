@@ -32,20 +32,22 @@ class PreferenceDataStore {
     };
   }
   async untrustDevice ():Promise<{trustedDevice:boolean, askTrusted:boolean}> {
+    console.log('untrusting device');
     const trustedState = {};
     const isTrusted: boolean = await this.isTrustedDevice();
     trustedState.askTrusted = isTrusted ? false : ((await this.getPreference('ask_trusted') || false));
     trustedState.trustedDevice = false;
-    if (isTrusted) {
-      await this.removePreference('ask_trusted');
-    }
+    console.debug('device previously trusted?', isTrusted);
+    isTrusted ? await this.removePreference('ask_trusted') : await this.setPreference('ask_trusted', true);
     await this.removePreference('trusted_device');
-    return trustedState;
+    console.debug('returning from untrust device function with', trustedState);
+    return { trustedDevice: false, askTrusted: !isTrusted };
   }
   async disableTrustReminder ():Promise<{trustedDevice:boolean, askTrusted:boolean}> {
     console.debug('disabling trust reminders');
     await this.removePreference('trusted_device');
     await this.setPreference('ask_trusted', false);
+    console.debug('returning from disable trust reminder function with', { trustedDevice: false, askTrusted: false });
     return { trustedDevice: false, askTrusted: false };
   }
   async isTrustedDevice ():Promise<boolean> {
