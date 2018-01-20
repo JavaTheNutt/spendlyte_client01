@@ -15,3 +15,9 @@ export const openLoginDialog = async t => {
   const loginButton = Selector('#loginButton');
   await t.click(loginButton);
 };
+
+export const openAddGroupDialog = async t => {
+  const openAddGroupDialogButton = Selector('#openAddGroupDialog');
+  // expect(await openAddGroupDialogButton.exists);
+  await t.click(openAddGroupDialogButton);
+};

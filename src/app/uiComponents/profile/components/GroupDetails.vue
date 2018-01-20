@@ -14,7 +14,7 @@
       </v-layout>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn fab color="primary" dark @click.stop="addGroup">
+        <v-btn fab color="primary" dark @click.stop="addGroup" id="openAddGroupDialog">
           <v-icon>add</v-icon>
         </v-btn>
       </v-card-actions>
@@ -23,7 +23,6 @@
   </v-card>
 </template>
 <script>
-  ;
   import Bus from '@/app/events/bus';
   export default {
     name: 'group-details',
