@@ -1,9 +1,10 @@
+// @flow
 import types from './types';
 import { preferenceDataStore } from '@/app/data/localForage/PreferenceDataStore';
 
 export default {
   [types.actions.testTrustedDevice]: async ({ commit }) => {
-    const trustStatus = await preferenceDataStore.fetchTrustStatus();
+    const trustStatus: Promise<{askTrusted:boolean, trustedDevice: boolean}> = await preferenceDataStore.fetchTrustStatus();
     console.debug('current trust status', trustStatus);
     commit(types.mutations.UPDATE_TRUSTED_STATUS, trustStatus);
   },
