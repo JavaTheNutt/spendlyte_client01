@@ -32,6 +32,10 @@ describe('TrustedDeviceRequestCard.vue', () => {
         await wrapper.vm.yesClicked();
         expect(await preferenceDataStore.preferenceDataStore.getItem('ask_trusted')).to.not.exist;
       });
+      it('should emit a revertState event', async () => {
+        await wrapper.vm.yesClicked();
+        expect(wrapper.emitted()['revert-state'].length).to.eql(1);
+      });
     });
     describe('noClicked', () => {
       describe('do not ask ticked', () => {
@@ -52,6 +56,10 @@ describe('TrustedDeviceRequestCard.vue', () => {
           await wrapper.vm.noClicked();
           expect(await preferenceDataStore.preferenceDataStore.getItem('ask_trusted')).to.be.false;
         });
+        it('should emit a revertState event', async () => {
+          await wrapper.vm.noClicked();
+          expect(wrapper.emitted()['revert-state'].length).to.eql(1);
+        });
       });
       describe('do not ask not ticked', () => {
         before(() => wrapper.vm.noAskTrusted = false);
@@ -71,6 +79,16 @@ describe('TrustedDeviceRequestCard.vue', () => {
           await wrapper.vm.noClicked();
           expect(await preferenceDataStore.preferenceDataStore.getItem('trusted_device')).to.not.exist;
         });
+        it('should emit a revertState event', async () => {
+          await wrapper.vm.noClicked();
+          expect(wrapper.emitted()['revert-state'].length).to.eql(1);
+        });
+      });
+    });
+    describe('closeClicked', () => {
+      it('should emit a close event to the parent', () => {
+        wrapper.vm.closeClicked();
+        expect(wrapper.emitted()['dialog-closed'].length).to.eql(1);
       });
     });
   });
