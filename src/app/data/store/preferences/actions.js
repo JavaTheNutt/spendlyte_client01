@@ -12,11 +12,15 @@ export default {
     console.log('action called to trust current device');
     await preferenceDataStore.trustDevice();
     commit(types.mutations.TRUST_DEVICE);
-    // commit(types.mutations.SET_ASK_TRUSTED, false);
   },
   [types.actions.untrustDevice]: async ({ commit }) => {
+    console.log('action called to untrust current device');
     const trustDetails = await preferenceDataStore.untrustDevice();
+    console.log('trust details to be committed', trustDetails);
     commit(types.mutations.UPDATE_TRUSTED_STATUS, trustDetails);
   },
-  [types.actions.disableTrustReminder]: async ({ commit }) => commit(types.mutations.UPDATE_TRUSTED_STATUS, await preferenceDataStore.disableTrustReminder())
+  [types.actions.disableTrustReminder]: async ({ commit }) => {
+    console.log('action called to disable trust reminder');
+    commit(types.mutations.UPDATE_TRUSTED_STATUS, await preferenceDataStore.disableTrustReminder());
+  }
 };
