@@ -134,5 +134,5 @@ describe('AddGroupFormDialogAdapter.vue', () => {
         });
       });
     });
-  })
+  });
 });

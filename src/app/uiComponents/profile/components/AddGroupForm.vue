@@ -55,7 +55,6 @@
     },
     computed: {
       formValid () {
-        // fixme, after reverting state, this defaults to false
         return !!this.fields.groupName && (this.prevalidated || this.fields.groupName.dirty) && !this.errors.has('groupName');
       }
     },
