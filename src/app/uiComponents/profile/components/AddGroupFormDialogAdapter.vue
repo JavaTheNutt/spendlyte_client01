@@ -32,6 +32,7 @@
   import Bus from '@/app/events/bus';
   import { mapGetters } from 'vuex';
   import preferenceTypes from '@/app/data/store/preferences/types';
+  import * as profileService from '../service/profileService';
 
   export default {
     name: 'add-group-form-dialog-adapter',
@@ -71,6 +72,7 @@
           });
         } else {
           console.log('device is trusted, or user does not wish to be asked');
+          profileService.addGroup(this.formData);
         }
       }
     }
