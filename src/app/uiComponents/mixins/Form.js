@@ -51,6 +51,6 @@ export default {
     }
   },
   mounted () {
-    this._evb.$on('reset-form', () => this.resetForm());
+    if (this._evb) this._evb.$on('reset-form', () => this.resetForm());
   }
 };
