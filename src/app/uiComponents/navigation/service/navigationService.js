@@ -8,5 +8,5 @@ export const fetchShownLinks = links => links.filter(link => link.shown);
 
 export const fetchSideNavLinks = () => getAuthorizedRoutes().filter(link => link.path !== router.currentRoute.path);
 
-export const getAuthorizedRoutes = () => links.filter(link => link.shown ? true : store.state.auth.loggedIn);
+export const getAuthorizedRoutes = () => links.filter(link => (link.shown ? true : store.state.auth.loggedIn) && link.icon);
 
