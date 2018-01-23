@@ -1,4 +1,4 @@
-import AddFinanceForm from './components/AddFinanceForm';
+import AddFinanceFormWrapper from './components/AddFinanceFormWrapper';
 
 export default [{
   name: 'income',
@@ -8,7 +8,7 @@ export default [{
 }, {
   name: 'add-income',
   path: '/income/new',
-  component: AddFinanceForm
+  component: AddFinanceFormWrapper
 }, {
   name: 'expenditure',
   path: '/expenditure',
@@ -17,5 +17,5 @@ export default [{
 }, {
   name: 'add-expenditure',
   path: '/expenditure/new',
-  component: AddFinanceForm
+  component: AddFinanceFormWrapper
 }];
