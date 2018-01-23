@@ -50,7 +50,7 @@ export const signOut = async () => {
   try {
     await firebase.auth().signOut();
     console.debug('sign out assumed successful');
-    router.push('/');
+    // router.push('/');
     return true;
   } catch (e) {
     console.warn('error while signing out', e);
@@ -73,7 +73,7 @@ const logIn = (user: Object) => {
 const logOut = () => {
   store.dispatch(types.actions.logOut);
   // fixme find some way to prevent this on initial page load
-  // router.push('/');
+  router.push('/');
 };
 
 /**
