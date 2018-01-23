@@ -1,5 +1,6 @@
 <template>
   <v-container fluid>
+    <p class="headline text-xs-center">Add a new {{ctx}}</p>
     <add-finance-form :ctx="ctx"/>
     <submit-form-button-group align="center"/>
   </v-container>
