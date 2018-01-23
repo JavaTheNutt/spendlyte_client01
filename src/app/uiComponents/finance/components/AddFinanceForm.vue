@@ -94,6 +94,11 @@
         return this.fields && this.fields.title && this.fields.title.dirty && this.errors.has('title');
       }
     },
+    watch: {
+      $route () {
+        this.resetForm();
+      }
+    },
     data () {
       return {
         submissionDetails: {
