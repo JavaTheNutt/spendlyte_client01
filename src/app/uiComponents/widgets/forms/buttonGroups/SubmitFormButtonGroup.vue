@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
-    <v-layout row wrap align-right>
-      <v-flex class="text-xs-right" v-if="!loading">
+    <v-layout row wrap :class="currentAlign">
+      <v-flex v-if="!loading">
         <v-btn color="primary" @click="submitClicked" :disabled="!formSubmittable" ref="positiveButton" id="submitButton">{{positiveText}}</v-btn>
         <v-btn color="accent" @click="resetClicked" :disabled="!formHasValues" ref="negativeButton" id="resetButton">{{negativeText}}</v-btn>
         <v-btn flat color="primary" v-if="hasClose" @click.stop="closeClicked" ref="closeButton" id="closeButton">{{closeText}}</v-btn>
@@ -34,6 +34,10 @@
       loading: {
         type: Boolean,
         default: false
+      },
+      align: {
+        type: String,
+        default: 'right'
       }
     },
     methods: {
@@ -45,6 +49,11 @@
       },
       resetClicked () {
         this.$emit('reset-clicked');
+      }
+    },
+    computed: {
+      currentAlign () {
+        return `text-xs-${this.align}`;
       }
     }
   };
