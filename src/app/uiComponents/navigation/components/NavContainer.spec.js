@@ -7,7 +7,6 @@ import authTypes from '@/app/uiComponents/auth/vuex/types';
 import Vuex from 'vuex';
 import { createLocalVue, mount, shallow } from 'vue-test-utils';
 
-// fixme test watchers
 const sandbox = sinon.sandbox.create();
 describe('NavContainer.vue', () => {
   let toggleSpy, emitStub, store, state, getters, actions, localVue, loggedInStub, fetchLinksStub;

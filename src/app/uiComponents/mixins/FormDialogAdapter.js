@@ -11,10 +11,10 @@ export default {
   methods: {
     closeDialog () {
       this.$emit('dialog-closed');
-      this._evb.$emit('reset-form');
+      if (this._evb) this._evb.$emit('reset-form');
     },
     resetClicked () {
-      this._evb.$emit('reset-form');
+      if (this._evb) this._evb.$emit('reset-form');
     },
     inputTriggered (data) {
       this.formData = data.details;

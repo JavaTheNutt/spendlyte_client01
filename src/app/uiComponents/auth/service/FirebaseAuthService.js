@@ -72,7 +72,6 @@ const logIn = (user: Object) => {
  */
 const logOut = () => {
   store.dispatch(types.actions.logOut);
-  // fixme find some way to prevent this on initial page load
   router.push('/');
 };
 

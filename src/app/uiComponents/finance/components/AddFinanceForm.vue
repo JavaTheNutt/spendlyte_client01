@@ -91,7 +91,10 @@
     mixins: [FormMixin],
     computed: {
       formValid () {
-        return this.fields && this.fields.title && this.fields.title.dirty && this.errors.has('title');
+        return this.formInteractedWith && !this.errors.has('title') && !this.errors.has('amount') && this.submissionDetails.nextDueDate.length > 0;
+      },
+      formInteractedWith () {
+        return this.fields && this.fields.title && this.fields.title.dirty && this.fields.amount && this.fields.amount.dirty;
       }
     },
     watch: {

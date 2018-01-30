@@ -1,8 +1,7 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import VeeValidate from 'vee-validate';
-;
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import 'vuetify/dist/vuetify.css';
 
 import App from './app/App';

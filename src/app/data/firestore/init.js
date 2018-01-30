@@ -1,11 +1,8 @@
-// import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
-const _db = null;
-
-export const getDb = async () => {
-  if (_db) {
-    return _db;
-  }
-  // FIXME: implement _db creation
-  return await true;
+export const enableFirestorePersistence = async () => {
+  console.log('enabling firebase offline persistence');
+  await firebase.firestore().enablePersistence();
 };
+
