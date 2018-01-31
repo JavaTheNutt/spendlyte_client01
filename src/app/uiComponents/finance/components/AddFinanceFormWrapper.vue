@@ -49,7 +49,9 @@
             this.formData.nextDueDate
           );
           console.log('income', income);
+          this.loading = true;
           const result = await income.save();
+          this.loading = false;
           console.log('result', result);
         }
       }
