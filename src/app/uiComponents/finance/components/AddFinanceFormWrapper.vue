@@ -25,7 +25,6 @@
   import AddFinanceForm from './AddFinanceForm';
   import SubmitFormButtonGroup from '../../widgets/forms/buttonGroups/SubmitFormButtonGroup';
   import FormDialogAdapter from '@/app/uiComponents/mixins/FormDialogAdapter';
-  import Income from '@/app/data/firestore/Income';
   export default{
     name: 'add-finance-form-wrapper',
     components: {
@@ -33,27 +32,14 @@
       AddFinanceForm
     },
     mixins: [FormDialogAdapter],
-    computed: {
-      ctx () {
-        return this.$route.path.substring(1, this.$route.path.lastIndexOf('/'));
-      }
+    props: {
+      ctx: String,
+      loading: Boolean
     },
     methods: {
-      async submitClicked () {
+      submitClicked () {
         console.log('the submit button has been clicked');
-        if (this.ctx === 'income') {
-          const income = new Income(
-            this.formData.title,
-            this.formData.amount,
-            this.formData.frequency,
-            this.formData.nextDueDate
-          );
-          console.log('income', income);
-          this.loading = true;
-          const result = await income.save();
-          this.loading = false;
-          console.log('result', result);
-        }
+        this.$emit('submit', this.formData);
       }
     },
     data () {
