@@ -6,7 +6,7 @@
         <v-btn color="accent" @click="resetClicked" :disabled="!formHasValues" ref="negativeButton" id="resetButton">{{negativeText}}</v-btn>
         <v-btn flat color="primary" v-if="hasClose" @click.stop="closeClicked" ref="closeButton" id="closeButton">{{closeText}}</v-btn>
       </v-flex>
-      <v-flex v-if="loading" class="text-xs-right" ref="loadingContainer">
+      <v-flex v-if="loading" :class="currentAlign" ref="loadingContainer">
         <v-progress-circular indeterminate color="primary"/>
       </v-flex>
     </v-layout>
