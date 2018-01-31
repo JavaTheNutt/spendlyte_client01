@@ -1,5 +1,5 @@
 // @flow
-import { addItem } from './util';
+import { addItem, cleanItem } from './util';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
@@ -45,12 +45,12 @@ export default class Income {
   }
 
   toJson () : {title: string, amount: number, frequency: string, nextDueDate: Date} {
-    return {
+    return cleanItem({
       title: this._title,
       amount: this._amount,
       frequency: this._frequency,
       nextDueDate: this._nextDueDate
-    };
+    });
   }
 
   async save () {

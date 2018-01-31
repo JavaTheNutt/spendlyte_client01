@@ -14,3 +14,12 @@ export const addItem = async (path:string, item: any) => {
   }
 };
 
+export const cleanItem = (item: Object) => {
+  for (const propName in item) {
+    if (item[propName] === null || item[propName] === undefined) {
+      delete item[propName];
+    }
+  }
+  return item;
+};
+
