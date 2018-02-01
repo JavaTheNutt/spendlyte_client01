@@ -8,5 +8,6 @@ module.exports = {
   FIREBASE_STORAGE_BUCKET: JSON.stringify(`${process.env.FIREBASE_STORAGE_BUCKET}`),
   FIREBASE_MESSAGING_SENDER_ID: JSON.stringify(`${process.env.FIREBASE_MESSAGING_SENDER_ID}`),
   LOG_LEVEL: JSON.stringify(process.env.LOG_LEVEL) || '"silent"',
-  TRAVIS: process.env.TRAVIS || false
+  TRAVIS: process.env.TRAVIS || false,
+  BACKEND_BASE_URL: JSON.stringify(`${process.env.BACKEND_BASE_URL}`)
 };

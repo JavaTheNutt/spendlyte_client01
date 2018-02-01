@@ -6,7 +6,7 @@
           <v-flex>
             <h3 class="display-3" id="jumbotronTitle">Welcome to Spend Lyte</h3>
             <span class="subheading" id="jumbotronSubtitle">The only finance app you'll ever need!</span>
-            <v-divider class="my-3"></v-divider>
+            <v-divider class="my-3"/>
             <div class="title mb-3" id="jumbotronInfoMessage">Read a little bit about this application</div>
             <router-link to="/about">
               <v-btn large color="primary" class="mx-0" >About</v-btn>

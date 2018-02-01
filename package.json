@@ -24,6 +24,7 @@
     "flow": "flow start"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "firebase": "^4.8.1",
     "localforage": "^1.5.5",
     "vee-validate": "^2.0.3",
