@@ -4,7 +4,7 @@ import Bus from '@/app/events/bus';
 import firebase from 'firebase';
 import store from '@/store';
 import router from '@/router';
-import types from '../vuex/types';
+import types from '../../../data/store/auth/types';
 
 /**
  * Either log in or signup.

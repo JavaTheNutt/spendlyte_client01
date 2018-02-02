@@ -9,7 +9,7 @@
   import NavToolbar from './NavToolbar';
   import NavigationDrawer from './NavDrawer';
   import { mapGetters } from 'vuex';
-  import authTypes from '@/app/uiComponents/auth/vuex/types';
+  import authTypes from '@/app/data/store/auth/types';
   export default {
     data () {
       return {

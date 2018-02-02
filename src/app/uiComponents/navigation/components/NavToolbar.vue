@@ -23,7 +23,7 @@
   import NavBus from '../service/navBus';
   import Bus from '@/app/events/bus';
   import { mapGetters, mapActions } from 'vuex';
-  import authTypes from '@/app/uiComponents/auth/vuex/types';
+  import authTypes from '@/app/data/store/auth/types';
   import { signOut } from '../../auth/service/FirebaseAuthService';
   ;
 

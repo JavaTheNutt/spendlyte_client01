@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import Bus from '@/app/events/bus';
 import * as firebaseAuthService from './FirebaseAuthService';
 import store from '@/store';
-import types from '../vuex/types';
+import types from '../../../data/store/auth/types';
 
 const sandbox = sinon.sandbox.create();
 

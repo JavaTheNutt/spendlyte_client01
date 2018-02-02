@@ -2,7 +2,7 @@ import NavToolbar from './NavToolbar';
 import NavBus from '../service/navBus';
 import { createLocalVue, mount, shallow } from 'vue-test-utils';
 import firebase from 'firebase';
-import authTypes from '@/app/uiComponents/auth/vuex/types';
+import authTypes from '@/app/data/store/auth/types';
 import Vuex from 'vuex';
 
 const sandbox = sinon.sandbox.create();
