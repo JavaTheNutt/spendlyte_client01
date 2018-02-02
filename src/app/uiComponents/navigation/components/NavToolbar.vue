@@ -23,14 +23,14 @@
   import NavBus from '../service/navBus';
   import Bus from '@/app/events/bus';
   import { mapGetters, mapActions } from 'vuex';
-  import authTypes from '@/app/data/store/auth/types';
+  import { types } from '@/app';
   import { signOut } from '../../auth/service/FirebaseAuthService';
   ;
 
   export default {
     name: 'nav-toolbar',
     computed: {
-      ...mapGetters({ loggedIn: authTypes.getters.isLoggedIn })
+      ...mapGetters({ loggedIn: types.auth.getters.isLoggedIn })
     },
     props: {
       hasLinks: Boolean
@@ -39,7 +39,7 @@
       emitClick () {
         NavBus.$emit('toggle_drawer_button_clicked');
       },
-      ...mapActions({ logIn: authTypes.actions.logIn, logOut: authTypes.actions.logOut }),
+      ...mapActions({ logIn: types.auth.actions.logIn, logOut: types.auth.actions.logOut }),
       async logOutClicked () {
         // this.logOut();
         await signOut();

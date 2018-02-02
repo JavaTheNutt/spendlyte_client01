@@ -31,7 +31,7 @@
   import _profileBus from '../service/profileBus';
   import Bus from '@/app/events/bus';
   import { mapGetters } from 'vuex';
-  import preferenceTypes from '@/app/data/store/preferences/types';
+  import { types } from '@/app';
   import * as profileService from '../service/profileService';
 
   export default {
@@ -44,7 +44,7 @@
       };
     },
     computed: {
-      ...mapGetters({ askTrusted: preferenceTypes.getters.doAskTrusted })
+      ...mapGetters({ askTrusted: types.preferences.getters.doAskTrusted })
     },
     components: {
       SubmitFormButtonGroup,

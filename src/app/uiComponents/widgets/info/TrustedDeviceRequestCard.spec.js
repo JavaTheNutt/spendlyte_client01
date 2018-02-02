@@ -4,7 +4,7 @@ import { shallow, createLocalVue } from 'vue-test-utils';
 import TrustedDeviceRequestCard from './TrustedDeviceRequestCard';
 import Vuex from 'vuex';
 import store from '@/store';
-import preferencesTypes from '@/app/data/store/preferences/types';
+import { types } from '@/app';
 import { preferenceDataStore } from '@/app/data/localForage/PreferenceDataStore';
 
 describe('TrustedDeviceRequestCard.vue', () => {
@@ -18,11 +18,11 @@ describe('TrustedDeviceRequestCard.vue', () => {
     describe('yesClicked', () => {
       it('should set the store state to trusted', async () => {
         await wrapper.vm.yesClicked();
-        expect(wrapper.vm.$store.getters[preferencesTypes.getters.isTrustedDevice]).to.be.true;
+        expect(wrapper.vm.$store.getters[types.preferences.getters.isTrustedDevice]).to.be.true;
       });
       it('should set ask trusted to false', async () => {
         await wrapper.vm.yesClicked();
-        expect(wrapper.vm.$store.getters[preferencesTypes.getters.doAskTrusted]).to.be.false;
+        expect(wrapper.vm.$store.getters[types.preferences.getters.doAskTrusted]).to.be.false;
       });
       it('should persist the trusted state', async () => {
         await wrapper.vm.yesClicked();
@@ -42,7 +42,7 @@ describe('TrustedDeviceRequestCard.vue', () => {
         beforeEach(() => wrapper.vm.noAskTrusted = true);
         it('should set trusted to false locally', async () => {
           await wrapper.vm.noClicked();
-          expect(wrapper.vm.$store.getters[preferencesTypes.getters.isTrustedDevice]).to.be.false;
+          expect(wrapper.vm.$store.getters[types.preferences.getters.isTrustedDevice]).to.be.false;
         });
         it('should set trusted to false persistent', async () => {
           await wrapper.vm.noClicked();
@@ -50,7 +50,7 @@ describe('TrustedDeviceRequestCard.vue', () => {
         });
         it('should set ask to false locally when ask is ticked', async () => {
           await wrapper.vm.noClicked();
-          expect(wrapper.vm.$store.getters[preferencesTypes.getters.doAskTrusted]).to.be.false;
+          expect(wrapper.vm.$store.getters[types.preferences.getters.doAskTrusted]).to.be.false;
         });
         it('should set ask to false persistently when ask is ticked', async () => {
           await wrapper.vm.noClicked();
@@ -65,7 +65,7 @@ describe('TrustedDeviceRequestCard.vue', () => {
         before(() => wrapper.vm.noAskTrusted = false);
         it('should set ask to true locally when ask is not ticked', async () => {
           await wrapper.vm.noClicked();
-          expect(wrapper.vm.$store.getters[preferencesTypes.getters.doAskTrusted]).to.be.true;
+          expect(wrapper.vm.$store.getters[types.preferences.getters.doAskTrusted]).to.be.true;
         });
         it('should set ask to true persistently when ask is not ticked', async () => {
           await wrapper.vm.noClicked();
@@ -73,7 +73,7 @@ describe('TrustedDeviceRequestCard.vue', () => {
         });
         it('should set trusted to false locally when it is not ticked', async () => {
           await wrapper.vm.noClicked();
-          expect(wrapper.vm.$store.getters[preferencesTypes.getters.isTrustedDevice]).to.be.false;
+          expect(wrapper.vm.$store.getters[types.preferences.getters.isTrustedDevice]).to.be.false;
         });
         it('should set trusted to false persistently when it is not ticked', async () => {
           await wrapper.vm.noClicked();

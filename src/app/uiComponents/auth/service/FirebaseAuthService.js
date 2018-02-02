@@ -4,7 +4,7 @@ import Bus from '@/app/events/bus';
 import firebase from 'firebase';
 import store from '@/store';
 import router from '@/router';
-import types from '../../../data/store/auth/types';
+import { types } from '@/app';
 
 /**
  * Either log in or signup.
@@ -63,7 +63,7 @@ export const signOut = async () => {
  * @param user {Object} the user who logged in
  */
 const logIn = (user: Object) => {
-  store.dispatch(types.actions.logIn);
+  store.dispatch(types.auth.actions.logIn);
   // router.push('/profile');
 };
 
@@ -71,7 +71,7 @@ const logIn = (user: Object) => {
  * User logged out, trigger relevant events
  */
 const logOut = () => {
-  store.dispatch(types.actions.logOut);
+  store.dispatch(types.auth.actions.logOut);
   router.push('/');
 };
 

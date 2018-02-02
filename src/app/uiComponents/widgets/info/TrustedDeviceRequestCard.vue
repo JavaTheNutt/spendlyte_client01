@@ -40,7 +40,7 @@
 </template>
 <script>
   import SubmitFormButtonGroup from '../forms/buttonGroups/SubmitFormButtonGroup';
-  import preferenceTypes from '@/app/data/store/preferences/types';
+  import { types } from '@/app';
   import { mapActions } from 'vuex';
 
   export default {
@@ -54,9 +54,9 @@
     },
     methods: {
       ...mapActions({
-        trustDevice: preferenceTypes.actions.trustDevice,
-        untrustDevice: preferenceTypes.actions.untrustDevice,
-        disableTrustReminder: preferenceTypes.actions.disableTrustReminder
+        trustDevice: types.preferences.actions.trustDevice,
+        untrustDevice: types.preferences.actions.untrustDevice,
+        disableTrustReminder: types.preferences.actions.disableTrustReminder
       }),
       async yesClicked () {
         console.log('yes clicked');

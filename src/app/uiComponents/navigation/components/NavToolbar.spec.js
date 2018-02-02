@@ -2,7 +2,7 @@ import NavToolbar from './NavToolbar';
 import NavBus from '../service/navBus';
 import { createLocalVue, mount, shallow } from 'vue-test-utils';
 import firebase from 'firebase';
-import authTypes from '@/app/data/store/auth/types';
+import { types } from '@/app';
 import Vuex from 'vuex';
 
 const sandbox = sinon.sandbox.create();
@@ -21,9 +21,9 @@ describe('NavToolbar.vue', () => {
     logOutStub = sandbox.stub();
     pushStub = sandbox.stub();
     mockedRouter = { push: pushStub };
-    getters[authTypes.getters.isLoggedIn] = sandbox.stub().returns(true);
-    actions[authTypes.actions.logIn] = sandbox.stub();
-    actions[authTypes.actions.logOut] = logOutStub;
+    getters[types.auth.getters.isLoggedIn] = sandbox.stub().returns(true);
+    actions[types.auth.actions.logIn] = sandbox.stub();
+    actions[types.auth.actions.logOut] = logOutStub;
     state = {
       namespaced: true,
       modules: {

@@ -6,7 +6,7 @@ import { shallow, createLocalVue } from 'vue-test-utils';
 import Vuex from 'vuex';
 import store from 'store';
 import Bus from '@/app/events/bus';
-import preferenceTypes from '@/app/data/store/preferences/types';
+import { types } from '@/app';
 const sandbox = sinon.sandbox.create();
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -32,7 +32,7 @@ describe('AddGroupFormDialogAdapter.vue', () => {
     describe('methods', () => {
       describe('submitClicked', () => {
         describe('ask trusted', () => {
-          beforeEach(() => store.commit(preferenceTypes.mutations.SET_ASK_TRUSTED, true));
+          beforeEach(() => store.commit(types.preferences.mutations.SET_ASK_TRUSTED, true));
           it('should trigger cache values', () => {
             const cacheSpy = sandbox.spy(wrapper.vm, 'cacheValues');
             wrapper.vm.submitClicked();
@@ -46,7 +46,7 @@ describe('AddGroupFormDialogAdapter.vue', () => {
           });
         });
         describe('do not ask trusted', () => {
-          beforeEach(() => store.commit(preferenceTypes.mutations.SET_ASK_TRUSTED, false));
+          beforeEach(() => store.commit(types.preferences.mutations.SET_ASK_TRUSTED, false));
           it('should not trigger cache values', () => {
             const cacheSpy = sandbox.spy(wrapper.vm, 'cacheValues');
             wrapper.vm.submitClicked();

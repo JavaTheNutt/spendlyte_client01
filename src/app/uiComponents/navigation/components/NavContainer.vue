@@ -1,7 +1,7 @@
 <template>
   <div>
-    <nav-toolbar :hasLinks="hasLinks"></nav-toolbar>
-    <navigation-drawer :items="navLinks"></navigation-drawer>
+    <nav-toolbar :hasLinks="hasLinks"/>
+    <navigation-drawer :items="navLinks"/>
   </div>
 </template>
 <script>
@@ -9,7 +9,7 @@
   import NavToolbar from './NavToolbar';
   import NavigationDrawer from './NavDrawer';
   import { mapGetters } from 'vuex';
-  import authTypes from '@/app/data/store/auth/types';
+  import { types } from '@/app';
   export default {
     data () {
       return {
@@ -21,7 +21,7 @@
       NavToolbar },
     name: 'nav-container',
     computed: {
-      ...mapGetters({ loggedIn: authTypes.getters.isLoggedIn }),
+      ...mapGetters({ loggedIn: types.auth.getters.isLoggedIn }),
       hasLinks () {
         return this.navLinks.length > 0;
       }

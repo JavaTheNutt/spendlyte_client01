@@ -3,7 +3,7 @@ import NavToolbar from './NavToolbar';
 import NavDrawer from './NavDrawer';
 import NavBus from '../service/navBus';
 import * as navService from '../service/navigationService';
-import authTypes from '@/app/data/store/auth/types';
+import { types } from '@/app';
 import Vuex from 'vuex';
 import { createLocalVue, mount, shallow } from 'vue-test-utils';
 
@@ -15,9 +15,9 @@ describe('NavContainer.vue', () => {
     getters = {};
     loggedInStub = sandbox.stub().returns(true);
     fetchLinksStub = sandbox.stub(navService, 'fetchSideNavLinks');
-    getters[authTypes.getters.isLoggedIn] = loggedInStub;
-    actions[authTypes.actions.logIn] = sandbox.stub();
-    actions[authTypes.actions.logOut] = sandbox.stub();
+    getters[types.auth.getters.isLoggedIn] = loggedInStub;
+    actions[types.auth.actions.logIn] = sandbox.stub();
+    actions[types.auth.actions.logOut] = sandbox.stub();
     state = {
       namespaced: true,
       modules: {

@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import Bus from '@/app/events/bus';
 import * as firebaseAuthService from './FirebaseAuthService';
 import store from '@/store';
-import types from '../../../data/store/auth/types';
+import { types } from '@/app';
 
 const sandbox = sinon.sandbox.create();
 
@@ -153,7 +153,7 @@ describe('FirebaseAuthService.js', () => {
   describe('authStateChanged', () => {
     describe('log in', () => {
       it('should update the store with the logged in variable to true', () => {
-        store.commit(types.mutations.SET_LOGGED_IN, false);
+        store.commit(types.auth.mutations.SET_LOGGED_IN, false);
         expect(store.state.auth.loggedIn).to.be.false;
         const user = {
           uid: 'someuid',
@@ -165,7 +165,7 @@ describe('FirebaseAuthService.js', () => {
     });
     describe('log out', () => {
       it('should update the store with the logged in variable to false', () => {
-        store.commit(types.mutations.SET_LOGGED_IN, true);
+        store.commit(types.auth.mutations.SET_LOGGED_IN, true);
         expect(store.state.auth.loggedIn).to.be.true;
         firebaseAuthService.authStateChanged();
         expect(store.state.auth.loggedIn).to.be.false;
