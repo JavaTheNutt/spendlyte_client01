@@ -1,4 +1,4 @@
-import namespace from '@/app/util/namespace';
+import namespace from '@/app/data/store/namespace';
 
 export default namespace('auth', {
   getters: ['isLoggedIn'],
