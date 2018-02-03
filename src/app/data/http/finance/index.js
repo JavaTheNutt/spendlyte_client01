@@ -1,13 +1,11 @@
 import { http } from '@/http';
-import firebase from 'firebase';
+import { fetchHeaders } from '@/http/util';
 
 export const fetchAllIncomes = async () => {
   console.log('making request to fetch all incomes');
-  const response = await http.get('/income', {
-    headers: {
-      Authorization: `Bearer ${await firebase.auth().currentUser.getIdToken(true)}`
-    }
-  });
+  const headers = await fetchHeaders();
+  console.log('headers', headers.data);
+  const response = await http.get('/income', { headers: headers.data });
   console.log('response', response);
   return response;
 };
