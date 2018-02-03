@@ -6,6 +6,7 @@ export const fetchIdToken = async () => {
   try {
     const token = await firebase.auth().currentUser.getIdToken(true);
     console.log('token fetched');
+    if (!token) return { success: false, msg: 'user does not exist' };
     return { success: true, data: token };
   } catch (error) {
     console.log('there was an error fetching the token');
