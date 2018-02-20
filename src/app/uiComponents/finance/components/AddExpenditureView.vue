@@ -25,6 +25,7 @@
         const result = await income.save();
         this.loading = false;
         console.log('result', result);
+        if (result) this.$router.push('/expenditure/all');
       }
     }
   };
