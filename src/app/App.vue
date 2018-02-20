@@ -1,14 +1,14 @@
 <template>
   <v-app light>
-    <nav-container></nav-container>
+    <nav-container/>
     <v-content>
-      <router-view></router-view>
+      <router-view/>
     </v-content>
     <v-footer :fixed="true" app>
       <span>&copy; Joe Wemyss {{new Date().getFullYear()}}</span>
     </v-footer>
-    <generic-dialog></generic-dialog>
-    <snackbar></snackbar>
+    <generic-dialog/>
+    <snackbar/>
   </v-app>
 </template>
 
