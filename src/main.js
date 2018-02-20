@@ -1,9 +1,10 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify';
+import VueCurrencyFilter from 'vue-currency-filter';
 import VeeValidate from 'vee-validate';
 import firebase from 'firebase/app';
 import 'vuetify/dist/vuetify.css';
-
+import { longDateFilter } from './filters';
 import App from './app/App';
 import config from './config';
 import colors from 'vuetify/es5/util/colors';
@@ -16,6 +17,16 @@ console.log('current log level ', logLevel);
 if (logLevel === 'silent') console.log = () => {};
 // console.setLevel(process.env.LOG_LEVEL || 'silent');
 Vue.use(VeeValidate);
+
+Vue.use(VueCurrencyFilter, {
+  symbol: '€',
+  thousandsSeparator: ',',
+  fractionCount: 2,
+  fractionSeparator: '.',
+  symbolPosition: 'front',
+  symbolSpacing: true
+});
+Vue.filter('long-date', longDateFilter);
 Vue.use(Vuetify, {
   theme: {
     primary: colors.blue.base,
