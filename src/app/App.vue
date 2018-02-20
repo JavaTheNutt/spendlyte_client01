@@ -19,6 +19,7 @@
   import { enableFirestorePersistence } from './data/firestore/init';
   import { types } from './index';
   import Snackbar from './uiComponents/widgets/snackbar/Snackbar';
+
   export default {
     components: {
       NavContainer,
