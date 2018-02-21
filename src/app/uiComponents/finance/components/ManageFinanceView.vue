@@ -3,7 +3,7 @@
     <v-layout row wrap>
       <v-flex md6 xs12>
         <display-finance-table
-          :items="transactions"
+          :items="shownTransactions"
           :loading="loading"
           :transaction-type="transactionType"
           :mixed="mixed"
@@ -12,11 +12,15 @@
       <v-flex md6 xs12>
         <manage-finance-card
           :loading="loading"
-          :transactions="transactions"
+          :transactions="shownTransactions"
           :mixed="mixed"
           :shown-months="shownMonths"
           @fetch-next="$emit('fetch-next')"
           @add-item="$emit('add-item')"
+          @shown-date-selected="shownDateUpdated"
+          @shown-date-reset="shownDate = ''"
+          @shown-month-reset="shownMonth = ''"
+          @shown-month-selected="shownMonthUpdated"
         />
       </v-flex>
     </v-layout>
@@ -27,6 +31,12 @@
   import DisplayFinanceTable from './DisplayFinanceTable';
   export default {
     name: 'manage-finance-view',
+    data () {
+      return {
+        shownDate: '',
+        shownMonth: ''
+      };
+    },
     components: {
       ManageFinanceCard,
       DisplayFinanceTable
@@ -43,6 +53,29 @@
         default: false
       },
       shownMonths: Number
+    },
+    computed: {
+      shownTransactions () {
+        if (this.shownDate !== '') {
+          return this.transactions.filter(transaction => transaction.due === this.shownDate);
+        }
+        if (this.shownMonth !== '') {
+          return this.transactions.filter(transaction => transaction.due.substring(0, transaction.due.lastIndexOf('-')) === this.shownMonth);
+        }
+        return this.transactions;
+      }
+    },
+    methods: {
+      shownMonthUpdated (newMonth) {
+        console.log('filter month updated to', newMonth);
+        this.shownMonth = newMonth;
+        this.shownDate = '';
+      },
+      shownDateUpdated (newDate) {
+        console.log('filter date updated to', newDate);
+        this.shownDate = newDate;
+        this.shownMonth = '';
+      }
     }
   };
 </script>
