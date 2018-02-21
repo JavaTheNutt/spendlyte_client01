@@ -1,8 +1,18 @@
-import AddIncomeView from './components/AddIncomeView';
-import AddExpenditureView from './components/AddExpenditureView';
-import DisplayIncomeView from './components/DisplayIncomeView';
-import DisplayExpenditureView from './components/DisplayExpenditureView';
-import DisplayTransactionView from './components/DisplayTransactionView';
+const AddIncomeView = () => import(
+  /* webpackChunkName: "finance-views" */ './components/AddIncomeView'
+  );
+const AddExpenditureView = () => import(
+  /* webpackChunkName: "finance-views" */ './components/AddExpenditureView'
+  );
+const DisplayIncomeView = () => import(
+  /* webpackChunkName: "finance-views" */ './components/DisplayIncomeView'
+  );
+const DisplayExpenditureView = () => import(
+  /* webpackChunkName: "finance-views" */ './components/DisplayExpenditureView'
+  );
+const DisplayTransactionView = () => import(
+  /* webpackChunkName: "finance-views" */ './components/DisplayTransactionView'
+  );
 
 export default [{
   name: 'income',
