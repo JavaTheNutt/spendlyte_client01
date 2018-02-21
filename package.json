@@ -32,7 +32,7 @@
     "vue": "^2.5.13",
     "vue-currency-filter": "^2.1.0",
     "vue-router": "^3.0.1",
-    "vuetify": "^1.0.1",
+    "vuetify": "^1.0.2",
     "vuex": "^3.0.1",
     "vuex-router-sync": "^5.0.0"
   },
