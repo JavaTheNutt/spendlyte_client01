@@ -1,8 +1,5 @@
 import Home from './home/Home';
 
-/* const Home = () => import(
-  /!* webpackChunkName: home-view *!/ './home/Home'
-  );*/
 const About = () => import(
   /* webpackChunkName: "about-view" */ './home/About'
   );

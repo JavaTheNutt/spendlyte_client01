@@ -28,7 +28,6 @@
   import SubmitFormButtonGroup from '@/app/uiComponents/widgets/forms/buttonGroups/SubmitFormButtonGroup';
   import _authBus from '../service/internalAuthBus';
   import EmailPasswordForm from './EmailPasswordForm';
-  ;
   import * as firebaseAuthService from '../service/FirebaseAuthService';
 
   export default {

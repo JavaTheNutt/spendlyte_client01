@@ -78,7 +78,6 @@
 </template>
 <script>
   import _authBus from '../service/internalAuthBus';
-  ;
 
   export default {
     name: 'email-password-form',
