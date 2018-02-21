@@ -19,8 +19,4 @@ before_script:
 script:
   - npm run unit
   - npm run build
-  - npm run e2e:no-build
 
-deploy:
-  provider: firebase
-  skip_cleanup: true
