@@ -1,8 +1,9 @@
 import { routes as screens } from './uiComponents/screens';
 import { routes as profile } from './uiComponents/profile';
 import { routes as finance } from './uiComponents/finance';
+import { routes as items } from './uiComponents/items';
 
-const importedRoutes = [...screens, ...profile, ...finance];
+const importedRoutes = [...screens, ...profile, ...finance, ...items];
 
 const createRoutes = routeDef => (routeDef.map(route => ({
   name: route.name,
