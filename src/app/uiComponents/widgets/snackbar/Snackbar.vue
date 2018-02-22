@@ -9,7 +9,6 @@
 </template>
 <script>
   import Bus from '@/app/events/bus';
-  ;
 
   export default {
     name: 'snackbar',
