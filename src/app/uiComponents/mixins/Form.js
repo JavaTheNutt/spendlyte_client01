@@ -8,6 +8,12 @@ export default {
   computed: {
     formHasValues () {
       return Object.values(this.submissionDetails).map(elem => elem.length).reduce((res, elem) => res += elem, 0) > 0;
+    },
+    formTextValues () {
+      return Object.values(this.submissionDetails).filter(elem => typeof elem === 'string');
+    },
+    formTextValuesLength () {
+      return this.formTextValues.map(elem => elem.length).reduce((acc, elem) => acc += elem, 0);
     }
   },
   watch: {
