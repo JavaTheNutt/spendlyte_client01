@@ -1,5 +1,6 @@
 import { http } from '@/http';
 import { fetchHeaders } from '@/http/util';
+import { handleHttpResponse } from '../snackService';
 
 export const fetchAllFutureIncomes = async (num = 1, skip = 0) => {
   console.log('making request to fetch all incomes');
@@ -10,6 +11,7 @@ export const fetchAllFutureIncomes = async (num = 1, skip = 0) => {
   params.append('skip', skip);
   const response = await http.get('/income', { headers: headers.data, params });
   console.log('response', response);
+  handleHttpResponse(response);
   return response;
 };
 
@@ -22,6 +24,7 @@ export const fetchAllFutureExpenditures = async (num = 1, skip = 0) => {
   params.append('skip', skip);
   const response = await http.get('/expenditure', { headers: headers.data, params });
   console.log('response', response);
+  handleHttpResponse(response);
   return response;
 };
 export const fetchAllFutureTransactions = async (num = 1, skip = 0) => {
@@ -33,5 +36,6 @@ export const fetchAllFutureTransactions = async (num = 1, skip = 0) => {
   params.append('skip', skip);
   const response = await http.get('/all', { headers: headers.data, params });
   console.log('response', response);
+  handleHttpResponse(response);
   return response;
 };
