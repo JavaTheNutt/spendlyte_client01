@@ -30,7 +30,7 @@ describe('GenericDialog.vue', () => {
     });
     // fixme find a better way to implement this test than setTimeout. NextTick is insufficient
     /*  it('should attach the width property to the dialog', () => {
-        Bus.$emit('show_dialog', {
+        _itemBus.$emit('show_dialog', {
           card: 'login-form-dialog-adapter',
           width: '500px'
         });
@@ -71,7 +71,7 @@ describe('GenericDialog.vue', () => {
     });
     // fixme not passing, attrs not updated on model in time
     /* it('should attach the persistent attribute to the view', () => {
-      Bus.$emit('show_dialog', {
+      _itemBus.$emit('show_dialog', {
         card: 'login-form-dialog-adapter',
         persistent: true
       });
@@ -80,7 +80,7 @@ describe('GenericDialog.vue', () => {
     });*/
     // fixme find a better way to implement this test than setTimeout. NextTick is insufficient
     /* it('should reset the current component when the dialog is hidden', () => {
-      Bus.$emit('show_dialog', {
+      _itemBus.$emit('show_dialog', {
         card: 'login-form-dialog-adapter'
       });
       expect(wrapper.vm.dialogShown).to.be.true;

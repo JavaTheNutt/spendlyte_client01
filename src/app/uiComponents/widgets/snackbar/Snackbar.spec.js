@@ -38,7 +38,7 @@ describe('Snackbar.vue', () => {
   // FIXME: this test fails. the color property of the button is not updated
 /*  it('should use the "accent" color scheme when status is not set to success', () => {
     const wrapper = shallow(Snackbar);
-    Bus.$emit('show-snack', 'i am a message', 'error');
+    _itemBus.$emit('show-snack', 'i am a message', 'error');
     const closeButton = wrapper.find({ ref: 'closeSnackbarButton' });
     expect(wrapper.vm.status, 'data property not updated').to.equal('error');
     return Vue.nextTick().then(() => Vue.nextTick().then(expect(closeButton.vnode.data.attrs.color, 'elem not' +
