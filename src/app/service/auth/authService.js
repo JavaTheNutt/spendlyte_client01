@@ -13,3 +13,5 @@ export const fetchIdToken = async () => {
     return { success: false, msg: 'there was an error fetching the token', error };
   }
 };
+
+export const fetchId = () => firebase.auth().currentUser.uid;
