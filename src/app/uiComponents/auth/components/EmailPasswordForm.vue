@@ -1,80 +1,95 @@
 <template>
-  <form novalidate
-        ref="loginForm"
-        v-model="formValid"
-        @submit.stop.prevent="formSubmitted"
-        @keyup.enter="formSubmitted">
-    <v-container grid-list-md text-xs-center>
-      <v-layout column>
-        <v-flex>
-          <v-text-field
-            name="emailField"
-            label="Enter your email address"
-            v-model="submissionDetails.email"
-            type="email"
-            required
-            v-validate="'required|email'"
-            data-vv-name="email"
-            :error-messages="errors.collect('email')"
-            ref="emailField"
-            @change="inputTriggered"
-            @input="inputTriggered"
-            id="emailField"
-          />
-        </v-flex>
-        <v-flex>
-          <v-text-field
-            name="passwordField"
-            label="Enter your Password"
-            hint="At least 6 characters"
-            v-model="submissionDetails.password"
-            :type="passwordShown ? 'text' : 'password'"
-            min="6"
-            required
-            :append-icon="passwordShown ? 'visibility_off': 'visibility'"
-            :append-icon-cb="()=>(passwordShown = !passwordShown)"
-            v-validate="'required|min:6'"
-            data-vv-name="password"
-            :error-messages="errors.collect('password')"
-            ref="password"
-            @change="inputTriggered"
-            @input="inputTriggered"
-            id="passwordField"
-          />
-        </v-flex>
+  <v-container fluid>
+    <v-layout>
+      <v-flex>
+        <form novalidate
+              ref="loginForm"
+              v-model="formValid"
+              @submit.stop.prevent="formSubmitted"
+              @keyup.enter="formSubmitted">
+          <v-container grid-list-md text-xs-center>
+            <v-layout column>
+              <v-flex>
+                <v-text-field
+                  name="emailField"
+                  label="Enter your email address"
+                  v-model="submissionDetails.email"
+                  type="email"
+                  required
+                  v-validate="'required|email'"
+                  data-vv-name="email"
+                  :error-messages="errors.collect('email')"
+                  ref="emailField"
+                  @change="inputTriggered"
+                  @input="inputTriggered"
+                  id="emailField"
+                />
+              </v-flex>
+              <v-flex>
+                <v-text-field
+                  name="passwordField"
+                  label="Enter your Password"
+                  hint="At least 6 characters"
+                  v-model="submissionDetails.password"
+                  :type="passwordShown ? 'text' : 'password'"
+                  min="6"
+                  required
+                  :append-icon="passwordShown ? 'visibility_off': 'visibility'"
+                  :append-icon-cb="()=>(passwordShown = !passwordShown)"
+                  v-validate="'required|min:6'"
+                  data-vv-name="password"
+                  :error-messages="errors.collect('password')"
+                  ref="password"
+                  @change="inputTriggered"
+                  @input="inputTriggered"
+                  id="passwordField"
+                />
+              </v-flex>
 
-        <v-flex v-show="createAccountTicked">
-          <v-text-field
-            name="confirmPasswordField"
-            label="Confirm your Password"
-            hint="At least 6 characters"
-            v-model="confirmPassword"
-            :type="passwordShown ? 'text' : 'password'"
-            min="6"
-            required
-            :append-icon="passwordShown ? 'visibility_off': 'visibility'"
-            :append-icon-cb="()=>(passwordShown = !passwordShown)"
-            v-validate="{required: true, is: submissionDetails.password}"
-            data-vv-name="confirmPassword"
-            :error-messages="errors.collect('confirmPassword')"
-            @change="inputTriggered"
-            @input="inputTriggered"
-            id="confirmPasswordField"
-          />
-        </v-flex>
-        <v-flex>
-          <v-checkbox label="Create new account?"
-                      v-model="createAccountTicked"
-                      color="info"
-                      :value="true"
-                      hide-details
-                      id="createNewAccountCheckbox"
-                      @change="inputTriggered"
-          />
-        </v-flex>
-      </v-layout>
-    </v-container>
-  </form>
+              <v-flex v-show="createAccountTicked">
+                <v-text-field
+                  name="confirmPasswordField"
+                  label="Confirm your Password"
+                  hint="At least 6 characters"
+                  v-model="confirmPassword"
+                  :type="passwordShown ? 'text' : 'password'"
+                  min="6"
+                  required
+                  :append-icon="passwordShown ? 'visibility_off': 'visibility'"
+                  :append-icon-cb="()=>(passwordShown = !passwordShown)"
+                  v-validate="{required: true, is: submissionDetails.password}"
+                  data-vv-name="confirmPassword"
+                  :error-messages="errors.collect('confirmPassword')"
+                  @change="inputTriggered"
+                  @input="inputTriggered"
+                  id="confirmPasswordField"
+                />
+              </v-flex>
+              <v-flex>
+                <v-checkbox label="Create new account?"
+                            v-model="createAccountTicked"
+                            color="info"
+                            :value="true"
+                            hide-details
+                            id="createNewAccountCheckbox"
+                            @change="inputTriggered"
+                            v-if="false"
+                />
+              </v-flex>
+            </v-layout>
+            <v-layout>
+              <v-flex v-if="!createAccountTicked">
+                <p class="caption">New Here? Then <a @click="showSignupClicked">create an account</a>!</p>
+              </v-flex>
+              <v-flex v-if="createAccountTicked">
+                <p class="caption">Already got an account? Then <a @click="showLoginClicked">login</a>!</p>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </form>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 <script>
   import _authBus from '../service/internalAuthBus';
@@ -153,6 +168,14 @@
           Object.assign(this.$data, this.$options.data.call(this));
           this.$nextTick().then(() => resolve());
         });
+      },
+      showLoginClicked () {
+        console.log('show login function triggered');
+        this.createAccountTicked = false;
+      },
+      showSignupClicked () {
+        console.log('show signup function triggered');
+        this.createAccountTicked = true;
       },
       resetForm () {
         console.log('reset login form triggered');
