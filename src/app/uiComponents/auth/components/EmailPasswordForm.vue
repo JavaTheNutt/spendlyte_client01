@@ -77,7 +77,7 @@
                 />
               </v-flex>
             </v-layout>
-            <v-layout>
+            <v-layout v-if="true">
               <v-flex v-if="!createAccountTicked">
                 <p class="caption">New Here? Then <a @click="showSignupClicked">create an account</a>!</p>
               </v-flex>
