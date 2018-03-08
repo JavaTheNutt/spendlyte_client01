@@ -1,6 +1,7 @@
 <template>
   <div>
     <nav-toolbar :hasLinks="hasLinks"/>
+    <contextual-right-side-nav v-if="currentRightNav.length > 0" :component="currentRightNav"/>
     <navigation-drawer :items="navLinks"/>
   </div>
 </template>
@@ -10,13 +11,17 @@
   import NavigationDrawer from './NavDrawer';
   import { mapGetters } from 'vuex';
   import { types } from '@/app';
+  import ContextualRightSideNav from './ContextualRightSideNav';
+  import Bus from '@/app/events/bus';
   export default {
     data () {
       return {
-        navLinks: []
+        navLinks: [],
+        currentRightNav: ''
       };
     },
     components: {
+      ContextualRightSideNav,
       NavigationDrawer,
       NavToolbar },
     name: 'nav-container',
@@ -41,6 +46,16 @@
     },
     mounted () {
       this.refreshNavLinks();
+    },
+    created () {
+      Bus.$on('set-sidenav', props => {
+        console.log('adding', props.name, 'component to contextual navigation');
+        this.currentRightNav = props.name;
+      });
+      Bus.$on('reset-sidenav', () => {
+        console.log('removing contextual navigation');
+        this.currentRightNav = '';
+      });
     }
   };
 </script>
