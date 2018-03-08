@@ -20,14 +20,13 @@
       >
         <v-progress-circular slot="progress" color="primary" indeterminate />
         <template slot="items" slot-scope="props">
-          <td>{{props.item.title}}</td>
+          <td>{{props.item.title | title}}</td>
           <td v-if="mixed">{{props.item.type}}</td>
           <td>{{props.item.amount | currency}}</td>
           <td>{{props.item.frequency}}</td>
-          <td>{{props.item.due}}</td>
           <td class="text-xs-center px-0">
             <v-btn icon class="mx-0">
-              <v-icon color="error">delete_forever</v-icon>
+              <v-icon >more_vert</v-icon>
             </v-btn>
           </td>
         </template>
@@ -50,9 +49,6 @@
         }, {
           text: 'Frequency',
           value: 'frequency'
-        }, {
-          text: 'Due On',
-          value: 'due'
         }],
         mixedHeaders: [{
           text: 'Title',
@@ -66,9 +62,6 @@
         }, {
           text: 'Frequency',
           value: 'frequency'
-        }, {
-          text: 'Due On',
-          value: 'due'
         }]
       };
     },
