@@ -26,11 +26,17 @@ export default [{
 }, {
   name: 'display-income',
   path: '/income/all',
-  component: DisplayIncomeView
+  component: DisplayIncomeView,
+  meta: {
+    sideNavComponent: 'income-contextual-actions'
+  }
 }, {
   name: 'display-expenditure',
   path: '/expenditure/all',
-  component: DisplayExpenditureView
+  component: DisplayExpenditureView,
+  meta: {
+    sideNavComponent: 'income-contextual-actions'
+  }
 }, {
   name: 'expenditure',
   path: '/expenditure',
