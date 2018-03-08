@@ -14,15 +14,15 @@ export const fetchIdToken = async () => {
   }
 };
 
-export const fetchId = () => {
+export const fetchId = async () => {
   console.log('fetching current id');
-  const user = getUser();
+  const user = await getUser();
   console.log('result of user fetch', user);
   if (!user || !user.uid) return { success: false, msg: 'user is not signed in' };
   return { success: true, data: user.uid };
 };
 
-export const getUser = () => {
+export const getUser = async () => {
   console.log('attempting to get user');
   let i = 0;
   while (true) {
@@ -30,10 +30,13 @@ export const getUser = () => {
     const user = firebase.auth().currentUser;
     if (user) return user;
     console.log('user not found');
-    setTimeout(() => {
-      i++;
-      console.log('timeout triggered');
-    }, 50);
+    await new Promise(resolve => {
+      setTimeout(() => {
+        i++;
+        console.log('timeout triggered');
+        resolve();
+      }, 50);
+    });
     if (i > 9) return false;
     console.log('restarting loop');
   }
