@@ -14,4 +14,27 @@ export const fetchIdToken = async () => {
   }
 };
 
-export const fetchId = () => firebase.auth().currentUser.uid;
+export const fetchId = () => {
+  console.log('fetching current id');
+  const user = getUser();
+  console.log('result of user fetch', user);
+  if (!user || !user.uid) return { success: false, msg: 'user is not signed in' };
+  return { success: true, data: user.uid };
+};
+
+export const getUser = () => {
+  console.log('attempting to get user');
+  let i = 0;
+  while (true) {
+    console.log('attempt #', i);
+    const user = firebase.auth().currentUser;
+    if (user) return user;
+    console.log('user not found');
+    setTimeout(() => {
+      i++;
+      console.log('timeout triggered');
+    }, 50);
+    if (i > 9) return false;
+    console.log('restarting loop');
+  }
+};

@@ -22,13 +22,13 @@ export const fetchBaseTransactions = async () => {
 
 const getBaseExpenditures = async () => {
   console.log('fetching base expenditure records');
-  const result = await fetchMappedCollection(`transactions/${fetchId()}/expenditures`);
+  const result = await fetchMappedCollection(`transactions/${fetchId().data}/expenditures`);
   return result.error ? [] : mapTransactionTypeCollection(result, 'Expenditure');
 };
 
 const getBaseIncomes = async () => {
   console.log('fetching base income records');
-  const result = await fetchMappedCollection(`transactions/${fetchId()}/incomes`);
+  const result = await fetchMappedCollection(`transactions/${fetchId().data}/incomes`);
   return result.error ? [] : mapTransactionTypeCollection(result, 'Income');
 };
 
