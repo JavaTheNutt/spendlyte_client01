@@ -46,7 +46,8 @@
                 />
               </v-flex>
 
-              <v-flex v-show="createAccountTicked">
+              <v-flex
+                v-show="createAccountTicked">
                 <v-text-field
                   name="confirmPasswordField"
                   label="Confirm your Password"
@@ -63,9 +64,10 @@
                   @change="inputTriggered"
                   @input="inputTriggered"
                   id="confirmPasswordField"
+                  v-show="createAccountTicked"
                 />
               </v-flex>
-              <v-flex>
+              <v-flex v-if="false">
                 <v-checkbox label="Create new account?"
                             v-model="createAccountTicked"
                             color="info"
@@ -75,6 +77,26 @@
                             @change="inputTriggered"
                             v-if="false"
                 />
+              </v-flex>
+              <v-flex>
+                <v-checkbox
+                  label="Trust this device?"
+                  v-model="submissionDetails.trustedDevice"
+                  color="info"
+                  :value="true"
+                  hide-details
+                  id="trustDeviceCheckbox"
+                  @change="inputTriggered"
+                  prepend-icon="help"
+                  :prepend-icon-cb="() => (trustedHelpShown = !trustedHelpShown)"
+                />
+              </v-flex>
+              <v-flex class="text-xs-left">
+                <v-slide-y-transition>
+                  <v-card v-if="trustedHelpShown">
+                    <v-card-title class="subtitle">If you choose to set this device as trusted, your data will be available offline, and you will not be signed out when you close this tab. Please choose this option if this is a device you own</v-card-title>
+                  </v-card>
+                </v-slide-y-transition>
               </v-flex>
             </v-layout>
             <v-layout v-if="true">
@@ -100,11 +122,13 @@
       return {
         submissionDetails: {
           email: '',
-          password: ''
+          password: '',
+          trustedDevice: true
         },
         confirmPassword: '',
         passwordShown: false,
-        createAccountTicked: false
+        createAccountTicked: false,
+        trustedHelpShown: false
       };
     },
     props: {

@@ -29,6 +29,7 @@
   import _authBus from '../service/internalAuthBus';
   import EmailPasswordForm from './EmailPasswordForm';
   import * as firebaseAuthService from '../service/FirebaseAuthService';
+  import { preferenceDataStore } from '@/app/data/localForage/PreferenceDataStore';
 
   export default {
     name: 'login-form-dialog-adapter',
@@ -59,6 +60,7 @@
           const result = await firebaseAuthService.loginEventTriggered(this.formData.email, this.formData.password, this.isCreateNew);
           this.loading = false;
           if (result) {
+            if (this.formData.trustedDevice) await preferenceDataStore.trustDevice();
             this.closeDialog();
           }
         }
