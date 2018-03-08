@@ -1,4 +1,5 @@
 export default {
   trustedDevice: false,
-  askTrusted: true
+  askTrusted: true,
+  hideCookies: false
 };

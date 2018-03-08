@@ -4,9 +4,12 @@ import { preferenceDataStore } from '@/app/data/localForage/PreferenceDataStore'
 
 export default {
   [types.actions.testTrustedDevice]: async ({ commit }) => {
-    const trustStatus: Promise<{askTrusted:boolean, trustedDevice: boolean}> = await preferenceDataStore.fetchTrustStatus();
+    const trustStatus = await preferenceDataStore.fetchTrustStatus();
     console.debug('current trust status', trustStatus);
     commit(types.mutations.UPDATE_TRUSTED_STATUS, trustStatus);
+    console.log('cookie status', trustStatus.askCookies);
+    const mutation = !trustStatus.hideCookies ? types.mutations.ASK_COOKIES : types.mutations.DISABLE_ASK_COOKIES;
+    commit(mutation);
   },
   [types.actions.trustDevice]: async ({ commit }) => {
     console.log('action called to trust current device');

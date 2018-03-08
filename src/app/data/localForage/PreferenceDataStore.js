@@ -26,9 +26,11 @@ class PreferenceDataStore {
   async fetchTrustStatus ():Promise<{trustedDevice:boolean, askTrusted:boolean}> {
     const trustedDevice: boolean = await this.isTrustedDevice();
     const askTrusted: boolean = await this.shouldAskTrusted();
+    const hideCookies = await this.shouldShowCookies();
     return {
       trustedDevice,
-      askTrusted
+      askTrusted,
+      hideCookies
     };
   }
   async untrustDevice ():Promise<{trustedDevice:boolean, askTrusted:boolean}> {
@@ -49,7 +51,17 @@ class PreferenceDataStore {
   async isTrustedDevice ():Promise<boolean> {
     return await this.getPreference('trusted_device') || false;
   }
-
+  async setShowCookieWarning () {
+    console.log('setting show cookie warning');
+    // fixme: flip boolean logic to disable_cookie_warning as it gives a more sensible default for null values
+    await this.setPreference('hide_cookie_warning', true);
+  }
+  async shouldShowCookies () {
+    console.log('fetching show cookies value');
+    const result = (await this.getPreference('hide_cookie_warning'));
+    console.log('hide cookie warning?', result);
+    return !!result;
+  }
   async setPreference (key: string, value: string|boolean) {
     console.log('setting preference', key, 'to', value);
     await set(this._preferenceDataStore, key, value);

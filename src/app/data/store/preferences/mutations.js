@@ -15,5 +15,7 @@ export default {
   [types.mutations.UPDATE_TRUSTED_STATUS]: (state, trustedDetails:{trustedDevice:boolean, askTrusted:boolean}) => {
     state.trustedDevice = trustedDetails.trustedDevice;
     state.askTrusted = trustedDetails.askTrusted;
-  }
+  },
+  [types.mutations.ASK_COOKIES]: state => state.hideCookies = false,
+  [types.mutations.DISABLE_ASK_COOKIES]: state => state.hideCookies = true
 };
