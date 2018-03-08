@@ -10,6 +10,7 @@
 </template>
 <script>
   import { fetchAllFutureExpenditures } from '../../../data/http/finance';
+  import { fetchBaseExpenditures } from '../financeService';
   import ManageFinanceView from './ManageFinanceView';
 
   export default {
@@ -36,11 +37,8 @@
     },
     async created () {
       console.log('view all expenditure table created');
-      const expenditures = await fetchAllFutureExpenditures();
+      this.expenditures = await fetchBaseExpenditures();
       this.loading = false;
-      console.log('fetched incomes', expenditures);
-      this.expenditures = expenditures.data;
-      this.nextSkip++;
     }
   };
 </script>

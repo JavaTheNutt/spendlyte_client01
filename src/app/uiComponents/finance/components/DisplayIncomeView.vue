@@ -10,6 +10,7 @@
 </template>
 <script>
   import { fetchAllFutureIncomes } from '../../../data/http/finance';
+  import { fetchBaseIncomes } from '../financeService';
   import ManageFinanceView from './ManageFinanceView';
 
   export default {
@@ -21,7 +22,8 @@
       return {
         incomes: [],
         loading: true,
-        nextSkip: 0
+        nextSkip: 0,
+        futureIncomes: []
       };
     },
     methods: {
@@ -29,18 +31,15 @@
         console.log('fetching more records skipping', this.nextSkip);
         this.loading = true;
         const result = await fetchAllFutureIncomes(1, this.nextSkip);
-        this.incomes = this.incomes.concat(result.data);
+        this.futureIncomes = this.incomes.concat(result.data);
         this.loading = false;
         this.nextSkip++;
       }
     },
     async created () {
       console.log('view all income table created');
-      const incomes = await fetchAllFutureIncomes();
+      this.incomes = await fetchBaseIncomes();
       this.loading = false;
-      console.log('fetched incomes', incomes);
-      this.incomes = incomes.data;
-      this.nextSkip++;
     }
   };
 </script>
