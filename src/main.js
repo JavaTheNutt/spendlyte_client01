@@ -4,7 +4,7 @@ import VueCurrencyFilter from 'vue-currency-filter';
 import VeeValidate from 'vee-validate';
 import firebase from 'firebase/app';
 import 'vuetify/dist/vuetify.css';
-import { longDateFilter } from './filters';
+import { longDateFilter, titleCaseString } from './filters';
 import App from './app/App';
 import config from './config';
 import colors from 'vuetify/es5/util/colors';
@@ -27,6 +27,7 @@ Vue.use(VueCurrencyFilter, {
   symbolSpacing: true
 });
 Vue.filter('long-date', longDateFilter);
+Vue.filter('title', titleCaseString);
 Vue.use(Vuetify, {
   theme: {
     primary: colors.blue.base,
