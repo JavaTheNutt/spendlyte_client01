@@ -1,0 +1,28 @@
+[{
+  "title": "icon",
+  "description": "This is the stacked coins logo that is used as the favicon and launcher icon. I downloaded this icon from flaticon",
+  "tag": "asset",
+  "primaryAuthor": "SmashIcons",
+  "authorUrl": "https://smashicons.com/",
+  "assetUrl": "https://www.flaticon.com/free-icon/coins_138292#term=coins&page=1&position=2",
+  "imgName": "coins_icon.svg",
+  "provider": "Flat Icon"
+}, {
+  "title": "vuetify",
+  "description": "Material Design component library for VueJS",
+  "tag": "framework",
+  "primaryAuthor": "John Leider",
+  "authorUrl": "https://github.com/johnleider",
+  "assetUrl": "https://github.com/vuetifyjs/vuetify",
+  "imgName": "vuetify.png",
+  "provider": "Github"
+}, {
+  "title": "vuejs",
+  "description": "Javascript client side view library",
+  "tag": "framework",
+  "primaryAuthor": "Evan You",
+  "authorUrl": "http://evanyou.me/",
+  "assetUrl": "https://github.com/vuejs/vue",
+  "imgName": "Vue.png",
+  "provider": "Github"
+}]
