@@ -7,7 +7,7 @@
     <v-footer :fixed="true" app>
       <span>&copy; Joe Wemyss {{new Date().getFullYear()}}</span>
       <v-spacer />
-      <router-link to="/references" style="color: grey">references</router-link>
+      <router-link to="/references" style="color: grey; text-decoration: none" class="mr-3">references</router-link>
     </v-footer>
     <generic-dialog/>
     <snackbar/>
