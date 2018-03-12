@@ -5,6 +5,7 @@
     bottom
     right
     v-model="cookieWarningShown"
+    multi-line
   >
     <v-icon dark class="mr-5">warning</v-icon> We use cookies to give you the best performance on this site. By using this site, you agree to the use of cookies. <v-btn icon @click.stop="closeClicked"><v-icon>close</v-icon></v-btn>
   </v-snackbar>
