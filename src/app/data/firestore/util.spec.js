@@ -44,7 +44,7 @@ describe('util.js', () => {
     });
     it('should correctly map a document', () => {
       const result = firestoreUtils.mapDocument(fakeDoc);
-      expect(result).to.eql({ id: 'someidhere', somekey: 'somevalue', someotherkey: 'someothervalue' })
+      expect(result).to.eql({ id: 'someidhere', somekey: 'somevalue', someotherkey: 'someothervalue' });
     });
   });
   describe('mapCollection', () => {
@@ -72,7 +72,7 @@ describe('util.js', () => {
     });
     it('should correctly map a collection', () => {
       const result = firestoreUtils.mapCollection(fakeCollection);
-      expect(result).to.eql([{ id: 'someidhere', somekey: 'somevalue', someotherkey: 'someothervalue' }, { id: 'somesecondidhere', somekey: 'somesecondvalue', someotherkey: 'someothersecondvalue' }])
+      expect(result).to.eql([{ id: 'someidhere', somekey: 'somevalue', someotherkey: 'someothervalue' }, { id: 'somesecondidhere', somekey: 'somesecondvalue', someotherkey: 'someothersecondvalue' }]);
     });
   });
 });
