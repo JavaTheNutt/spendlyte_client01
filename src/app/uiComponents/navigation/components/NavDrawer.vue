@@ -6,6 +6,16 @@
       light
       absolute
     >
+      <v-toolbar flat class="transparent">
+        <v-list class="pa-0">
+          <v-list-tile class="pa-0">
+            <v-spacer/>
+            <v-btn icon @click.stop="shown = false">
+              <v-icon>chevron_left</v-icon>
+            </v-btn>
+          </v-list-tile>
+        </v-list>
+      </v-toolbar>
       <v-list class="pt-0">
         <v-divider/>
         <v-list-tile v-for="item in items" :key="item.title" @click="redirect(item.path)" :id="`link-${item.title}`">
@@ -17,11 +27,6 @@
           </v-list-tile-content>
         </v-list-tile>
         <v-spacer style="height: 100%"/>
-        <v-list-tile style="bottom: 0" @click="shown = !shown" id="sideNavFooter">
-          <v-list-tile-content>
-            <v-list-tile-title>Joe Wemyss {{new Date().getFullYear()}}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
       </v-list>
     </v-navigation-drawer>
   </v-layout>
