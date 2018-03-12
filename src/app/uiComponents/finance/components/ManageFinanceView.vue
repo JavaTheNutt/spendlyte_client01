@@ -1,5 +1,10 @@
 <template>
   <v-container fluid grid-list-md>
+    <v-layout row wrap v-if="showSettingsButton">
+      <v-flex class="text-xs-right">
+        <v-btn icon @click.stop="toggleContextualSideNav"><v-icon>settings</v-icon></v-btn>
+      </v-flex>
+    </v-layout>
     <v-layout row wrap>
       <v-flex :class="tabClasses" v-if="dataShown">
         <component
@@ -94,6 +99,9 @@
       },
       typeFilteredTransactions () {
         return this.transactions.filter(transaction => this.shownTypes.indexOf(transaction.frequency) !== -1);
+      },
+      showSettingsButton () {
+        return this.$vuetify.breakpoint.mdAndDown;
       }
     },
     methods: {
@@ -106,6 +114,9 @@
         console.log('filter date updated to', newDate);
         this.shownDate = newDate;
         this.shownMonth = '';
+      },
+      toggleContextualSideNav () {
+        Bus.$emit('contextual-side-nav-toggled');
       }
     },
     created () {
