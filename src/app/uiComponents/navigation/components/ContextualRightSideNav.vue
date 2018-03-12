@@ -31,6 +31,17 @@
           v-model="drawerShown"
           v-if="!largeScreen"
         >
+          <v-toolbar flat class="transparent">
+            <v-list class="pa-0">
+              <v-list-tile>
+                <v-list-tile-action>
+                  <v-btn icon @click.stop="drawerShown = false">
+                    <v-icon>chevron_right</v-icon>
+                  </v-btn>
+                </v-list-tile-action>
+              </v-list-tile>
+            </v-list>
+          </v-toolbar>
           <component :is="component"/>
         </v-navigation-drawer>
     </div>
