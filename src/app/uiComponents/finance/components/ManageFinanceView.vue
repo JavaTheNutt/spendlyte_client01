@@ -1,43 +1,50 @@
 <template>
-  <v-container fluid grid-list-md>
-    <v-layout row wrap v-if="showSettingsButton">
-      <v-flex class="text-xs-right">
-        <v-btn icon @click.stop="toggleContextualSideNav"><v-icon>settings</v-icon></v-btn>
-      </v-flex>
-    </v-layout>
-    <v-layout row wrap>
-      <v-flex :class="tabClasses" v-if="dataShown">
-        <component
-          :is="dataView"
-          :items="shownTransactions"
-          :loading="loading"
-          :transaction-type="transactionType"
-          :mixed="mixed"
-          :has-multi-tabs="moreThanOneTabShown"
-        />
-      </v-flex>
-      <v-flex :class="tabClasses" v-if="statsShown">
-        <v-card>
-          <manage-finance-summary-stats
+  <div>
+    <v-toolbar
+      fixed
+      scroll-off-screen
+      scroll-threshold="180"
+      class="white mt-5 pt-2"
+      v-if="showSettingsButton"
+    >
+      <v-spacer/>
+      <v-btn icon @click.stop="toggleContextualSideNav"><v-icon>settings</v-icon></v-btn>
+    </v-toolbar>
+    <v-container fluid grid-list-md :class="showSettingsButton ? 'mt-5 pt-2':'mt-1 pt-1'">
+      <v-layout row wrap>
+        <v-flex :class="tabClasses" v-if="dataShown">
+          <component
+            :is="dataView"
+            :items="shownTransactions"
             :loading="loading"
-            :transactions="shownTransactions"
-            :shown-months="shownMonths"
+            :transaction-type="transactionType"
+            :mixed="mixed"
+            :has-multi-tabs="moreThanOneTabShown"
           />
-        </v-card>
-      </v-flex>
-      <v-flex :class="tabClasses" v-if="dateFiltersShown">
-        <v-card>
-          <filter-finance
-            :selected-dates="shownTransactions.map(transaction => transaction.nextDueDate)"
-            @shown-date-selected="shownDateUpdated"
-            @shown-date-reset="shownDate = ''"
-            @shown-month-selected="shownMonthUpdated"
-            @shown-month-reset="shownMonth = ''"
-          />
-        </v-card>
-      </v-flex>
-    </v-layout>
-  </v-container>
+        </v-flex>
+        <v-flex :class="tabClasses" v-if="statsShown">
+          <v-card>
+            <manage-finance-summary-stats
+              :loading="loading"
+              :transactions="shownTransactions"
+              :shown-months="shownMonths"
+            />
+          </v-card>
+        </v-flex>
+        <v-flex :class="tabClasses" v-if="dateFiltersShown">
+          <v-card>
+            <filter-finance
+              :selected-dates="shownTransactions.map(transaction => transaction.nextDueDate)"
+              @shown-date-selected="shownDateUpdated"
+              @shown-date-reset="shownDate = ''"
+              @shown-month-selected="shownMonthUpdated"
+              @shown-month-reset="shownMonth = ''"
+            />
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </div>
 </template>
 <script>
   import ManageFinanceCard from './ManageFinanceCard';
