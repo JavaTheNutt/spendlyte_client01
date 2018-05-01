@@ -56,6 +56,7 @@ const mapPeriodicSummaryList = summaryList => {
   });
   const mappedBase = summaryList.map(item => {
     item.dates = item.dates.today.concat(item.dates.thisWeek.concat(item.dates.thisMonth));
+    item.type = item.finance.direction > 0 ? 'Income' : 'Expense';
     return item;
   });
   return { data: response, base: mappedBase };

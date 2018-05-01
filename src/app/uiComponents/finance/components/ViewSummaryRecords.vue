@@ -50,7 +50,7 @@
         content-tag="v-layout"
         row
         wrap
-        :items="baseItems"
+        :items="shownItems"
         :search="search"
       >
         <v-flex
@@ -90,6 +90,9 @@
 </template>
 <script>
   import { fetchMonthlySummaryList } from '../../../data/http/item';
+  import * as isToday from 'date-fns/is_today';
+  import * as isBefore from 'date-fns/is_before';
+  import * as addDays from 'date-fns/add_days';
 
   export default {
     name: 'view-summary-records',
@@ -122,20 +125,50 @@
       shownItems () {
         if (this.filterPeriod === 'today') return this.dailyItems;
         if (this.filterPeriod === 'week') return this.weeklyItems;
-        return this.allItems;
+        return this.shownAsTable ? this.allItems : this.baseItems;
       },
       typeFilteredItems () {
+        return this.typeFilteredTableItems;
+      },
+      typeFilteredIteratorItems () {
+        if (this.filterType === 'expense') return this.baseItems.filter(item => item.type.toLowerCase() === 'expense');
+        if (this.filterType === 'income') return this.baseItems.filter(item => item.type.toLowerCase() === 'income');
+        return this.baseItems;
+      },
+      typeFilteredTableItems () {
         if (this.filterType === 'expense') return this.shownItems.filter(item => item.type.toLowerCase() === 'expense');
         if (this.filterType === 'income') return this.shownItems.filter(item => item.type.toLowerCase() === 'income');
         return this.shownItems;
       },
       dailyItems () {
+        return this.shownAsTable ? this.dailyTableItems : this.dailyIteratorItems;
+      },
+      dailyTableItems () {
         if (this.listLoading) return [];
         return this.summaryList.today;
       },
-      weeklyItems () {
+      dailyIteratorItems () {
+        if (this.listLoading) return [];
+        return this.baseItems.map(item => {
+          const newItem = Object.assign({}, item);
+          newItem.dates = newItem.dates.filter(date => isToday(date));
+          return newItem;
+        });
+      },
+      weeklyTableItems () {
         if (this.listLoading) return [];
         return this.summaryList.thisWeek.concat(this.summaryList.today);
+      },
+      weeklyIteratorItems () {
+        if (this.listLoading) return [];
+        return this.baseItems.map(item => {
+          const newItem = Object.assign({}, item);
+          newItem.dates = newItem.dates.filter(date => isBefore(date, addDays(new Date(), 6)));
+          return newItem;
+        });
+      },
+      weeklyItems () {
+        return this.shownAsTable ? this.weeklyTableItems : this.weeklyIteratorItems;
       },
       allItems () {
         if (this.listLoading) return [];
