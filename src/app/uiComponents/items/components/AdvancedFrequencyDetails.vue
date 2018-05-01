@@ -36,7 +36,8 @@
         :hint="intervalMessage"
         persistent-hint
         v-validate="{numeric: true, min_value: 1, max_value: 100}"
-        :error-messages="errors.collect('recurrenceInterval')"
+        :error-messages="errors.collect('recurrenceInterval')",
+        v-if="false"
       />
     </div>
   </div>
