@@ -22,7 +22,7 @@
     </v-card>
     <v-layout>
       <v-flex class="text-xs-center my-2">
-        <v-btn color="primary" @click.stop="toggleList">Show Records</v-btn>
+        <v-btn color="primary" @click.stop="toggleList">{{listShown ? 'Hide': 'Show'}} Records</v-btn>
       </v-flex>
     </v-layout>
     <div v-if="listFetched" v-show="listShown">
