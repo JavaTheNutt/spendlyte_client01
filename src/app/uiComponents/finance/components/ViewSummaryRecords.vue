@@ -79,8 +79,11 @@
               </v-list-tile>
               <v-divider/>
               <v-subheader class="align-center">Dates:</v-subheader>
-              <v-list-tile v-for="(date, index) in props.item.dates" :key="`${date}-{index}`">
+              <v-list-tile v-if="props.item.dates.length <= 5" v-for="(date, index) in props.item.dates" :key="`${date}-{index}`">
                 <v-list-tile-content>{{date | long-date}}</v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile v-if="props.item.dates.length > 5">
+                <v-list-tile-content>Every day between {{props.item.dates[0] | long-date}} and {{props.item.dates[props.item.dates.length -1] | long-date}}</v-list-tile-content>
               </v-list-tile>
             </v-list>
           </v-card>
