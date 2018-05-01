@@ -4,7 +4,7 @@
       <v-btn icon flat @click.stop="shownAsTable = !shownAsTable"><v-icon>{{shownAsTable ? 'widgets' : 'view_list'}}</v-icon></v-btn>
     </v-card-title>
     <v-card-title>
-      <v-checkbox label="show filters?" v-model="filterShown" color="primary" />
+      <v-checkbox label="show filters?" v-model="filterShown" color="primary" v-if="shownAsTable" />
       <v-spacer/>
       <v-text-field
         append-icon="search"
@@ -52,6 +52,7 @@
         wrap
         :items="shownItems"
         :search="search"
+        :rows-per-page-items="iteratorRowsPerPageItems"
       >
         <v-flex
           slot="item"
@@ -118,7 +119,8 @@
         filterType: 'all',
         filterPeriod: 'all',
         filterShown: false,
-        shownAsTable: true
+        shownAsTable: true,
+        iteratorRowsPerPageItems: [3, 6, 9, { 'text': 'All', 'value': -1 }]
       };
     },
     computed: {
