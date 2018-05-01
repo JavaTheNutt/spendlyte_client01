@@ -70,7 +70,7 @@
 </template>
 <script>
   import ChooseTags from '@/app/uiComponents/widgets/chooseTags/ChooseTags';
-
+  import _itemBus from '../bus';
   export default {
     name: 'base-item-fields',
     components: { ChooseTags },
@@ -111,7 +111,29 @@
         this.submissionDetails.tags = tagData.selected || [];
         this.newTags = tagData.new || [];
         this.inputTriggered();
+      },
+      clearFormData () {
+        return new Promise(resolve => {
+          Object.assign(this.$data, this.$options.data.call(this));
+          this.$nextTick().then(() => resolve());
+        });
+      },
+      resetForm () {
+        return new Promise(resolve => {
+          this.clearFormData().then(() => {
+            this.$nextTick().then(() => {
+              this.$validator.reset();
+              this.errors.clear();
+              resolve();
+            });
+          });
+        });
       }
+    },
+    created () {
+      _itemBus.$on('reset-fields', () => {
+        this.resetForm();
+      });
     }
   };
 </script>

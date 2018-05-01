@@ -45,6 +45,7 @@
   const MonthlyFrequencyDetails = () => import(
     /* webpackChunkName: "addItemFormAdvancedComponents" */ './MonthlyFrequencyDetails'
     );
+  import _itemBus from '../bus';
   export default {
     name: 'advanced-frequency-details',
     components: { MonthlyFrequencyDetails },
@@ -125,7 +126,18 @@
         console.log('freqency details change detected in advanced frequency details component');
         this.submissionDetails = data;
         this.inputTriggered();
+      },
+      clearFormData () {
+        return new Promise(resolve => {
+          Object.assign(this.$data, this.$options.data.call(this));
+          this.$nextTick().then(() => resolve());
+        });
       }
+    },
+    created () {
+      _itemBus.$on('reset-fields', () => {
+        this.clearFormData();
+      });
     }
   };
 </script>

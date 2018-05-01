@@ -36,6 +36,17 @@
       @reset-clicked="resetClicked"
       ref="addItemButtons"
     />
+    <v-dialog
+      v-model="dialogShown" max-width="500">
+      <v-card>
+        <v-card-title class="headline">Would you like to add another record?</v-card-title>
+        <v-card-actions>
+          <v-spacer/>
+          <v-btn color="success" @click.stop="addNewItem">Add another record</v-btn>
+          <v-btn color="primary" @click.stop="redirectToSummary">Show monthly summary</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 <script>
@@ -50,7 +61,8 @@
       return {
         typeSet: false,
         shownType: 'income',
-        newTags: []
+        newTags: [],
+        dialogShown: false
       };
     },
     components: {
@@ -65,12 +77,20 @@
         this.$emit('submit', this.formData);
         this.loading = true;
         if (this.formSubmittable) await addItem(Object.assign({ isIncome: this.shownType === 'income' }, this.formData));
+        this.dialogShown = true;
         this.loading = false;
       },
       dataChanged ({ data = {}, formValid = false, newTags = [] }) {
         this.formSubmittable = formValid;
         this.formData = data;
         this.newTags = newTags;
+      },
+      redirectToSummary () {
+        this.$router.push('/summary');
+      },
+      addNewItem () {
+        _itemBus.$emit('reset-fields');
+        this.dialogShown = false;
       }
     },
     computed: {
