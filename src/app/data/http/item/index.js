@@ -96,7 +96,7 @@ const mapItemWithData = details => ({
   frequency: details.frequency ? details.frequency.toLowerCase() : undefined,
   freq01: details.freq01,
   freq02: details.freq02,
-  type: details.type,
+  type: details.frequencyType,
   interval: details.interval
 });
 
