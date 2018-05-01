@@ -1,6 +1,9 @@
 <template>
   <v-container fluid>
     <p class="headline text-xs-center">Add a new item</p>
+    <v-layout v-if="typeSet" column>
+      <v-flex class="text-xs-center regular mb-0 pb-0" xs12><p>Adding a new {{shownType | title}}</p></v-flex>
+    </v-layout>
     <v-layout v-if="!typeSet">
       <v-flex xs6 offset-xs4>
         <v-radio-group row v-model="shownType">
