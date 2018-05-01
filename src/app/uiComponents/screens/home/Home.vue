@@ -14,6 +14,12 @@
             <router-link to="/references">
               <v-btn large color="primary" class="mx-0" >References</v-btn>
             </router-link>
+            <router-link to="/item/new?type=income">
+              <v-btn large color="primary" class="mx-0" >Add a new income</v-btn>
+            </router-link>
+            <router-link to="/item/new?type=expense">
+              <v-btn large color="primary" class="mx-0" >Add a new expense</v-btn>
+            </router-link>
           </v-flex>
         </v-layout>
       </v-container>

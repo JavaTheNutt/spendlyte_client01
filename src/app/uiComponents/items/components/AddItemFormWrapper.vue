@@ -70,6 +70,11 @@
       AddItemForm
     },
     mixins: [FormDialogAdapter],
+    watch: {
+      $route () {
+        this.setShownType();
+      }
+    },
     name: 'add-item-form-wrapper',
     methods: {
       async submitClicked () {
@@ -91,6 +96,10 @@
       addNewItem () {
         _itemBus.$emit('reset-fields');
         this.dialogShown = false;
+      },
+      setShownType () {
+        this.typeSet = !!this.$route.query.type;
+        this.shownType = this.typeSet ? this.$route.query.type : this.shownType || 'income';
       }
     },
     computed: {
@@ -100,8 +109,7 @@
     },
     created () {
       this._evb = _itemBus;
-      this.typeSet = !!this.$route.query.type;
-      this.shownType = this.typeSet ? this.$route.query.type : this.shownType;
+      this.setShownType();
     }
   };
 </script>
