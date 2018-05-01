@@ -190,6 +190,7 @@
       this.baseSummaryList = res.base;
       console.log(this.baseSummaryList);
       this.listLoading = false;
+      this.shownAsTable = this.$vuetify.breakpoint.mdAndUp;
     }
   };
 </script>
