@@ -3,18 +3,49 @@
     <v-toolbar
       fixed
       scroll-off-screen
-      scroll-threshold="180"
+      :scroll-threshold="100"
       class="white mt-5 pt-2"
-      v-if="showSettingsButton"
     >
+      <v-btn-toggle mandatory v-model="selectedDataView" class="mr-3">
+        <v-btn icon flat>
+          <v-icon>list</v-icon>
+        </v-btn>
+        <v-btn icon flat>
+          <v-icon>widgets</v-icon>
+        </v-btn>
+      </v-btn-toggle>
+      <v-btn-toggle v-model="dateFilterShownSelected" class="elevation-0">
+        <v-btn icon flat @click.stop="frequencyFilterMenuShown  = !frequencyFilterMenuShown">
+          <v-icon>today</v-icon>
+        </v-btn>
+      </v-btn-toggle>
+      <v-btn-toggle v-model="dateFilterShownSelected" class="elevation-0">
+        <v-btn icon flat @click.stop="frequencyFilterMenuShown  = !frequencyFilterMenuShown">
+          <v-icon>today</v-icon>
+        </v-btn>
+      </v-btn-toggle>
+      <!--<v-menu
+        offset-x
+        :close-on-content-click="false"
+        :nudge-width="200"
+        v-model="frequencyFilterMenuShown"
+      >
+        <v-card>
+          <v-list>
+            <v-list-tile>
+              <v-list-tile-content>I am an option</v-list-tile-content>
+            </v-list-tile>
+          </v-list>
+        </v-card>
+      </v-menu>-->
       <v-spacer/>
       <v-btn icon @click.stop="toggleContextualSideNav"><v-icon>settings</v-icon></v-btn>
     </v-toolbar>
-    <v-container fluid grid-list-md :class="showSettingsButton ? 'mt-5 pt-2':'mt-1 pt-1'">
+    <v-container fluid grid-list-md class="mt-5 pt-2">
       <v-layout row wrap>
         <v-flex :class="tabClasses" v-if="dataShown">
           <component
-            :is="dataView"
+            :is="shownDataView"
             :items="shownTransactions"
             :loading="loading"
             :transaction-type="transactionType"
@@ -62,10 +93,13 @@
         shownMonth: '',
         statsShown: false,
         dataShown: true,
-        dateFiltersShown: false,
         dataView: 'display-finance-table',
         shownTypes: ['Weekly', 'Monthly', 'Daily', 'Sporadic', 'Once'],
-        shownTabsNum: 1
+        shownTabsNum: 1,
+        selectedDataView: 0,
+        filterShown: -1,
+        dateFilterShownSelected: false,
+        frequencyFilterMenuShown: false
       };
     },
     components: {
@@ -109,6 +143,12 @@
       },
       showSettingsButton () {
         return this.$vuetify.breakpoint.mdAndDown;
+      },
+      shownDataView () {
+        return this.selectedDataView === 0 ? 'display-finance-table' : 'display-finance-iterator';
+      },
+      dateFiltersShown () {
+        return this.dateFilterShownSelected === 0;
       }
     },
     methods: {
@@ -159,6 +199,7 @@
       });
     },
     mounted () {
+      this.dataView = this.showSettingsButton ? 'display-finance-iterator' : 'display-finance-table';
       Bus.$emit('set-sidenav', { name: 'income-contextual-actions' });
     }
   };

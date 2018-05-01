@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav-toolbar :hasLinks="hasLinks"/>
-    <contextual-right-side-nav v-if="currentRightNav.length > 0" :component="currentRightNav"/>
+    <contextual-right-side-nav v-if="false" :component="currentRightNav"/>
     <navigation-drawer :items="navLinks"/>
   </div>
 </template>

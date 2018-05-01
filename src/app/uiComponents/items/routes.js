@@ -3,10 +3,10 @@ const AddItemView = () => import(
   );
 
 export default [{
-  name: 'item',
+  name: 'new item',
   path: '/item',
   redirect: '/item/new',
-  icon: 'shopping_basket'
+  icon: 'add'
 }, {
   name: 'add-item',
   path: '/item/new',

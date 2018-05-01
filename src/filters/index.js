@@ -7,6 +7,7 @@ export const longDateFilter = value => {
 
 export const titleCaseString = value => {
   if (!value) return undefined;
+  value = value.trim();
   return value.split(' ')
   .map(word => `${word[0].toUpperCase()}${word.substring(1).toLowerCase()}`)
     .map(word => abbreviationCheck(word))

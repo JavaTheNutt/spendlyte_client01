@@ -41,42 +41,24 @@
           />
         </v-flex>
         <v-flex>
-          <v-select
-            label="Type"
-            :items="['Food', 'Household', 'Clothing', 'Cleaning', 'Personal Care', 'Other']"
-            v-model="submissionDetails.type"
-            hint="Select what type of item this is"
-            required
-          />
+          <v-layout row wrap>
+            <v-flex xs11>
+              <v-select
+                label="Type"
+                :items="['Food', 'Other']"
+                v-model="submissionDetails.type"
+                hint="Select what type of item this is"
+                required
+              />
+            </v-flex>
+            <v-flex xs1 text-align-center>
+              <v-btn-toggle v-model="showAdvancedTypeDetails" class="elevation-0 background--grey-lighten-4">
+                <v-btn icon flat><v-icon>add</v-icon></v-btn>
+              </v-btn-toggle>
+            </v-flex>
+          </v-layout>
         </v-flex>
-        <v-flex v-if="submissionDetails.type === 'Food'">
-          <v-text-field
-            name="weight"
-            label="Weight"
-            hint="Enter a weight for this item"
-            v-model="submissionDetails.weight"
-            type="number"
-            data-vv-name="weight"
-            ref="weight"
-            @change="inputTriggered"
-            @input="inputTriggered"
-            id="weight"
-          />
-        </v-flex>
-        <v-flex v-if="submissionDetails.type === 'Food'">
-          <v-text-field
-            name="manufacturer"
-            label="Manufacturer"
-            hint="Enter a manufacturer for this item"
-            v-model="submissionDetails.manufacturer"
-            type="text"
-            data-vv-name="manufacturer"
-            ref="manufacturer"
-            @change="inputTriggered"
-            @input="inputTriggered"
-            id="manufacturer"
-          />
-        </v-flex>
+        <component :is="typeFields" v-if="showAdvancedTypeDetails !== null  && typeFields.length > 0" @input-triggered="typeDetailsChanged"/>
         <v-flex>
           <v-text-field
             name="amount"
@@ -158,9 +140,13 @@
 <script>
   import Bus from '../bus';
   import FormMixin from '@/app/uiComponents/mixins/Form';
+  const FoodItemFields = () => import(
+    /* webpackChunkName: "addItemFormComponents" */ './FoodItemFields'
+    );
   export default {
     name: 'add-item-form',
     mixins: [FormMixin],
+    components: { FoodItemFields },
     data () {
       return {
         submissionDetails: {
@@ -171,11 +157,13 @@
           amount: 0,
           monthlyDueInterval: 'Start',
           weekDayDue: 'Monday',
-          type: 'Food',
+          type: 'Other',
           weight: 0,
           manufacturer: ''
         },
-        datepickerMenu: false
+        typeDetails: {},
+        datepickerMenu: false,
+        showAdvancedTypeDetails: false
       };
     },
     computed: {
@@ -203,6 +191,9 @@
         if (this.submissionDetails.frequency === 'Weekly') return this.weeklySubmittableDetails;
         if (this.submissionDetails.frequency === 'Monthly') return this.monthlySubmittableDetails;
         return this.sporadicSubmittableDetails;
+      },
+      typeFields () {
+        return this.submissionDetails.type === 'Food' ? 'food-item-fields' : '';
       }
     },
     methods: {
@@ -210,6 +201,10 @@
         const today = new Date();
         today.setDate(today.getDate() - 1);
         return today.toISOString();
+      },
+      typeDetailsChanged (details) {
+        if (details.valid) this.typeDetails = details.data;
+        else this.typeDetails = {};
       }
     },
     created () {

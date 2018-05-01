@@ -6,6 +6,5 @@ const Profile = () => import(
 export default [{
   name: 'profile',
   path: '/profile',
-  component: Profile,
-  icon: 'supervisor_account'
+  component: Profile
 }];

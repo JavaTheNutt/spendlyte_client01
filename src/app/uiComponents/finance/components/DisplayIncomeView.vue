@@ -9,8 +9,9 @@
   />
 </template>
 <script>
-  import { fetchAllFutureIncomes } from '../../../data/http/finance';
-  import { fetchBaseIncomes } from '../financeService';
+  // import { fetchAllFutureIncomes } from '../../../data/http/finance';
+  import { fetchMonthlySummary } from '../../../data/http/item';
+  // import { fetchBaseIncomes } from '../financeService';
   import ManageFinanceView from './ManageFinanceView';
 
   export default {
@@ -30,7 +31,7 @@
       async fetchNext () {
         console.log('fetching more records skipping', this.nextSkip);
         this.loading = true;
-        const result = await fetchAllFutureIncomes(1, this.nextSkip);
+        const result = await fetchMonthlySummary();
         this.futureIncomes = this.incomes.concat(result.data);
         this.loading = false;
         this.nextSkip++;
@@ -38,7 +39,7 @@
     },
     async created () {
       console.log('view all income table created');
-      this.incomes = await fetchBaseIncomes();
+      this.incomes = await fetchMonthlySummary();
       this.loading = false;
     }
   };

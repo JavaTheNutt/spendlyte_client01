@@ -1,10 +1,28 @@
 <template>
   <v-container fluid>
     <p class="headline text-xs-center">Add a new item</p>
+    <v-layout v-if="!typeSet">
+      <v-flex xs6 offset-xs4>
+        <v-radio-group row v-model="shownType">
+          <v-radio
+            label="Income"
+            value="income"
+            color="success"
+          />
+          <v-radio
+            label="Expense"
+            value="expenditure"
+            color="error"
+          />
+        </v-radio-group>
+      </v-flex>
+    </v-layout>
     <add-item-form
       @input-triggered="inputTriggered"
       @validity-updated="validityUpdated"
       @has-values-updated="valuesUpdated"
+      @data-changed="dataChanged"
+      :is-expense="isExpense"
     />
     <submit-form-button-group
       align="center"
@@ -22,11 +40,19 @@
 </template>
 <script>
   import _itemBus from '../bus';
-  import AddItemForm from './AddItemForm';
+  import AddItemForm from './NewAddItemForm';
   import SubmitFormButtonGroup from '../../widgets/forms/buttonGroups/SubmitFormButtonGroup';
   import FormDialogAdapter from '@/app/uiComponents/mixins/FormDialogAdapter';
+  import { addItem } from '../../../data/http/item';
 
   export default {
+    data () {
+      return {
+        typeSet: false,
+        shownType: 'income',
+        newTags: []
+      };
+    },
     components: {
       SubmitFormButtonGroup,
       AddItemForm
@@ -34,13 +60,28 @@
     mixins: [FormDialogAdapter],
     name: 'add-item-form-wrapper',
     methods: {
-      submitClicked () {
+      async submitClicked () {
         console.log('the submit button has been clicked');
         this.$emit('submit', this.formData);
+        this.loading = true;
+        if (this.formSubmittable) await addItem(Object.assign({ isIncome: this.shownType === 'income' }, this.formData));
+        this.loading = false;
+      },
+      dataChanged ({ data = {}, formValid = false, newTags = [] }) {
+        this.formSubmittable = formValid;
+        this.formData = data;
+        this.newTags = newTags;
+      }
+    },
+    computed: {
+      isExpense () {
+        return this.shownType === 'expenditure';
       }
     },
     created () {
       this._evb = _itemBus;
+      this.typeSet = !!this.$route.query.type;
+      this.shownType = this.typeSet ? this.$route.query.type : this.shownType;
     }
   };
 </script>

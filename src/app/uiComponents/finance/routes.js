@@ -13,12 +13,19 @@ const DisplayExpenditureView = () => import(
 const DisplayTransactionView = () => import(
   /* webpackChunkName: "finance-views" */ './components/DisplayTransactionView'
   );
+const SummaryView = () => import(
+  /* webpackChunkName: "finance-views" */ './components/ViewSummary'
+  );
 
 export default [{
   name: 'income',
   path: '/income',
-  redirect: '/income/all',
-  icon: 'attach_money arrow_left'
+  redirect: '/income/all'
+}, {
+  name: 'summary',
+  path: '/summary',
+  icon: 'info_outline',
+  component: SummaryView
 }, {
   name: 'add-income',
   path: '/income/new',
@@ -40,13 +47,11 @@ export default [{
 }, {
   name: 'expenditure',
   path: '/expenditure',
-  redirect: '/expenditure/all',
-  icon: 'attach_money arrow_right'
+  redirect: '/expenditure/all'
 }, {
   name: 'transaction',
   path: '/transactions/all',
-  component: DisplayTransactionView,
-  icon: 'attach_money'
+  component: DisplayTransactionView
 }, {
   name: 'add-expenditure',
   path: '/expenditure/new',

@@ -44,6 +44,7 @@
       this.showCookieWarning = this.$store.getters[types.preferences.getters.shouldAskCookies];
       console.log('show cookie warning?', this.showCookieWarning);
       if (this.$store.getters[types.preferences.getters.isTrustedDevice]) await enableFirestorePersistence();
+      await this.$store.dispatch(types.autocomplete.actions.setTags);
     }
   };
 </script>

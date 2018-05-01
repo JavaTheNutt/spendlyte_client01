@@ -5,14 +5,15 @@
       v-model="shown"
       light
       absolute
+      app
+      style="position:fixed; top:0; left:0; overflow-y:scroll;"
     >
       <v-toolbar flat class="transparent">
-        <v-list class="pa-0">
-          <v-list-tile class="pa-0">
-            <v-spacer/>
-            <v-btn icon @click.stop="shown = false">
-              <v-icon>chevron_left</v-icon>
-            </v-btn>
+        <v-list>
+          <v-list-tile avatar class="pa-0">
+            <v-list-tile-avatar tile class="pa-0 ma-0">
+              <img :src="require('assets/coins_icon.svg')"/>
+            </v-list-tile-avatar>
           </v-list-tile>
         </v-list>
       </v-toolbar>

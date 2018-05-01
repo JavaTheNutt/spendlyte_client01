@@ -99,6 +99,9 @@
         dateFilter: false
       };
     },
+    mounted () {
+      this.shownDataView = this.$vuetify.breakpoint.mdAndDown ? 'display-finance-iterator' : 'display-finance-table';
+    },
     computed: {
       typeFilters () {
         return [{
