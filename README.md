@@ -1,27 +1,27 @@
-# spendlyte-client
+# SpendLyte Client
 
-> A spending tracker application
+_A finance tracker client built with VueJS, Vuetify and Firebase_
 
-## Build Setup
+## Outline
 
-``` bash
-# install dependencies
-npm install
+This is a client application built using VueJS. The idea behind this client is to simply showcase some of the capabilities of the back-end. The main functionality of this application is to save upcoming transactions, and view summary data about these transactions.
 
-# serve with hot reload at localhost:8080
-npm run dev
+## Technology Overview
 
-# build for production with minification
-npm run build
+This application is a pre-built application that is designed to be hosted in simple fire storage, and rendered on the client. As an applciation framework, I chose [VueJS](https://vuejs.org/). For state management I chose 
 
-# build for production and view the bundle analyzer report
-npm run build --report
+Category | Choice 
+:---: | :---: | 
+Application Framework | [VueJS](https://vuejs.org/)
+State Management | [Vuex](https://vuex.vuejs.org/)
+Client Side Routing | [Vue-Router](https://router.vuejs.org/en/)
+Component \ CSS Library | [Vuetify](https://vuetifyjs.com/en/)
+Client Side Storage | [LocalForage](https://github.com/localForage/localForage)
+Authentication | [Firebase Auth](https://firebase.google.com/docs/auth)
+Bundling | [Webpack](https://webpack.js.org/)
+Test Framework | [Karma](https://karma-runner.github.io/2.0/index.html)
+Test Runner | [Mocha](https://mochajs.org/)
+Assertion Framework | [Chai](http://www.chaijs.com/)
+Mocks \ Stubs | [Sinon](http://sinonjs.org/)
+E2E Testing | [TestCafe](https://github.com/DevExpress/testcafe)
 
-# run unit tests
-npm run unit
-
-# run all tests
-npm test
-```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
