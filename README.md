@@ -2,7 +2,11 @@
 
 _A finance tracker client built with VueJS, Vuetify and Firebase_
 
-__URL:__ _[https://spendlyte.com](https://spendlyte.com)_
+Name | URL
+:---: | :---:
+Application | [https://spendlyte.com](https://spendlyte.com)
+Report Repo | [https://github.com/JavaTheNutt/spendlyte_reports](https://github.com/JavaTheNutt/spendlyte_reports)
+Server Repo | [https://github.com/JavaTheNutt/spendlyte_server](https://github.com/JavaTheNutt/spendlyte_server)
 
 ## Outline
 
