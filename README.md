@@ -10,6 +10,9 @@ This is a client application built using VueJS. The idea behind this client is t
 
 This application is a Progressive Web Application that is designed to work offline. It adheres to Googles Material Design specification. 
 
+## Authentication
+Authentication in this application is handled by Firebase. In the client, authentication operations are outsourced to Firebase, and authentication events are triggered which this application can hook into. When the application needs to make a request to the back-end, it requests a token from Firebase. This token is then added to the headers of each request. This token is decrypted on the server to verify the identity of the user who made the request. 
+
 ## Building
 
 ### Environment Setup
@@ -135,13 +138,9 @@ In order to run this application in development mode, use `npm run dev`. This wi
 To build this application for production, use the command `npm run build`. This will use [Webpack](https://webpack.js.org/) to compile and build the application. The output will be generated in `/dist`. The bundle which is generated will contain all of the assets required to run the application, split into minified chunks. This is the directory that will be uploaded to Firebase to be hosted. 
 
 ### Deployment
-The first step to deploying the application is to install [firebase-tools](https://www.npmjs.com/package/firebase-tools) globally using the command `npm i -g firebase-tools`. Then run `firebase login` to login to your firebase account. Once you are authenticated you can deploy at any time using `firebase deploy`. Make sure to run `npm run build` before deploying to ensure you are deploying the most recent version of your app.
+The first step to deploying the application is to install [firebase-tools](https://www.npmjs.com/package/firebase-tools) globally using the command `npm i -g firebase-tools`. Then run `firebase login` to login to your Firebase account. Once you are authenticated you can deploy at any time using `firebase deploy`. Make sure to run `npm run build` before deploying to ensure you are deploying the most recent version of your app.
 
 ## Technology Overview
-
-This application is a pre-built application that is designed to be hosted in simple fire storage, and rendered on the client. As an applciation framework, I chose [VueJS](https://vuejs.org/). For state management I chose 
-
-
 ### Application
 Category | Choice | Description
 ---: | :---: | :---
@@ -182,6 +181,7 @@ Asset Pre Caching | [SW-Precache](https://github.com/GoogleChromeLabs/sw-precach
 Scaffolding | [Vue-CLI](https://github.com/vuejs/vue-cli) | Command Line Interface for scaffolding VueJS apps
 Type Checking | [Flow](https://flow.org/) | Javascript type checking
 ES Transpilation | [Babel](https://babeljs.io/) | Transpile from ES6+ to browser compatible JS
+Cross-Platform env var setting | [Cross-Env](https://www.npmjs.com/package/cross-env) | Transparently set environment variables cross platform.  
 
 
 
